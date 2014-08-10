@@ -21,7 +21,7 @@ class GameDataService {
     private String selfName = "";
     private String token = "";
 
-    private boolean gameInProcess = false;
+    private volatile boolean gameInProcess = false;
 
     private List<IGameDataServiceListener> listeners;
 
@@ -30,12 +30,12 @@ class GameDataService {
     }
 
 
-    public void stop(){
+    public synchronized void stop(){
         gameInProcess = false;
     }
 
 
-    public void start() {
+    public synchronized void start() {
         gameInProcess = true;
         // загружаем настройки из файла
         loadProperties();

@@ -6,9 +6,13 @@ import starwors.model.lx.bot.IBotModelListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SwingView implements IBotModelListener {
+
+    public static int START_WIDTH;
+    public static int START_HEIGHT;
 
     private BotModel model;
 
@@ -54,8 +58,10 @@ public class SwingView implements IBotModelListener {
                 int screenSizeHeigth = screenSize.height;
 
                 // размещение фрейма по центру
+                START_WIDTH = screenSizeWidth / 2;
+                START_HEIGHT = screenSizeHeigth / 2;
 
-                jf.setSize(screenSizeWidth / 2, screenSizeHeigth / 2);
+                jf.setSize(START_WIDTH, START_HEIGHT);
                 jf.setLocation(screenSizeWidth / 4, screenSizeHeigth / 4);
 
                 // установка пиктораммы
@@ -66,12 +72,26 @@ public class SwingView implements IBotModelListener {
 
                 // установка содержимого окна
 
-//                JPanel bpanel = createBasicPanel();
-//                bpanel.setAlignmentX(RIGHT_ALIGNMENT);
-//                bpanel.setAlignmentY(TOP_ALIGNMENT);
-//                jf.setContentPane(bpanel);
-//                jf.pack();
+                JPanel grPanel = new GraphPanel(model);
 
+                JPanel buttonPanel = new JPanel();
+                buttonPanel.setLayout(new FlowLayout());
+                JButton btnStart = new JButton("Start");
+                btnStart.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        model.start();
+                    }
+                });
+                buttonPanel.add(btnStart);
+
+                JPanel rootPanel = new JPanel();
+                rootPanel.setLayout(new BorderLayout());
+                rootPanel.add(grPanel, BorderLayout.CENTER);
+                rootPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+                jf.getContentPane().add(rootPanel);
+                //jf.pack();
 
                 jf.setVisible(true);
             }

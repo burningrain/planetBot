@@ -95,7 +95,8 @@ public class Planet {
 			result.append(neighbour.getId()).append(", ");
 		}
 
-		return "Planet [id=" + id + ", owner=" + owner + ", Units=" + units + "/" + type.getLimit() + ", neighbours=" + result.toString() + "]\n";
+        return String.valueOf(id + " : " + units);
+		//return "Planet [id=" + id + ", owner=" + owner + ", Units=" + units + "/" + type.getLimit() + ", neighbours=" + result.toString() + "]\n";
 	}
 
     @Override
