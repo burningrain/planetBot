@@ -1,8 +1,8 @@
-package test.starwors.logic.utils.fs;
+package starwors.logic.utils.fs;
 
 
-import main.starwors.galaxy.Planet;
-import main.starwors.galaxy.PlanetType;
+import starwors.model.lx.galaxy.Planet;
+import starwors.model.lx.galaxy.PlanetType;
 
 public final class UtilsForTest {
 

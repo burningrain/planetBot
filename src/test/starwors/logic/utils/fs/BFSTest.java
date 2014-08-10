@@ -1,14 +1,14 @@
-package test.starwors.logic.utils.fs;
+package starwors.logic.utils.fs;
 
 
 import junit.framework.Assert;
-import main.starwors.bot.Logic;
-import main.starwors.galaxy.Planet;
-import main.starwors.galaxy.PlanetType;
-import main.starwors.logic.utils.PlanetUtils;
-import main.starwors.logic.utils.fs.BFS;
-import main.starwors.logic.utils.fs.FS;
-import main.starwors.logic.utils.fs.ICriteria;
+import starwors.model.lx.bot.Logic;
+import starwors.model.lx.galaxy.Planet;
+import starwors.model.lx.galaxy.PlanetType;
+import starwors.model.lx.logic.utils.PlanetUtils;
+import starwors.model.lx.logic.utils.fs.BFS;
+import starwors.model.lx.logic.utils.fs.FS;
+import starwors.model.lx.logic.utils.fs.ICriteria;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

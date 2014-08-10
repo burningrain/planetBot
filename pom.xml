@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
 	http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.mkyong.core</groupId>
+    <groupId>main.starwors</groupId>
     <artifactId>superman</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
@@ -16,10 +16,33 @@
 
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.java.net.substance</groupId>
+            <artifactId>substance</artifactId>
+            <version>6.0</version>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.jung</groupId>
+            <artifactId>jung-visualization</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jung</groupId>
+            <artifactId>jung-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jung</groupId>
+            <artifactId>jung-algorithms</artifactId>
+            <version>2.0.1</version>
         </dependency>
 
     </dependencies>
@@ -44,7 +67,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>main.starwors.bot.Application</mainClass>
+                            <mainClass>main.starwors.model.lx.bot.Application</mainClass>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
                         </manifest>
                     </archive>
