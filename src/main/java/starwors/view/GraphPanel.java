@@ -17,6 +17,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import java.util.*;
 
 
@@ -40,7 +41,7 @@ public class GraphPanel extends JPanel implements IBotModelListener {
 
         @Override
         public Shape transform(Planet planet) {
-            Ellipse2D circle = new Ellipse2D.Double(0, 0, 10, 10);
+            Ellipse2D circle = new Ellipse2D.Double(-5, -5, 10, 10);
             // in this case, the vertex is twice as large
             int i = 0;
             switch(planet.getType()){
@@ -76,6 +77,7 @@ public class GraphPanel extends JPanel implements IBotModelListener {
 
     private Set<String> edges = new HashSet<String>();
 
+    Transformer<Planet, Point2D> locationTransformer = new LocationTransformer();
 
 
     public GraphPanel(BotModel model) {
@@ -153,7 +155,7 @@ public class GraphPanel extends JPanel implements IBotModelListener {
             }
         }
 
-        Layout<Planet, String> layout = new ISOMLayout<Planet, String>(graph);
+        Layout<Planet, String> layout = new StaticLayout<Planet, String>(graph, locationTransformer);
         layout.setSize(new Dimension(SwingView.START_WIDTH, SwingView.START_HEIGHT)); // sets the initial size of the
 
         vv = new VisualizationViewer<Planet, String>(layout);
@@ -163,7 +165,7 @@ public class GraphPanel extends JPanel implements IBotModelListener {
         vv.getRenderContext().setVertexShapeTransformer(vertexSize);
         // vv.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
-        vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
+        //vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
         vv.getRenderContext().setEdgeDrawPaintTransformer(edgePaint);
         vv.getRenderer().getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.CNTR);
 
