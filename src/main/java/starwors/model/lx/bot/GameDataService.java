@@ -7,11 +7,11 @@ import starwors.model.lx.xml.MovesWriter;
 import starwors.model.lx.xml.ResponseReadException;
 import starwors.model.lx.xml.ResponseReader;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 class GameDataService {
@@ -25,12 +25,12 @@ class GameDataService {
 
     private List<IGameDataServiceListener> listeners;
 
-    public GameDataService(){
+    public GameDataService() {
         listeners = new LinkedList<IGameDataServiceListener>();
     }
 
 
-    public synchronized void stop(){
+    public synchronized void stop() {
         gameInProcess = false;
     }
 
@@ -55,7 +55,14 @@ class GameDataService {
                 // отправляем список команд
                 writer.writeMoves(new BufferedOutputStream(socket.getOutputStream()), moves);
                 // читаем состояние планет от сервера
-                response = reader.readGalaxy(new BufferedInputStream(socket.getInputStream()));
+                InputStream inputStream = socket.getInputStream();
+                //InputStream inputStream = new BufferedInputStream(socket.getInputStream());
+
+                byte[] content = readByteArrayFromInputStream(inputStream);
+                response = reader.readGalaxy(new ByteArrayInputStream(content));
+                // записываем реплей
+                writeReplay(content);
+
                 // на этом ходу общение с сервером закончилось, закрываем соединение
                 socket.close();
 
@@ -75,6 +82,38 @@ class GameDataService {
         } catch (ResponseReadException ex) {
             System.out.println("can not read server response: " + ex.getMessage());
         }
+    }
+
+    private void writeReplay(byte[] content) throws IOException {
+            File file = new File("replay.smbot");
+
+            // if file doesnt exists, then create it
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            BufferedWriter wr = new BufferedWriter(new FileWriter(file.getName(),true));
+
+
+            BufferedReader r = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(content), StandardCharsets.UTF_8));
+            String str = null;
+            StringBuilder sb = new StringBuilder();
+            while ((str = r.readLine()) != null) {
+                sb.append(str);
+            }
+            wr.write(sb.toString());
+            wr.close();
+    }
+
+    private byte[] readByteArrayFromInputStream(InputStream in) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+
+        int bytesRead = 0;
+        while ((bytesRead = in.read(buffer)) != -1){
+            baos.write(buffer, 0, bytesRead);
+        }
+
+        return baos.toByteArray();
     }
 
 
@@ -112,23 +151,21 @@ class GameDataService {
     }
 
 
-
     // OBSERVER METHODS
 
-    public void addListener(IGameDataServiceListener listener){
+    public void addListener(IGameDataServiceListener listener) {
         listeners.add(listener);
     }
 
-    public void removeListener(IGameDataServiceListener listener){
+    public void removeListener(IGameDataServiceListener listener) {
         listeners.remove(listener);
     }
 
-    public void update(Response response){
-        for(IGameDataServiceListener listener : listeners){
+    public void update(Response response) {
+        for (IGameDataServiceListener listener : listeners) {
             listener.update(response);
         }
     }
-
 
 
 }
