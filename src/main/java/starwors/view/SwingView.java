@@ -83,7 +83,15 @@ public class SwingView implements IBotModelListener {
                         model.start();
                     }
                 });
+                JButton btnReply = new JButton("Reply");
+                btnReply.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        model.reply();
+                    }
+                });
                 buttonPanel.add(btnStart);
+                buttonPanel.add(btnReply);
 
                 JPanel rootPanel = new JPanel();
                 rootPanel.setLayout(new BorderLayout());

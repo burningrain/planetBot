@@ -1,17 +1,12 @@
 package starwors.model.lx.bot;
 
-
 import starwors.model.lx.galaxy.Move;
-import starwors.model.lx.xml.MovesWriteException;
-import starwors.model.lx.xml.MovesWriter;
-import starwors.model.lx.xml.ResponseReadException;
-import starwors.model.lx.xml.ResponseReader;
+import starwors.model.lx.logic.Game;
+import starwors.model.lx.xml.*;
 
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 class GameDataService {
@@ -84,24 +79,74 @@ class GameDataService {
         }
     }
 
+    public void replay(){
+        try{
+            final List<String> responses = XmlReplaySplitter.split();
+
+//            long startTime = System.currentTimeMillis();
+//            long elapsedTime = 0L;
+//
+//            int length = responses.size();
+//            int i = 0;
+//            while (elapsedTime < 2*1000*length && i < length) {
+//                showStep(new ByteArrayInputStream(responses.get(i).getBytes(StandardCharsets.UTF_8)));
+//                i++;
+//                //perform db poll/check
+//                elapsedTime = (new Date()).getTime() - startTime;
+//            }
+
+            Thread thread = new Thread(new ReplyThread(responses, this));
+            thread.start();
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+    void showStep(InputStream inputStream) {
+        ResponseReader reader = new ResponseReader();
+        Response response = null;
+        try {
+            //do {
+                byte[] content = readByteArrayFromInputStream(inputStream);
+                response = reader.readGalaxy(new ByteArrayInputStream(content));
+
+                Game.init(response.getPlanets());
+                //даем новые данные слушателям
+                this.update(response);
+
+                // выводим на экран ошибки
+                printErrors(response);
+
+            //} while (response.isGameRunning() && gameInProcess);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     private void writeReplay(byte[] content) throws IOException {
-            File file = new File("replay.smbot");
+        File file = new File("replay.smbot");
 
-            // if file doesnt exists, then create it
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            BufferedWriter wr = new BufferedWriter(new FileWriter(file.getName(),true));
+        // if file doesnt exists, then create it
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        BufferedWriter wr = new BufferedWriter(new FileWriter(file.getName(), true));
 
 
-            BufferedReader r = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(content), StandardCharsets.UTF_8));
-            String str = null;
-            StringBuilder sb = new StringBuilder();
-            while ((str = r.readLine()) != null) {
-                sb.append(str);
-            }
-            wr.write(sb.toString());
-            wr.close();
+        BufferedReader r = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(content), StandardCharsets.UTF_8));
+        String str = null;
+        StringBuilder sb = new StringBuilder();
+        while ((str = r.readLine()) != null) {
+            sb.append(str);
+        }
+        wr.write(sb.toString());
+        wr.close();
     }
 
     private byte[] readByteArrayFromInputStream(InputStream in) throws IOException {
@@ -109,13 +154,12 @@ class GameDataService {
         byte[] buffer = new byte[1024];
 
         int bytesRead = 0;
-        while ((bytesRead = in.read(buffer)) != -1){
+        while ((bytesRead = in.read(buffer)) != -1) {
             baos.write(buffer, 0, bytesRead);
         }
 
         return baos.toByteArray();
     }
-
 
 
     private void printErrors(Response response) {

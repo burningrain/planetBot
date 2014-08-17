@@ -54,6 +54,16 @@ public class BotModel implements IGameDataServiceListener {
         dataService.stop();
     }
 
+    public void reply(){
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                dataService.replay();
+            }
+        });
+        t.start();
+    }
+
 
     // OBSERVER METHODS
 
