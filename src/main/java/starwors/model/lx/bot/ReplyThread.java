@@ -1,6 +1,8 @@
 package starwors.model.lx.bot;
 
 
+import starwors.model.lx.logic.Game;
+
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -19,9 +21,10 @@ public class ReplyThread implements Runnable {
 
     @Override
     public void run() {
-        while(count < responses.size()){
-            dataService.showStep(new ByteArrayInputStream(responses.get(count).getBytes(StandardCharsets.UTF_8)));
+        while(count < responses.size() - 1){
             count++;
+            Game.STEP = count;
+            dataService.showStep(new ByteArrayInputStream(responses.get(count).getBytes(StandardCharsets.UTF_8)));
 
             try {
                 Thread.sleep(1500);

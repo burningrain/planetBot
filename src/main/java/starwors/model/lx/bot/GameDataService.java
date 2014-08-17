@@ -31,6 +31,11 @@ class GameDataService {
 
 
     public synchronized void start() {
+        /**
+         * удаляем предыдущую запись игры
+         */
+        deleteReply();
+
         gameInProcess = true;
         // загружаем настройки из файла
         loadProperties();
@@ -82,19 +87,6 @@ class GameDataService {
     public void replay(){
         try{
             final List<String> responses = XmlReplaySplitter.split();
-
-//            long startTime = System.currentTimeMillis();
-//            long elapsedTime = 0L;
-//
-//            int length = responses.size();
-//            int i = 0;
-//            while (elapsedTime < 2*1000*length && i < length) {
-//                showStep(new ByteArrayInputStream(responses.get(i).getBytes(StandardCharsets.UTF_8)));
-//                i++;
-//                //perform db poll/check
-//                elapsedTime = (new Date()).getTime() - startTime;
-//            }
-
             Thread thread = new Thread(new ReplyThread(responses, this));
             thread.start();
 
@@ -147,6 +139,16 @@ class GameDataService {
         }
         wr.write(sb.toString());
         wr.close();
+    }
+
+    private void deleteReply(){
+        File file = new File("replay.smbot");
+
+        if(file.delete()){
+            System.out.println(file.getName() + " is deleted!");
+        }else{
+            System.out.println("Delete operation is failed.");
+        }
     }
 
     private byte[] readByteArrayFromInputStream(InputStream in) throws IOException {

@@ -24,15 +24,14 @@ import java.util.*;
 public class GraphPanel extends JPanel implements IBotModelListener {
 
     private final BotModel model;
+    private SwingView view;
 
-    private Map<String, Color> playersColors = new HashMap<String, Color>();
-    final Random random = new Random();
 
     private Transformer<Planet, Paint> vertexPaint = new Transformer<Planet, Paint>() {
 
         @Override
         public Paint transform(Planet planet) {
-            Color color = playersColors.get(planet.getOwner());
+            Color color = view.playersColors.get(planet.getOwner());
             return color == null? Color.darkGray : color;
         }
     };
@@ -80,8 +79,9 @@ public class GraphPanel extends JPanel implements IBotModelListener {
     Transformer<Planet, Point2D> locationTransformer = new LocationTransformer();
 
 
-    public GraphPanel(BotModel model) {
+    public GraphPanel(BotModel model, SwingView view) {
         this.model = model;
+        this.view = view;
         this.model.addListener(this);
     }
 
@@ -96,10 +96,6 @@ public class GraphPanel extends JPanel implements IBotModelListener {
                     return;
                 }
 
-                if(playersColors.isEmpty()){
-                    fillPlayersColor(model.getPlayers());
-                }
-
                 if(planetsInGraph == null || planetsInGraph.isEmpty() && graph != null){
                     paintGraph(response.getPlanets());
                 } else{
@@ -109,13 +105,6 @@ public class GraphPanel extends JPanel implements IBotModelListener {
         });
     }
 
-
-
-    private void fillPlayersColor(Set<String> players){
-        for(String player : players){
-            playersColors.put(player, new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
-        }
-    }
 
     private void repaintGraph(Collection<Planet> planets){
         /**

@@ -3,11 +3,16 @@ package starwors.view;
 
 import starwors.model.lx.bot.BotModel;
 import starwors.model.lx.bot.IBotModelListener;
+import starwors.model.lx.logic.Game;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 public class SwingView implements IBotModelListener {
 
@@ -15,10 +20,18 @@ public class SwingView implements IBotModelListener {
     public static int START_HEIGHT;
 
     private BotModel model;
+    private SwingView self;
+
+    Map<String, Color> playersColors = new HashMap<String, Color>();
+    final Random random = new Random();
 
 
+    private JLabel topLabel;
+    private JLabel rightLabel;
 
-    public SwingView(BotModel model){
+
+    public SwingView(BotModel model) {
+        self = this;
         this.model = model;
         this.model.addListener(this);
 
@@ -27,11 +40,48 @@ public class SwingView implements IBotModelListener {
 
 
     @Override
-    public void update(BotModel model) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void update(final BotModel model) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            public void run() {
+                if(playersColors.isEmpty()){
+                    fillPlayersColor(model.getPlayers());
+                }
+
+
+                if (topLabel != null) {
+                    topLabel.setText("STEP: " + Game.STEP);
+                }
+                if (rightLabel != null) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("<html>PLAYERS: <br>");
+                    Map<String, Integer> unitsMap = model.getUnitsMap();
+                    for (Map.Entry<String, Integer> entry : unitsMap.entrySet()) {
+                        sb.append("<span style='color:" + formatColor(playersColors.get(entry.getKey())) + "'>" + entry.getKey() + " : " + entry.getValue() + "<br></span>");
+                    }
+                    sb.append("</html>");
+                    rightLabel.setText(sb.toString());
+                }
+            }
+
+        });
     }
 
-    private void init(){
+    private void fillPlayersColor(Set<String> players){
+        for(String player : players){
+            playersColors.put(player, new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
+        }
+    }
+
+    public static final String formatColor(Color c) {
+        String r = (c.getRed() < 16) ? "0" + Integer.toHexString(c.getRed()) : Integer.toHexString(c.getRed());
+        String g = (c.getGreen() < 16) ? "0" + Integer.toHexString(c.getGreen()) : Integer.toHexString(c.getGreen());
+        String b = (c.getBlue() < 16) ? "0" + Integer.toHexString(c.getBlue()) : Integer.toHexString(c.getBlue());
+        return "#" + r + g + b;
+    }
+
+
+    private void init() {
 
 
         JFrame.setDefaultLookAndFeelDecorated(true);
@@ -72,8 +122,10 @@ public class SwingView implements IBotModelListener {
 
                 // установка содержимого окна
 
-                JPanel grPanel = new GraphPanel(model);
+                // панель графа
+                JPanel grPanel = new GraphPanel(model, self);
 
+                // панель кнопок
                 JPanel buttonPanel = new JPanel();
                 buttonPanel.setLayout(new FlowLayout());
                 JButton btnStart = new JButton("Start");
@@ -93,10 +145,26 @@ public class SwingView implements IBotModelListener {
                 buttonPanel.add(btnStart);
                 buttonPanel.add(btnReply);
 
+                // верхняя панель с надписью
+                topLabel = new JLabel("STEP: ");
+                Font font = new Font("Verdana", Font.PLAIN, 16);
+                topLabel.setHorizontalAlignment(JLabel.CENTER);
+                topLabel.setFont(font);
+
+                // панель справа с общим числом юнитов
+                rightLabel = new JLabel("PLAYERS");
+                Font rightFont = new Font("Verdana", Font.PLAIN, 12);
+                rightLabel.setHorizontalAlignment(JLabel.LEFT);
+                rightLabel.setVerticalAlignment(JLabel.TOP);
+                rightLabel.setFont(rightFont);
+
+                // главная панель фрейма
                 JPanel rootPanel = new JPanel();
                 rootPanel.setLayout(new BorderLayout());
                 rootPanel.add(grPanel, BorderLayout.CENTER);
                 rootPanel.add(buttonPanel, BorderLayout.SOUTH);
+                rootPanel.add(topLabel, BorderLayout.NORTH);
+                rootPanel.add(rightLabel, BorderLayout.EAST);
 
                 jf.getContentPane().add(rootPanel);
                 //jf.pack();

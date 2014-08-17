@@ -5,6 +5,7 @@ import starwors.model.lx.logic.Game;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class BotModel implements IGameDataServiceListener {
@@ -37,6 +38,10 @@ public class BotModel implements IGameDataServiceListener {
 
     public Set<String> getPlayers(){
         return Game.getPlayers();
+    }
+
+    public Map<String, Integer> getUnitsMap(){
+        return Game.getUnitsMap();
     }
 
 
