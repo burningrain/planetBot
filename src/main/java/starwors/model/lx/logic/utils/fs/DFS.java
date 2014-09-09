@@ -12,7 +12,6 @@ public class DFS extends FS {
 
     private Set<Planet> visitedPlanets = new HashSet<Planet>();
     private List<Planet> targets = new LinkedList<Planet>();
-    private List<Planet> levelStates = new LinkedList<Planet>();
 
 
     public DFS(ICriteria criteria) {
@@ -22,9 +21,25 @@ public class DFS extends FS {
 
     @Override
     protected List<Planet> findTarget(Planet startPoint) {
+        makeThree(startPoint);
         return targets;
     }
 
+    private void makeThree(Planet planet) {
+        visitedPlanets.add(planet);
 
+        if (criteria.isSuccess(planet)) {
+            targets.add(planet);
+        } else {
+            List<Planet> planets = planet.getNeighbours();
+            for (Planet pl : planets) {
+                if (!visitedPlanets.contains(pl)) {
+                    pl.setParent(planet);
+                    makeThree(pl);
+                }
+            }
+        }
+
+    }
 
 }

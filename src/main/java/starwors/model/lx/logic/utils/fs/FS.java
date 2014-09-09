@@ -30,6 +30,11 @@ public abstract class FS {
         return result;
     }
 
+    /**
+     * возвращает список целей
+     * @param startPoint
+     * @return
+     */
     protected abstract List<Planet> findTarget(Planet startPoint);
 
     private List<Planet> getPath(Planet startPoint, Planet target){

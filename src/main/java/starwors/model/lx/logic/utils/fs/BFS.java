@@ -25,55 +25,49 @@ public class BFS extends FS {
         return targets;
     }
 
-    private void makeThree(List<Planet> neighbours){
-        if(neighbours.size() != 0){
-            //Collection<Planet> neighboursClones = PlanetCloner.clonePlanets(neighbours);
-//            for (Planet neighbour : neighbours) {
-//                levelStates.remove(neighbour);
-//                levelStates.addAll(getNeighbours(neighbour));
-//            }
+    private void makeThree(List<Planet> neighbours) {
+        if (neighbours.size() != 0) {
+
             List<Planet> tempLevelStates = new LinkedList<Planet>();
             Iterator<Planet> iterator = neighbours.iterator();
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 Planet neighbour = iterator.next();
                 tempLevelStates.addAll(getNeighbours(neighbour));
                 iterator.remove();
 
             }
             levelStates = tempLevelStates;
-            if(!levelStates.isEmpty()){
+            if (!levelStates.isEmpty()) {
                 makeThree(levelStates);
             }
         }
     }
 
-    private List<Planet> getNeighbours(Planet planet){
+    private List<Planet> getNeighbours(Planet planet) {
         visitedPlanets.add(planet);
-        if(criteria.isSuccess(planet)){
+        if (criteria.isSuccess(planet)) {
             targets.add(planet);
         }
 
         List<Planet> neighbours = planet.getNeighbours();
         Iterator<Planet> iterator = neighbours.iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             Planet neighbour = iterator.next();
 
-            if(!visitedPlanets.contains(neighbour)){
+            if (!visitedPlanets.contains(neighbour)) {
                 visitedPlanets.add(neighbour);
                 neighbour.setParent(planet);
-            } else{
+            } else {
                 iterator.remove();
             }
 
-            if(criteria.isRemoveFromPath(neighbour)){
+            if (criteria.isRemoveFromPath(neighbour)) {
                 iterator.remove();
             }
         }
 
         return neighbours;
     }
-
-
 
 
 }
