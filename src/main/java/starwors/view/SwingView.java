@@ -116,7 +116,7 @@ public class SwingView implements IBotModelListener {
 
                 // установка пиктораммы
 
-                Image img = kit.getImage(getClass().getResource("/icon.gif"));
+                Image img = kit.getImage(this.getClass().getClassLoader().getResource("icon.gif"));
                 jf.setIconImage(img);
 
 
