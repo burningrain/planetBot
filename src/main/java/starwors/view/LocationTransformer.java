@@ -21,6 +21,7 @@ public class LocationTransformer implements Transformer<Planet, Point2D> {
 
     @Override
     public Point2D transform(Planet planet) {
+        // FIXME говнокод. Перенести нахождение точек сразу же в инициализацию класса.
         Point2D p = getPoint(planet);
         return p;
     }

@@ -1,7 +1,6 @@
 package starwors.view;
 
 import edu.uci.ics.jung.algorithms.layout.*;
-import edu.uci.ics.jung.algorithms.layout.SpringLayout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.SparseMultigraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
@@ -12,6 +11,7 @@ import starwors.model.lx.bot.BotModel;
 import starwors.model.lx.bot.IBotModelListener;
 import starwors.model.lx.bot.Response;
 import starwors.model.lx.galaxy.Planet;
+import starwors.model.lx.logic.utils.PlanetCloner;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,7 +76,7 @@ public class GraphPanel extends JPanel implements IBotModelListener {
 
     private Set<String> edges = new HashSet<String>();
 
-    Transformer<Planet, Point2D> locationTransformer = new LocationTransformer();
+    Transformer<Planet, Point2D> locationTransformer = null;
 
 
     public GraphPanel(BotModel model, SwingView view) {
@@ -97,6 +97,7 @@ public class GraphPanel extends JPanel implements IBotModelListener {
                 }
 
                 if(planetsInGraph == null || planetsInGraph.isEmpty() && graph != null){
+                    locationTransformer = new BigBaseTransformer(PlanetCloner.clonePlanets(response.getPlanets()));
                     paintGraph(response.getPlanets());
                 } else{
                     repaintGraph(response.getPlanets());

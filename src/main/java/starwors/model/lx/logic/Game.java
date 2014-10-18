@@ -67,7 +67,7 @@ public final class Game {
 			players.remove("");
 			
 			if(bigBaseCount != 0){
-				currentType = (bigBaseCount >= 1) ? Type.BIG_BASES : Type.BASE_IN_CENTER;				
+				currentType = (bigBaseCount > 1) ? Type.BIG_BASES : Type.BASE_IN_CENTER;
 			}
 			
 		}
