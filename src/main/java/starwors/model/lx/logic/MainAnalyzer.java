@@ -12,29 +12,28 @@ import java.util.LinkedList;
 import java.util.List;
 
 public final class MainAnalyzer {
-	
-	private final StrategyGeneratorFactory generatorFactory = new StrategyGeneratorFactory();
-	
 
-    
+    private final StrategyGeneratorFactory generatorFactory = new StrategyGeneratorFactory();
+
 
     public List<Move> step(Collection<Planet> galaxy) {
         long begin = System.currentTimeMillis();
-        try{
+        try {
             Game.init(galaxy);
-            if(Game.getCurrentType() != null){
+            if (Game.getCurrentType() != null) {
                 Game.STEP++;
                 IStrategyGenerator generator = generatorFactory.getGenerator(Game.getCurrentType());
                 IStrategy strategy = generator.generate();
 
                 return strategy.execute(galaxy);
             }
-
+            return null;
+        } catch (Exception e) {
+            //TODO сообщить пользователю об ошибке
             return new LinkedList<Move>();
-
-        } finally{
+        } finally {
             long end = System.currentTimeMillis();
-            System.out.println("step " + Game.STEP + ": " + (end - begin)/1000 + " sec");
+            System.out.println("step " + Game.STEP + ": " + (end - begin) / 1000 + " sec");
         }
 
     }

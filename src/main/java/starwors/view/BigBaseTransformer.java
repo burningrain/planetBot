@@ -6,9 +6,10 @@ import starwors.model.lx.galaxy.PlanetType;
 import starwors.model.lx.logic.Game;
 import starwors.model.lx.logic.utils.PlanetCloner;
 
-import java.awt.Point;
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.*;
+import java.util.List;
 
 
 public class BigBaseTransformer implements Transformer<Planet, Point2D> {
@@ -42,15 +43,22 @@ public class BigBaseTransformer implements Transformer<Planet, Point2D> {
 
     private void fillPlanetsCoords() {
         int magnitude = 0;
-        for(Map.Entry<Integer, List<Planet>> entry : planetsLevels.entrySet()){
+        for (Map.Entry<Integer, List<Planet>> entry : planetsLevels.entrySet()) {
             List<Planet> planets = entry.getValue();
-            float angular = 360/planets.size();
-            for(int i = 0; i < planets.size(); i++){
-                planetsCoords.put(
-                        planets.get(i).getId(),
-                        new Point(Double.valueOf(centerPoint.getX() + magnitude*Math.cos(i*angular*Math.PI/180)).intValue(),
-                                    Double.valueOf(centerPoint.getY() + magnitude*Math.sin(i*angular*Math.PI/180)).intValue()));
+            double angular = 360.0 / planets.size();
+
+            double offset = 0;
+            if (entry.getKey() == 1) {
+                offset = angular / 2;
             }
+
+            for (int i = 1; i < planets.size() + 1; i++) {
+                planetsCoords.put(
+                        planets.get(i - 1).getId(),
+                        new Point(Double.valueOf(centerPoint.getX() + magnitude * Math.cos((offset + i * angular) * Math.PI / 180)).intValue(),
+                                Double.valueOf(centerPoint.getY() + magnitude * Math.sin((offset + i * angular) * Math.PI / 180)).intValue()));
+            }
+
             magnitude += 70;
         }
     }

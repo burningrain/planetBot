@@ -108,11 +108,11 @@ public class SwingView implements IBotModelListener {
                 int screenSizeHeigth = screenSize.height;
 
                 // размещение фрейма по центру
-                START_WIDTH = screenSizeWidth / 2;
-                START_HEIGHT = screenSizeHeigth / 2;
+                START_WIDTH = 660;
+                START_HEIGHT = 660;
 
                 jf.setSize(START_WIDTH, START_HEIGHT);
-                jf.setLocation(screenSizeWidth / 4, screenSizeHeigth / 4);
+                jf.setLocation((screenSizeWidth - START_WIDTH) / 2, (screenSizeHeigth - START_HEIGHT) / 2);
 
                 // установка пиктораммы
 

@@ -4,6 +4,7 @@ import edu.uci.ics.jung.algorithms.layout.*;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.SparseMultigraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
 import org.apache.commons.collections15.Transformer;
@@ -158,6 +159,8 @@ public class GraphPanel extends JPanel implements IBotModelListener {
         //vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
         vv.getRenderContext().setEdgeDrawPaintTransformer(edgePaint);
         vv.getRenderer().getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.CNTR);
+
+        vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line<Planet, String>());
 
         this.add(vv);
         updateUI();

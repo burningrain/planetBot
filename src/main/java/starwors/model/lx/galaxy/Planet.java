@@ -90,11 +90,6 @@ public class Planet {
 
 	@Override
 	public String toString() {
-		StringBuilder result = new StringBuilder();
-		for (Planet neighbour : neighbours) {
-			result.append(neighbour.getId()).append(", ");
-		}
-
         return String.valueOf(units);
 		//return "Planet [id=" + id + ", owner=" + owner + ", Units=" + units + "/" + type.getLimit() + ", neighbours=" + result.toString() + "]\n";
 	}
