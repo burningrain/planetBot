@@ -1,6 +1,11 @@
 package starwors.view;
 
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.DefaultPieDataset;
 import starwors.model.lx.bot.BotModel;
 import starwors.model.lx.bot.IBotModelListener;
 import starwors.model.lx.logic.Game;
@@ -29,6 +34,8 @@ public class SwingView implements IBotModelListener {
     private JLabel topLabel;
     private JLabel rightLabel;
 
+    private DefaultPieDataset myColoredPieChart;
+    private JFreeChart myColoredChart;
 
     public SwingView(BotModel model) {
         self = this;
@@ -46,8 +53,8 @@ public class SwingView implements IBotModelListener {
             public void run() {
                 if(playersColors.isEmpty()){
                     fillPlayersColor(model.getPlayers());
+                    fillColorChart();
                 }
-
 
                 if (topLabel != null) {
                     topLabel.setText("STEP: " + Game.STEP);
@@ -58,6 +65,8 @@ public class SwingView implements IBotModelListener {
                     Map<String, Integer> unitsMap = model.getUnitsMap();
                     for (Map.Entry<String, Integer> entry : unitsMap.entrySet()) {
                         sb.append("<span style='color:" + formatColor(playersColors.get(entry.getKey())) + "'>" + entry.getKey() + " : " + entry.getValue() + "<br></span>");
+
+                        myColoredPieChart.setValue(entry.getKey(), entry.getValue());
                     }
                     sb.append("</html>");
                     rightLabel.setText(sb.toString());
@@ -70,6 +79,13 @@ public class SwingView implements IBotModelListener {
     private void fillPlayersColor(Set<String> players){
         for(String player : players){
             playersColors.put(player, new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
+        }
+    }
+
+    private void fillColorChart(){
+        PiePlot configurator = (PiePlot)myColoredChart.getPlot();
+        for(Map.Entry<String, Color> player : playersColors.entrySet()){
+            configurator.setSectionPaint(player.getKey(), player.getValue());
         }
     }
 
@@ -108,7 +124,7 @@ public class SwingView implements IBotModelListener {
                 int screenSizeHeigth = screenSize.height;
 
                 // размещение фрейма по центру
-                START_WIDTH = 660;
+                START_WIDTH = 730;
                 START_HEIGHT = 660;
 
                 jf.setSize(START_WIDTH, START_HEIGHT);
@@ -152,11 +168,26 @@ public class SwingView implements IBotModelListener {
                 topLabel.setFont(font);
 
                 // панель справа с общим числом юнитов
+                JPanel playersInfoPanel = new JPanel();
                 rightLabel = new JLabel("PLAYERS");
                 Font rightFont = new Font("Verdana", Font.PLAIN, 12);
                 rightLabel.setHorizontalAlignment(JLabel.LEFT);
                 rightLabel.setVerticalAlignment(JLabel.TOP);
                 rightLabel.setFont(rightFont);
+                playersInfoPanel.add(rightLabel);
+
+                //TODO вставить панель с chart pie
+                myColoredPieChart = new DefaultPieDataset();
+                myColoredChart = ChartFactory.createPieChart3D("", myColoredPieChart, false, false, false);
+                myColoredChart.setBorderVisible(false);
+                myColoredChart.setBackgroundPaint(new Color(0, 0, 0, 0)); // transparent black
+                PiePlot configurator = (PiePlot) myColoredChart.getPlot();
+                configurator.setBackgroundPaint(new Color(0, 0, 0, 0));
+                configurator.setLabelGenerator(null);
+                configurator.setOutlineVisible(false);
+                ChartPanel chartPanel = new ChartPanel(myColoredChart, 150, 150, 150, 150, 250, 250,
+                        true, false, false, false, false, false);
+                playersInfoPanel.add(chartPanel);
 
                 // главная панель фрейма
                 JPanel rootPanel = new JPanel();
@@ -164,7 +195,7 @@ public class SwingView implements IBotModelListener {
                 rootPanel.add(grPanel, BorderLayout.CENTER);
                 rootPanel.add(buttonPanel, BorderLayout.SOUTH);
                 rootPanel.add(topLabel, BorderLayout.NORTH);
-                rootPanel.add(rightLabel, BorderLayout.EAST);
+                rootPanel.add(playersInfoPanel, BorderLayout.EAST);
 
                 jf.getContentPane().add(rootPanel);
                 //jf.pack();
