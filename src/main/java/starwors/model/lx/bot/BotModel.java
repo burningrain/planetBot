@@ -1,32 +1,34 @@
 package starwors.model.lx.bot;
 
 
-import starwors.model.lx.logic.Game;
+import starwors.model.lx.galaxy.Action;
+import starwors.model.lx.logic.GameInfo;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public class BotModel implements IGameDataServiceListener {
+public class BotModel {
 
     private List<IBotModelListener> listeners;
-    private GameDataService dataService;
-
+    private GameCore serverGameCore;
+    private ReplayCore replayCore;
 
     private Response lastStep = null;
     private Response currentStep = null;
+    private Collection<Action> currentActions = null;
+
+    private GameInfo gameInfo;
 
 
     public BotModel(){
         listeners = new LinkedList<IBotModelListener>();
-        dataService = new GameDataService();
-        dataService.addListener(this);
+        gameInfo = new GameInfo();
+        this.serverGameCore = new GameCore(this);
+        this.replayCore = new ReplayCore(this);
     }
 
+    void updateResponse(Response response) {
+        this.currentActions = null; // FIXME неочевидно.  сделано, чтобы увидеть изменения хода бота
 
-    @Override
-    public void update(Response response) {
         lastStep = currentStep;
         currentStep = response;
 
@@ -35,38 +37,34 @@ public class BotModel implements IGameDataServiceListener {
         }
     }
 
+    void updateCurrentActions(Collection<Action> actions) {
+        this.currentActions = actions;
 
-    public Set<String> getPlayers(){
-        return Game.getPlayers();
+        if(currentActions != null){
+            this.updateListenersInfo();
+        }
     }
 
-    public Map<String, Integer> getUnitsMap(){
-        return Game.getUnitsMap();
+    public GameInfo getGameInfo() {
+        return gameInfo;
     }
-
 
     public void start(){
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                dataService.start();
+                serverGameCore.start();
             }
         });
         t.start();
     }
 
     public void stop(){
-        dataService.stop();
+        serverGameCore.stop();
     }
 
-    public void reply(){
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                dataService.replay();
-            }
-        });
-        t.start();
+    public void startReply(){
+        replayCore.startReplay();
     }
 
 
@@ -92,9 +90,12 @@ public class BotModel implements IGameDataServiceListener {
         return currentStep;
     }
 
-
     public Response getLastStep() {
         return lastStep;
+    }
+
+    public Collection<Action> getCurrentActions() {
+        return currentActions;
     }
 
 }

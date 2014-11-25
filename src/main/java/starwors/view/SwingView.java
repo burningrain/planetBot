@@ -8,16 +8,15 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 import starwors.model.lx.bot.BotModel;
 import starwors.model.lx.bot.IBotModelListener;
-import starwors.model.lx.logic.Game;
+import starwors.model.lx.bot.Response;
+import starwors.model.lx.galaxy.*;
+import starwors.model.lx.logic.GameInfo;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class SwingView implements IBotModelListener {
 
@@ -51,18 +50,19 @@ public class SwingView implements IBotModelListener {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
+                GameInfo gameInfo = model.getGameInfo();
                 if(playersColors.isEmpty()){
-                    fillPlayersColor(model.getPlayers());
+                    fillPlayersColor(gameInfo.getPlayers());
                     fillColorChart();
                 }
 
                 if (topLabel != null) {
-                    topLabel.setText("STEP: " + Game.STEP);
+                    topLabel.setText("STEP: " + gameInfo.getStep());
                 }
                 if (rightLabel != null) {
                     StringBuilder sb = new StringBuilder();
                     sb.append("<html>PLAYERS: <br>");
-                    Map<String, Integer> unitsMap = model.getUnitsMap();
+                    Map<String, Integer> unitsMap = gameInfo.getUnitsMap();
                     for (Map.Entry<String, Integer> entry : unitsMap.entrySet()) {
                         sb.append("<span style='color:" + formatColor(playersColors.get(entry.getKey())) + "'>" + entry.getKey() + " : " + entry.getValue() + "<br></span>");
 
@@ -71,9 +71,28 @@ public class SwingView implements IBotModelListener {
                     sb.append("</html>");
                     rightLabel.setText(sb.toString());
                 }
+
+                printErrors(model.getCurrentStep()); //TODO создать текстовое поле и перенаправить вывод туда. С форматирвоанием и цветовым выделением.
+                printMovies(model.getCurrentActions());
             }
 
         });
+    }
+
+    private void printErrors(Response response) {
+        for (String error : response.getErrors()) {
+            System.out.println(error);
+        }
+    }
+
+    private void printMovies(Collection<starwors.model.lx.galaxy.Action> moves) {
+        if (moves != null) {
+            for (starwors.model.lx.galaxy.Action move : moves) {
+                System.out.println(move);
+            }
+
+        }
+
     }
 
     private void fillPlayersColor(Set<String> players){
@@ -155,7 +174,7 @@ public class SwingView implements IBotModelListener {
                 btnReply.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        model.reply();
+                        model.startReply();
                     }
                 });
                 buttonPanel.add(btnStart);

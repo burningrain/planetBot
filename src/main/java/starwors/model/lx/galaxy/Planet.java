@@ -17,6 +17,9 @@ public class Planet {
 	private PlanetType type;
 	private List<Planet> neighbours = new ArrayList<Planet>();
 
+	private Planet parent;
+	private List<Planet> children;
+
 	/**
 	 * Создать планету с заданным id
 	 */
@@ -90,20 +93,16 @@ public class Planet {
 
 	@Override
 	public String toString() {
+		//return id;
         return String.valueOf(units);
-		//return "Planet [id=" + id + ", owner=" + owner + ", Units=" + units + "/" + type.getLimit() + ", neighbours=" + result.toString() + "]\n";
 	}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Planet planet = (Planet) o;
-
-        if (units != planet.units) return false;
         if (!id.equals(planet.id)) return false;
-        if (owner != null ? !owner.equals(planet.owner) : planet.owner != null) return false;
         if (type != planet.type) return false;
 
         return true;
@@ -112,21 +111,16 @@ public class Planet {
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + (owner != null ? owner.hashCode() : 0);
-        result = 31 * result + units;
         result = 31 * result + type.hashCode();
         return result;
     }
 
-    private Planet parent;
-    private List<Planet> childs;
-
-    public List<Planet> getChilds() {
-        return childs;
+    public List<Planet> getChildren() {
+        return children;
     }
 
-    public void setChilds(List<Planet> childs) {
-        this.childs = childs;
+    public void setChildren(List<Planet> children) {
+        this.children = children;
     }
 
     public Planet getParent() {

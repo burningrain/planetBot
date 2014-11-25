@@ -1,9 +1,7 @@
-/*
- * © EPAM Systems, 2012  
- */
 package starwors.model.lx.xml;
 
 import starwors.model.lx.bot.Response;
+import starwors.model.lx.galaxy.Action;
 import starwors.model.lx.galaxy.Planet;
 import starwors.model.lx.galaxy.PlanetType;
 
@@ -14,9 +12,9 @@ import java.io.InputStream;
 import java.util.*;
 
 /**
- * Преобразовывает XML из входного потока в список плнет
+ * Преобразовывает XML из входного потока в список планет
  */
-public class ResponseReader {
+public class XmlReaderService implements ReaderService {
 
 	// XML response tags
 	// root
@@ -43,6 +41,7 @@ public class ResponseReader {
 	 *
 	 * @param input входной поток, из которого будет считываться XML
 	 */
+	@Override
 	public Response readGalaxy(InputStream input) throws ResponseReadException {
 		Response result = null;
 		XMLStreamReader reader = null;
@@ -70,6 +69,11 @@ public class ResponseReader {
 				}
 			}
 		}
+	}
+
+	@Override
+	public Collection<Action> readActions(InputStream input) throws ResponseReadException {
+		return ActionReader.readActions(input);
 	}
 
 	private Response parseResponse(XMLStreamReader reader) throws XMLStreamException, ResponseReadException {
@@ -167,7 +171,7 @@ public class ResponseReader {
 		return errors;
 	}
 
-	private static String getTagText(XMLStreamReader reader, String tagName) throws XMLStreamException, ResponseReadException {
+	public static String getTagText(XMLStreamReader reader, String tagName) throws XMLStreamException, ResponseReadException {
 		String currentTagName = reader.getName().getLocalPart();
 
 		if (reader.isStartElement() && tagName.equals(currentTagName)) {
@@ -186,6 +190,74 @@ public class ResponseReader {
 			}
 		}
 		throw new NoSuchElementException();
+	}
+
+	private static class ActionReader {
+
+		// XML response tags
+		// root
+		private static final String ACTIONS = "actions";
+		private static final String ACTION = "action";
+
+		// subroot
+		private static final String FROM = "from";
+		private static final String TO = "to";
+		private static final String UNITS_COUNT = "unitsCount";
+
+		public static Collection<Action> readActions(InputStream input) throws ResponseReadException {
+			List<Action> result = new LinkedList<Action>();
+			XMLStreamReader reader = null;
+			try {
+				XMLInputFactory factory = XMLInputFactory.newFactory();
+				reader = factory.createXMLStreamReader(input);
+				reader.nextTag();
+
+				if (ACTIONS.equals(reader.getName().getLocalPart())) {
+					readAction(result, reader);
+				} else {
+					throw new ResponseReadException(ACTIONS + " element expected");
+				}
+
+				return Collections.unmodifiableList(result);
+			} catch (XMLStreamException ex) {
+				throw new ResponseReadException(ex);
+			} finally {
+				if (reader != null) {
+					try {
+						reader.close();
+					} catch (XMLStreamException ex) {
+						// do nothing
+					}
+				}
+			}
+
+		}
+
+		private static void readAction(List<Action> result, XMLStreamReader reader) throws XMLStreamException, ResponseReadException {
+
+			if (reader.nextTag() != XMLStreamReader.END_ELEMENT) {
+				do {
+					if (ACTION.equals(reader.getName().getLocalPart())) {
+						result.add(parseAction(reader));
+					} else {
+						throw new ResponseReadException(ACTION + " element expected");
+					}
+				} while (reader.isStartElement());
+			}
+
+		}
+
+		private static Action parseAction(XMLStreamReader reader) throws XMLStreamException, ResponseReadException {
+			Action move = new Action();
+			reader.nextTag();
+			move.setFrom(XmlReaderService.getTagText(reader, FROM));
+			move.setTo(XmlReaderService.getTagText(reader, TO));
+			move.setAmount(Integer.parseInt(XmlReaderService.getTagText(reader, UNITS_COUNT)));
+			reader.nextTag();
+			return move;
+		}
+
+
 	}
 
 }

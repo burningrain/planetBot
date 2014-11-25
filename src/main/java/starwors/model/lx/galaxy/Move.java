@@ -46,4 +46,13 @@ public class Move {
 	public String toString() {
 		return "from " + from.getId() + " to " + to.getId() + " -- " + amount;
 	}
+
+	public Action toAction(){
+		Action action = new Action();
+		action.setFrom(this.from.getId());
+		action.setTo(this.to.getId());
+		action.setAmount(this.amount);
+
+		return action;
+	}
 }

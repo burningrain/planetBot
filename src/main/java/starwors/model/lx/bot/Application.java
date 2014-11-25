@@ -3,8 +3,10 @@ package starwors.model.lx.bot;
 import starwors.model.lx.bot.BotModel;
 import starwors.view.SwingView;
 
-public class Application {
+public final class Application {
 
+    private Application(){
+    }
 
 	public static void main(String[] args){ 
 

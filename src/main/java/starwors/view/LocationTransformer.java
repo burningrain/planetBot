@@ -1,98 +1,153 @@
 package starwors.view;
 
-
 import org.apache.commons.collections15.Transformer;
 import starwors.model.lx.galaxy.Planet;
+import starwors.model.lx.galaxy.PlanetType;
+import starwors.model.lx.logic.GameInfo;
+import starwors.model.lx.logic.utils.PlanetCloner;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
+
 
 public class LocationTransformer implements Transformer<Planet, Point2D> {
 
-    private Map<String, Point2D> aPlanetMap = new HashMap<String, Point2D>();
-    private Map<String, Point2D> bPlanetMap = new HashMap<String, Point2D>();
-    private Map<String, Point2D> cPlanetMap = new HashMap<String, Point2D>();
-    private Map<String, Point2D> dPlanetMap = new HashMap<String, Point2D>();
+    private Collection<Planet> galaxy;
+    private Map<String, Point2D> planetsCoords;
 
+    private Point2D centerPoint = new Point(SwingView.START_WIDTH/2, SwingView.START_HEIGHT/2);
+
+    private Set<Planet> visitedPlanets;
+    private List<Planet> levelList = new LinkedList<Planet>();
+    private int level = 0;
+    private Map<Integer, List<Planet>> planetsLevels;
+
+    private GameInfo gameInfo;
+
+
+    public LocationTransformer(Collection<Planet> galaxy, GameInfo gameInfo){
+        this.galaxy = galaxy;
+        this.gameInfo = gameInfo;
+        visitedPlanets = new HashSet<Planet>(galaxy.size());
+        planetsLevels = new LinkedHashMap<Integer, List<Planet>>(galaxy.size());
+        planetsCoords = new HashMap<String, Point2D>(galaxy.size());
+
+        initPlanetsLocation();
+        fillPlanetsCoords();
+    }
 
     @Override
     public Point2D transform(Planet planet) {
-        // FIXME говнокод. Перенести нахождение точек сразу же в инициализацию класса.
-        Point2D p = getPoint(planet);
-        return p;
+        return planetsCoords.get(planet.getId());
     }
 
-    private Point2D getPoint(Planet planet){
-        Point2D point = null;
-        Map<String, Point2D> map = getMap(planet);
-        if(map.containsKey(planet.getId())){
-            point = map.get(planet.getId());
-        } else{
-            point = new Point();
-            double x = findPlanetX(planet);
-            double y = 0;
-            if(map.size() != 0){
-                y = findMinPlanetY(map) - 40;
-            } else{
-                y = SwingView.START_HEIGHT - 50; // устанавливаем начальное значение
+    private void fillPlanetsCoords() {
+        int magnitude = 0;
+        for (Map.Entry<Integer, List<Planet>> entry : planetsLevels.entrySet()) {
+            List<Planet> planets = entry.getValue();
+            double angular = 360.0 / planets.size();
+
+            double offset = 0;
+            if (entry.getKey() == 1) {
+                offset = angular / 2;
             }
-            point.setLocation(x, y);
 
-            map.put(planet.getId(), point);
+            for (int i = 1; i < planets.size() + 1; i++) {
+                planetsCoords.put(
+                        planets.get(i - 1).getId(),
+                        new Point(Double.valueOf(centerPoint.getX() + magnitude * Math.cos((offset + i * angular) * Math.PI / 180)).intValue(),
+                                Double.valueOf(centerPoint.getY() + magnitude * Math.sin((offset + i * angular) * Math.PI / 180)).intValue()));
+            }
+
+            magnitude += 70;
         }
-
-        return point;
     }
 
 
+    private void initPlanetsLocation(){
+        Planet center = getCenterPlanet(galaxy);
 
-    private Map<String, Point2D> getMap(Planet planet){
-        switch(planet.getType()){
-            case TYPE_A:
-                return aPlanetMap;
-            case TYPE_B:
-                return bPlanetMap;
-            case TYPE_C:
-                return cPlanetMap;
-            case TYPE_D:
-                return dPlanetMap;
+        List<Planet> list0 = new ArrayList<Planet>(1);
+        list0.add(center);
+        visitedPlanets.add(center);
+        planetsLevels.put(level, list0);
+        planetsCoords.put(center.getId(), centerPoint);
+
+        planetsLevels.put(++level, new LinkedList(PlanetCloner.clonePlanets(center.getNeighbours()))); //FIXME
+        makeThree(getNeighbours(center));
+
+        for(Map.Entry<Integer, List<Planet>> entry : planetsLevels.entrySet()){
+            Collections.sort(entry.getValue(), new Comparator<Planet>() {
+                @Override
+                public int compare(Planet o1, Planet o2) {
+                    return Integer.valueOf(o1.getId()) - Integer.valueOf(o2.getId());
+                }
+            });
+        }
+    }
+
+    private void makeThree(List<Planet> neighbours) {
+        if (neighbours.size() != 0) {
+
+            List<Planet> tempLevelStates = new LinkedList<Planet>();
+            Iterator<Planet> iterator = neighbours.iterator();
+            while (iterator.hasNext()) {
+                Planet neighbour = iterator.next();
+                tempLevelStates.addAll(getNeighbours(neighbour));
+                iterator.remove();
+
+            }
+            levelList = tempLevelStates;
+            if (!levelList.isEmpty()) {
+                planetsLevels.put(++level, new LinkedList(PlanetCloner.clonePlanets(levelList)));
+                makeThree(levelList);
+            }
+        }
+    }
+
+    private List<Planet> getNeighbours(Planet planet) {
+        visitedPlanets.add(planet);
+
+        List<Planet> neighbours = planet.getNeighbours();
+        Iterator<Planet> iterator = neighbours.iterator();
+        while (iterator.hasNext()) {
+            Planet neighbour = iterator.next();
+
+            if (!visitedPlanets.contains(neighbour)) {
+                visitedPlanets.add(neighbour);
+            } else {
+                iterator.remove();
+            }
+        }
+
+        return neighbours;
+    }
+
+    private Planet getCenterPlanet(Collection<Planet> galaxy){
+        PlanetType type = null;
+        switch(gameInfo.getCurrentGameType()){
+            case BIG_BASES:
+                type = PlanetType.TYPE_A;
+                break;
+            case BASE_IN_CENTER:
+                type = PlanetType.TYPE_D;
+                break;
             default:
-                return null;
+                type = null;
+                break;
         }
+        return getCenterPlanet(galaxy, type);
     }
 
-    private double findPlanetX(Planet planet){
-        double x = 0;
-        switch(planet.getType()){
-            case TYPE_A:
-                x = SwingView.START_HEIGHT/4;
-                break;
-            case TYPE_B:
-                x = SwingView.START_HEIGHT/2;
-                break;
-            case TYPE_C:
-                x = SwingView.START_HEIGHT* 3/4;
-                break;
-            case TYPE_D:
-                x = SwingView.START_HEIGHT - 50;
-                break;
+    private Planet getCenterPlanet(Collection<Planet> galaxy, PlanetType type){
+        for(Planet planet : galaxy){
+            if(type.equals(planet.getType())){
+                return planet;
+            }
         }
-        return x;
-    }
-
-
-    private double findMinPlanetY(Map<String, Point2D> map){
-        ArrayList<Double> list = new ArrayList<Double>(map.size());
-        for(Map.Entry<String, Point2D> entry : map.entrySet()){
-            list.add(entry.getValue().getY());
-        }
-        Collections.sort(list);
-
-        return list.get(0);
+        return null;
     }
 
 
