@@ -1,0 +1,143 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>starmarines</artifactId>
+		<groupId>com.br</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../starmarines-parent</relativePath>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>assembly</artifactId>
+
+	<packaging>pom</packaging>
+
+	<properties>
+		<dir.launcher>../launcher/target</dir.launcher>
+		<dir.osgi>${dir.launcher}/osgi</dir.osgi>
+		<dir.config>${dir.launcher}/config</dir.config>
+		<dir.bundles>${dir.launcher}/osgi/bundles</dir.bundles>
+
+		
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>common-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>launcher</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>main-app</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>fragment-laf</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>strategy</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>generate-sources</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<tasks>
+								<mkdir dir="target/plugins" />
+								<mkdir dir="target/strategies" />
+								<mkdir dir="target/log"/>		
+								<mkdir dir="target/osgi/bundles/app"/>
+								<mkdir dir="target/osgi/config"/>
+								<mkdir dir="target/cfg"/>									
+								
+								<!-- копирование файла конфигурации логгирования -->
+                                <copy todir="target/log">
+                                    <fileset dir="${dir.launcher}/log" includes="*.*">
+                                    </fileset>
+                                </copy>								
+
+								<!-- копирование запускающего jar-ника -->
+								<copy todir="target">
+									<fileset dir="${dir.launcher}" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование главного приложения и osgi-контейнера -->
+								<copy todir="target/osgi">
+									<fileset dir="${dir.osgi}" includes="*.*">
+									</fileset>
+								</copy>
+								<copy todir="target/osgi/config">
+									<fileset dir="${dir.config}" includes="*.*">
+									</fileset>
+								</copy>
+								<copy todir="target/osgi/bundles">
+									<fileset dir="${dir.bundles}" includes="*.*">
+									</fileset>
+								</copy>												
+
+								<!-- копирование главного приложения-бандла -->								
+								<copy todir="target/osgi/bundles/app">
+									<fileset dir="../main-app/target" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование cfg-файлов приложения-бандла -->
+								<copy todir="target/cfg">
+									<fileset dir="../main-app/src/main/resources/cfg" includes="*.cfg">
+									</fileset>
+								</copy>
+
+								<!-- копирование фрагмента с look and feel -->
+								<copy todir="target/osgi/bundles">
+									<fileset dir="../fragment-laf/target" includes="*.jar">
+									</fileset>
+								</copy>
+
+								<!-- копирование API -->
+								<copy todir="target/common-api">
+									<fileset dir="../common-api/target" includes="*.jar">
+									</fileset>
+								</copy>
+
+								<!-- копирование стратегии -->
+								<copy todir="target/strategies">
+									<fileset dir="../strategy/target" includes="*.jar">
+									</fileset>
+								</copy>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
+		</plugins>
+	</build>
+
+
+</project>

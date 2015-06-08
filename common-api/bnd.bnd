@@ -1,0 +1,11 @@
+-outputmask: ${@bsn}-${version;===S;${@version}}.jar
+Bundle-Version: 1.0.0.SNAPSHOT
+bin: target/classes
+src: src/main/java
+target-dir: target
+testbin: target/test-classes
+testsrc: src/main/test
+
+Export-Package:  \
+	com.br.game.api,\
+	com.br.game.api.galaxy

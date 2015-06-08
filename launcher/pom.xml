@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<artifactId>starmarines</artifactId>
+		<groupId>com.br</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../starmarines-parent</relativePath>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>launcher</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+
+		<!-- osgi container -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.main</artifactId>
+			<version>4.6.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.compendium</artifactId>			
+		</dependency>
+
+		<!-- iPOJO -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.ipojo</artifactId>
+			<version>1.12.1</version>
+		</dependency>
+
+
+		<!-- declarative services -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.scr</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<!-- need for compile time (for generate OSG-INF/component.xml), not runtime 
+			<dependency> <groupId>org.apache.felix</groupId> <artifactId>org.apache.felix.scr.ds-annotations</artifactId> 
+			<version>1.2.4</version> </dependency> -->
+
+		<!-- logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>osgi-over-slf4j</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+
+
+		<!-- bundles -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.fileinstall</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+
+		<!-- for configuring bundles in runtime -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.configadmin</artifactId>
+			<version>1.8.4</version>
+		</dependency>
+
+		<!-- for application main bundle -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.http.servlet-api</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+
+
+		<!-- OSGI console -->
+		<!-- <dependency> <groupId>org.apache.felix</groupId> <artifactId>org.apache.felix.gogo.command</artifactId> 
+			<version>0.14.0</version> </dependency> <dependency> <groupId>org.apache.felix</groupId> 
+			<artifactId>org.apache.felix.gogo.runtime</artifactId> <version>0.12.1</version> 
+			</dependency> <dependency> <groupId>org.apache.felix</groupId> <artifactId>org.apache.felix.gogo.shell</artifactId> 
+			<version>0.10.0</version> </dependency> -->
+
+	</dependencies>
+
+	<build>
+		<finalName>starmarines</finalName>
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/resources</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Class-Path>osgi/bundles/</Class-Path>
+						</manifestEntries>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>com.lix.main.Launcher</mainClass>
+							<classpathPrefix>dependency-jars/</classpathPrefix>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>osgi/</classpathPrefix>
+						</manifest>
+						<manifestEntries>
+							<SplashScreen-Image>images/starbot.jpg</SplashScreen-Image>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>copy-bundles</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeScope>compile</includeScope>
+							<outputDirectory>${project.build.directory}/osgi/bundles</outputDirectory>
+							<includeArtifactIds>
+								org.apache.felix.fileinstall,
+								org.apache.felix.configadmin,
+								logback-classic,
+								logback-core,
+								slf4j-api,
+								osgi-over-slf4j,
+								<!-- org.apache.felix.ipojo.annotations, -->
+								org.apache.felix.ipojo,
+								org.apache.felix.http.servlet-api,
+								org.osgi.compendium
+							</includeArtifactIds>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-osgi</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeScope>compile</includeScope>
+							<outputDirectory>${project.build.directory}/osgi</outputDirectory>
+							<includeArtifactIds>
+								org.apache.felix.scr,
+								<!-- org.apache.felix.scr.ds-annotations, -->
+								org.apache.felix.main
+							</includeArtifactIds>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

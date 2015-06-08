@@ -1,0 +1,318 @@
+<repository name='Local' lastmodified='20150509074624.545'>
+  <resource id='com.br.fragment-laf/1.0.0.SNAPSHOT' symbolicname='com.br.fragment-laf' presentationname='fragment-laf' uri='/C:/Users/user/.m2/repository/com/br/fragment-laf/1.0.0-SNAPSHOT/fragment-laf-1.0.0-SNAPSHOT.jar' version='1.0.0.SNAPSHOT'>
+    <size>1718199</size>
+    <capability name='bundle'>
+      <p n='symbolicname' v='com.br.fragment-laf'/>
+      <p n='presentationname' v='fragment-laf'/>
+      <p n='version' t='version' v='1.0.0.SNAPSHOT'/>
+      <p n='manifestversion' v='2'/>
+    </capability>
+    <capability name='fragment'>
+      <p n='host' v='system.bundle'/>
+      <p n='version' t='version' v='0.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafplugin'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.lafwidget.animation,org.pushingpixels.lafwidget.preview,org.pushingpixels.lafwidget.tabbed,org.pushingpixels.lafwidget.text,org.pushingpixels.lafwidget.utils'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.animation'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.trident'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.animation.effects'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.lafwidget,org.pushingpixels.lafwidget.animation,org.pushingpixels.trident'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.ant'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.contrib.blogofbug.swing'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.contrib.blogofbug.swing.borders'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.contrib.blogofbug.swing.components'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.lafwidget.contrib.blogofbug.swing.borders,org.pushingpixels.lafwidget.contrib.blogofbug.swing.layout'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.contrib.blogofbug.swing.layout'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.contrib.blogofbug.utility'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.desktop'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.lafwidget'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.menu'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.lafwidget'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.preview'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.resources'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.scroll'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.lafwidget'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.scroll.resource'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.tabbed'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.lafwidget,org.pushingpixels.lafwidget.contrib.blogofbug.swing.components,org.pushingpixels.lafwidget.utils'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.text'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.lafwidget,org.pushingpixels.lafwidget.utils'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.tree.dnd'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.lafwidget'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.tree.dnd.icons'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.lafwidget.utils'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.lafwidget,org.pushingpixels.lafwidget.animation,org.pushingpixels.substance.api.fonts,org.pushingpixels.substance.api.painter.border,org.pushingpixels.substance.api.painter.decoration,org.pushingpixels.substance.api.painter.fill,org.pushingpixels.substance.api.painter.highlight,org.pushingpixels.substance.api.painter.overlay,org.pushingpixels.substance.api.shaper,org.pushingpixels.substance.api.skin,org.pushingpixels.substance.api.tabbed,org.pushingpixels.substance.api.trait,org.pushingpixels.substance.api.watermark,org.pushingpixels.substance.internal.animation,org.pushingpixels.substance.internal.utils'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.colorscheme'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.combo'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.fonts'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.painter'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.substance.api.trait'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.painter.border'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.substance.api.painter,org.pushingpixels.substance.api.trait,org.pushingpixels.substance.internal.utils'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.painter.decoration'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.substance.api.painter,org.pushingpixels.substance.api.painter.fill,org.pushingpixels.substance.api.trait,org.pushingpixels.substance.internal.utils'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.painter.fill'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.substance.api.painter,org.pushingpixels.substance.api.trait'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.painter.highlight'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.substance.api.painter,org.pushingpixels.substance.api.painter.fill,org.pushingpixels.substance.api.trait'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.painter.overlay'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.substance.api.trait'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.renderers'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.shaper'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api.trait'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.skin'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.substance.internal.utils'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.tabbed'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.trait'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.api.watermark'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.substance.api.trait'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.animation'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.trident,org.pushingpixels.trident.callback'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.colorscheme'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.substance.api.colorscheme,org.pushingpixels.substance.internal.utils'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.contrib.jgoodies.looks'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.contrib.jgoodies.looks.common'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.contrib.randelshofer.quaqua'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.internal.animation'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.images'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.util'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.contrib.xoetrope.editor.color'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.fonts'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api.fonts'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.painter'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.substance.api.painter.border,org.pushingpixels.substance.api.painter.fill,org.pushingpixels.substance.internal.utils'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.plugin'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.lafplugin,org.pushingpixels.substance.api.skin'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.resources'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.ui'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.substance.internal.animation,org.pushingpixels.substance.internal.contrib.randelshofer.quaqua,org.pushingpixels.substance.internal.utils,org.pushingpixels.substance.internal.utils.icon,org.pushingpixels.substance.internal.utils.menu,org.pushingpixels.trident,org.pushingpixels.trident.callback'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.utils'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.lafwidget,org.pushingpixels.lafwidget.utils,org.pushingpixels.substance.api,org.pushingpixels.substance.api.fonts,org.pushingpixels.substance.api.painter.border,org.pushingpixels.substance.api.painter.fill,org.pushingpixels.substance.api.shaper,org.pushingpixels.substance.api.tabbed,org.pushingpixels.substance.api.trait,org.pushingpixels.substance.api.watermark,org.pushingpixels.substance.internal.animation,org.pushingpixels.substance.internal.painter,org.pushingpixels.substance.internal.ui,org.pushingpixels.substance.internal.utils.icon,org.pushingpixels.trident.swing'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.utils.border'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.internal.ui'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.utils.combo'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api.painter.border,org.pushingpixels.substance.api.painter.fill'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.utils.filters'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.substance.internal.utils'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.utils.icon'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.substance.internal.animation'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.utils.menu'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.substance.internal.utils.scroll'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.substance.api,org.pushingpixels.substance.internal.utils'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.trident'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.trident.callback,org.pushingpixels.trident.ease,org.pushingpixels.trident.interpolator'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.trident.android'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.trident,org.pushingpixels.trident.callback,org.pushingpixels.trident.interpolator'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.trident.callback'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.trident'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.trident.ease'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.trident.interpolator'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.trident.ease'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.trident.swing'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.trident,org.pushingpixels.trident.callback,org.pushingpixels.trident.interpolator'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.pushingpixels.trident.swt'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='uses:' v='org.pushingpixels.trident,org.pushingpixels.trident.callback,org.pushingpixels.trident.interpolator'/>
+    </capability>
+    <require name='bundle' filter='(&amp;(symbolicname=system.bundle))' extend='true' multiple='false' optional='false'>Required Host system.bundle</require>
+  </resource>
+</repository>

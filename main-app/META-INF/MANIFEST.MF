@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Created-By: iPOJO 1.12.0
+Import-Package: org.apache.felix.ipojo;version="[1.12.0,2.0.0)", org.a
+ pache.felix.ipojo.architecture;version="[1.12.0,2.0.0)", org.osgi.ser
+ vice.cm;version=1.2, org.osgi.service.log;version=1.3
+iPOJO-Components: instance { $component="com.br.osgi.App" }instance { 
+ $component="com.br.osgi.ExampleComponent" }component { $name="com.br.
+ osgi.App" $classname="com.br.osgi.App" requires { $field="log" $optio
+ nal="true" }requires { $field="ie" }callback { $transition="validate"
+  $method="start" }callback { $transition="invalidate" $method="stop" 
+ }manipulation { $classname="com.br.osgi.App" interface { $name="com.b
+ r.osgi.IApp" }field { $name="frame" $type="javax.swing.JFrame" }field
+  { $name="ie" $type="com.br.osgi.IE" }field { $name="log" $type="org.
+ osgi.service.log.LogService" }field { $name="strategyLabel" $type="ja
+ vax.swing.JLabel" }method { $name="createAndShowGUI" }method { $name=
+ "start" }method { $name="stop" }method { $name="update" }inner { $nam
+ e="1" method { $name="run" }}inner { $name="2" method { $name="run" }
+ }}}component { $name="com.br.osgi.ExampleComponent" $classname="com.b
+ r.osgi.ExampleComponent" provides { }requires { $field="log" $optiona
+ l="true" }requires { $aggregate="true" $optional="true" $id="Strategy
+ " callback { $method="bindStrategy" $type="bind" }callback { $method=
+ "unbindStrategy" $type="unbind" }}callback { $transition="validate" $
+ method="start" }callback { $transition="invalidate" $method="stop" }m
+ anipulation { $classname="com.br.osgi.ExampleComponent" interface { $
+ name="com.br.osgi.IE" }field { $name="apps" $type="java.util.List" }f
+ ield { $name="log" $type="org.osgi.service.log.LogService" }field { $
+ name="strategies" $type="java.util.List" }method { $name="start" }met
+ hod { $name="stop" }method { $name="bindStrategy" $arguments="{com.br
+ .game.api.Strategy}" $names="{strategy}" }method { $name="unbindStrat
+ egy" $arguments="{com.br.game.api.Strategy}" $names="{strategy}" }met
+ hod { $name="getStrategies" $return="java.util.List" }method { $name=
+ "addObserver" $arguments="{com.br.osgi.IApp}" $names="{app}" }method 
+ { $name="removeObserver" $arguments="{com.br.osgi.IApp}" $names="{app
+ }" }method { $name="updateObservers" }}}
+

@@ -1,0 +1,16 @@
+-buildpath:  \
+	osgi.core,\
+	${junit},\
+	osgi.cmpn;version=4.3,\
+	common-api;version=latest
+-outputmask: ${@bsn}-${version;===S;${@version}}.jar
+Bundle-Version: 1.0.0.SNAPSHOT
+bin: target/classes
+src: src/main/java
+target-dir: target
+testbin: target/test-classes
+testsrc: src/main/test
+Private-Package:  \
+	strategy
+-dsannotations:  \
+	*
