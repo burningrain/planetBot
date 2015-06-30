@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Paint;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.Collection;
@@ -32,14 +33,16 @@ import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.SparseMultigraph;
 import edu.uci.ics.jung.graph.util.EdgeType;
 import edu.uci.ics.jung.graph.util.Pair;
+import edu.uci.ics.jung.visualization.RenderContext;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
+import edu.uci.ics.jung.visualization.renderers.BasicRenderer;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
 
 public class GraphWidget extends JPanel implements
 		IWidget<GraphWM, IController> {
-
+	
 	/**
 	 * 
 	 */
@@ -55,13 +58,18 @@ public class GraphWidget extends JPanel implements
 			return color == null ? Color.DARK_GRAY : color;
 		}
 	};
+	
+	private Transformer<Planet, Paint> vertexHolePaint = new Transformer<Planet, Paint>() {
+		@Override
+		public Paint transform(Planet planet) {			
+			return Color.DARK_GRAY;
+		}
+	};
 
 	private Transformer<Planet, Shape> vertexSize = new Transformer<Planet, Shape>() {
 
 		@Override
-		public Shape transform(Planet planet) {
-			Ellipse2D circle = new Ellipse2D.Double(-5, -5, 10, 10);
-			// in this case, the vertex is twice as large
+		public Shape transform(Planet planet) {			
 			int i = 0;
 			switch (planet.getType()) {
 			case TYPE_A:
@@ -78,10 +86,50 @@ public class GraphWidget extends JPanel implements
 				break;
 
 			}
-			return AffineTransform.getScaleInstance(i, i)
-					.createTransformedShape(circle);
+			Ellipse2D circle = new Ellipse2D.Double(-5, -5, 10, 10);
+			Shape shape = AffineTransform.getScaleInstance(i, i).createTransformedShape(circle);			
+			return shape;
 		}
 	};
+	
+	private Transformer<Planet, Shape> vertexHole = new Transformer<Planet, Shape>() {
+
+		@Override
+		public Shape transform(Planet planet) {
+			Shape shape = vertexSize.transform(planet);
+			
+			double buseUnitsPercent = (double) planet.getUnits()
+					/ planet.getType().getLimit();
+			if (buseUnitsPercent > 1) {
+				buseUnitsPercent = 1;
+			}
+			double freeUnitsPercent = 1.0 - buseUnitsPercent;
+
+			shape = AffineTransform.getScaleInstance(freeUnitsPercent,
+					freeUnitsPercent).createTransformedShape(shape);						
+			return shape;
+		}
+	};
+	
+	private class UglyHuckRenderer extends BasicRenderer<Planet, String>{
+		
+		/**
+		 * необходимо вырезать дыру в круге.
+		 * после добавления {@link Area#subtract(Area)} в трансформер 
+		 * переставали рендериться стрелки. Ничего умнее этого хака не придумал.
+		 */
+		public void renderVertex(RenderContext<Planet, String> rc, Layout<Planet, String> layout, Planet v) {
+			
+			super.renderVertex(rc, layout, v);	        
+	        rc.setVertexShapeTransformer(vertexHole);
+	        rc.setVertexFillPaintTransformer(vertexHolePaint);
+	        super.renderVertex(rc, layout, v);  	        
+	        rc.setVertexShapeTransformer(vertexSize);
+			rc.setVertexFillPaintTransformer(vertexPaint);	                
+	    }
+		
+	}
+	
 
 	private Transformer<String, Paint> edgePaint = new Transformer<String, Paint>() {
 
@@ -180,13 +228,13 @@ public class GraphWidget extends JPanel implements
 		paintEdges();
 		locationTransformer = new LocationTransformer(
 				Collections.unmodifiableCollection(planets), vm.getGameType());
-		Layout<Planet, String> layout = new StaticLayout<Planet, String>(graph,
+		final Layout<Planet, String> layout = new StaticLayout<Planet, String>(graph,
 				locationTransformer);
-		layout.setSize(new Dimension(View.START_WIDTH, View.START_HEIGHT)); 
+		layout.setSize(new Dimension(View.START_WIDTH, View.START_HEIGHT));
 
 		vv = new VisualizationViewer<Planet, String>(layout);
-		vv.setPreferredSize(new Dimension(View.START_WIDTH, View.START_HEIGHT)); 
-
+		vv.setPreferredSize(new Dimension(View.START_WIDTH, View.START_HEIGHT));
+		vv.setRenderer(new UglyHuckRenderer());
 		vv.getRenderContext().setVertexFillPaintTransformer(vertexPaint);
 		vv.getRenderContext().setVertexShapeTransformer(vertexSize);
 		// vv.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
@@ -194,11 +242,12 @@ public class GraphWidget extends JPanel implements
 		vv.getRenderContext().setEdgeDrawPaintTransformer(edgePaint);
 		vv.getRenderContext().setArrowDrawPaintTransformer(edgePaint);
 		vv.getRenderContext().setEdgeLabelTransformer(edgeLabel);
+
 		vv.getRenderer().getVertexLabelRenderer()
 				.setPosition(Renderer.VertexLabel.Position.CNTR);
 
 		vv.getRenderContext().setEdgeShapeTransformer(
-				new EdgeShape.Line<Planet, String>());
+				new EdgeShape.Line<Planet, String>());			
 
 		this.add(vv);
 		updateUI();
