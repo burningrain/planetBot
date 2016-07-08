@@ -1,3 +1,2 @@
-<?xml version="1.0" encoding="utf-8"?>
-<repository increment="1426243625708" name="Release" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
-</repository>
+a:58) ~[indexer-core-3.1.0.jar:3.1.0]
+	at org.apache.maven.index.context.DefaultIndexingContext.prepareCleanIndex(DefaultIndexingContext.java:235) ~[indexer-co

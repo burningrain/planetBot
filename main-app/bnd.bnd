@@ -2,7 +2,7 @@
 	osgi.core,\
 	${junit},\
 	osgi.cmpn;version=4.3,\
-	common-api;version=latest,\
+	game-api;version=latest,\
 	com.br.fragment-laf
 -outputmask: ${@bsn}-${version;===S;${@version}}.jar
 
@@ -31,32 +31,32 @@ jung-graph-impl-2.0.1.jar, \
 jung-visualization-2.0.1.jar
 	
 Private-Package:  \
-	com.br.app,\
-	com.br.controller,\
-	com.br.controller.impl,\
-	com.br.model.config.properties,\
-	com.br.model.logic,\
-	com.br.model.objects,\
-	com.br.model.objects.inner,\
-	com.br.model.objects.inner.impl,\
-	com.br.model.objects.remote,\
-	com.br.model.objects.remote.impl,\
-	com.br.model.services.inner,\
-	com.br.model.services.inner.beans,\
-	com.br.model.services.inner.exception,\
-	com.br.model.services.inner.xml,\
-	com.br.model.services.remote,\
-	com.br.model.services.remote.impl,\
+	com.github.br.starmarines.main.app,\
+	com.github.br.starmarines.main.controller,\
+	com.github.br.starmarines.main.controller.impl,\
+	com.github.br.starmarines.main.model.config.properties,\
+	com.github.br.starmarines.main.model.logic,\
+	com.github.br.starmarines.main.model.objects,\
+	com.github.br.starmarines.main.model.objects.inner,\
+	com.github.br.starmarines.main.model.objects.inner.impl,\
+	com.github.br.starmarines.main.model.objects.remote,\
+	com.github.br.starmarines.main.model.objects.remote.impl,\
+	com.github.br.starmarines.main.model.services.inner,\
+	com.github.br.starmarines.main.model.services.inner.beans,\
+	com.github.br.starmarines.main.model.services.inner.exception,\
+	com.github.br.starmarines.main.model.services.inner.xml,\
+	com.github.br.starmarines.main.model.services.remote,\
+	com.github.br.starmarines.main.model.services.remote.impl,\
 	com.br.starwors.lx.galaxy,\
 	com.br.starwors.lx.logic.utils,\
 	com.br.starwors.lx.logic.utils.fs,\
-	com.br.view,\
-	com.br.view.model,\
-	com.br.view.model.objects,\
-	com.br.view.model.objects.impl,\
-	com.br.view.widgets,\
-	com.br.view.widgets.chart,\
-	com.br.view.widgets.graph,\
-	com.br.view.widgets.menu,\
-	com.br.view.wm,\
-	com.br.view.wm.impl
+	com.github.br.starmarines.main.view,\
+	com.github.br.starmarines.main.view.model,\
+	com.github.br.starmarines.main.view.model.objects,\
+	com.github.br.starmarines.main.view.model.objects.impl,\
+	com.github.br.starmarines.main.view.widgets,\
+	com.github.br.starmarines.main.view.widgets.chart,\
+	com.github.br.starmarines.main.view.widgets.graph,\
+	com.github.br.starmarines.main.view.widgets.menu,\
+	com.github.br.starmarines.main.view.wm,\
+	com.github.br.starmarines.main.view.wm.impl

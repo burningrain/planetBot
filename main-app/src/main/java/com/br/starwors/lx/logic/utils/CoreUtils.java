@@ -7,8 +7,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.br.game.api.galaxy.Move;
 import com.br.starwors.lx.galaxy.Action;
+import com.github.br.starmarines.game.api.galaxy.Move;
 
 public final class CoreUtils {
 

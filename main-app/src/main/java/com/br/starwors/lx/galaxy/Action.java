@@ -1,6 +1,7 @@
 package com.br.starwors.lx.galaxy;
 
-import com.br.game.api.galaxy.Move;
+import com.github.br.starmarines.game.api.galaxy.Move;
+
 
 
 public class Action {

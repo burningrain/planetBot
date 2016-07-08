@@ -1,6 +1,7 @@
 package com.br.starwors.lx.logic.utils;
 
-import com.br.game.api.galaxy.Planet;
+import com.github.br.starmarines.game.api.galaxy.Planet;
+
 
 
 public final class PlanetUtils {

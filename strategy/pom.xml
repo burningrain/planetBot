@@ -28,7 +28,7 @@
 
 		<dependency>
 			<groupId>com.br</groupId>
-			<artifactId>common-api</artifactId>
+			<artifactId>game-api</artifactId>
 			<type>bundle</type>
 			<scope>provided</scope>
 		</dependency>

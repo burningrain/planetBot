@@ -1,0 +1,29 @@
+-buildpath:  \
+	osgi.core,\
+	${junit},\
+	osgi.cmpn;version=4.3,\
+	common-api;version=latest,\
+	com.br.fragment-laf
+-outputmask: ${@bsn}-${version;===S;${@version}}.jar
+
+Bundle-Version: 1.0.0.SNAPSHOT
+bin: target/classes
+src: src/main/java
+target-dir: target
+testbin: target/test-classes
+testsrc: src/main/test
+
+#Include-Resource: lib
+
+Bundle-ClassPath: \
+., \
+jooq-codegen-3.6.2.jar, \
+jooq-meta-3.6.2.jar
+
+-dsannotations:  \
+	*
+Private-Package:  \
+	com.github.br.starmarines.gamecore.db,\
+	org.jooq.db.generate,\
+	org.jooq.db.generate.tables,\
+	org.jooq.db.generate.tables.records

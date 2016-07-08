@@ -18,9 +18,11 @@
 	<modules>
 		<module>../launcher</module>
 		<module>../fragment-laf</module>
-		<module>../common-api</module>
+		<module>../game-api</module>
 		<module>../strategy</module>
-		<module>../main-app</module>
+		<module>../main-app</module>		
+		<module>../game-core</module>
+		<module>../game-core-dbscripts</module>
 		<module>../assembly</module>
 	</modules>
 
@@ -48,7 +50,7 @@
 
 			<dependency>
 				<groupId>com.br</groupId>
-				<artifactId>common-api</artifactId>
+				<artifactId>game-api</artifactId>
 				<type>bundle</type>
 				<version>${project.version}</version>
 			</dependency>

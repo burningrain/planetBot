@@ -1,0 +1,12 @@
+-outputmask: ${@bsn}-${version;===S;${@version}}.jar
+Bundle-Version: 1.0.0.SNAPSHOT
+bin: target/classes
+src: src/main/java
+target-dir: target
+testbin: target/test-classes
+testsrc: src/main/test
+
+Export-Package:  \
+	com.github.br.starmarines.game.api.strategy,\
+	com.github.br.starmarines.game.api.galaxy,\
+	com.br.starwors.lx.logic.utils

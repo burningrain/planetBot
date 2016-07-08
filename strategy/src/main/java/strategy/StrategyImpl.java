@@ -4,9 +4,11 @@ import java.util.Collection;
 
 import org.osgi.service.component.annotations.Component;
 
-import com.br.game.api.IStrategy;
-import com.br.game.api.galaxy.Move;
-import com.br.game.api.galaxy.Planet;
+import com.github.br.starmarines.game.api.galaxy.Move;
+import com.github.br.starmarines.game.api.galaxy.Planet;
+import com.github.br.starmarines.game.api.strategy.IStrategy;
+
+
 
 @Component(service = IStrategy.class)
 public class StrategyImpl implements IStrategy {

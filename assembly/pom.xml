@@ -23,7 +23,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.br</groupId>
-			<artifactId>common-api</artifactId>
+			<artifactId>game-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
@@ -36,6 +36,18 @@
 		<dependency>
 			<groupId>com.br</groupId>
 			<artifactId>main-app</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>game-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>game-core-dbscripts</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
@@ -116,8 +128,8 @@
 								</copy>
 
 								<!-- копирование API -->
-								<copy todir="target/common-api">
-									<fileset dir="../common-api/target" includes="*.jar">
+								<copy todir="target/game-api">
+									<fileset dir="../game-api/target" includes="*.jar">
 									</fileset>
 								</copy>
 
@@ -126,6 +138,9 @@
 									<fileset dir="../strategy/target" includes="*.jar">
 									</fileset>
 								</copy>
+								
+								<!-- TODO копировать ядро и фрагмент --> 
+								
 							</tasks>
 						</configuration>
 						<goals>

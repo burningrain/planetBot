@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<artifactId>starmarines</artifactId>
+		<groupId>com.br</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../starmarines-parent</relativePath>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>game-core</artifactId>
+	<packaging>bundle</packaging>
+
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>game-api</artifactId>
+			<type>bundle</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.2</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- graph library -->
+		<dependency>
+			<groupId>org.jgrapht</groupId>
+			<artifactId>jgrapht-core</artifactId>
+			<version>0.9.2</version>
+		</dependency>
+
+
+		<!-- JOOQ -->
+		<dependency>
+			<groupId>org.jooq</groupId>
+			<artifactId>jooq</artifactId>
+			<version>3.6.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jooq</groupId>
+			<artifactId>jooq-meta</artifactId>
+			<version>3.6.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jooq</groupId>
+			<artifactId>jooq-codegen</artifactId>
+			<version>3.6.2</version>
+		</dependency>
+		<!-- JOOQ -->
+
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4-1201-jdbc41</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.185</version>
+		</dependency>
+
+
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+
+				<!-- Specify the maven code generator plugin -->
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-codegen-maven</artifactId>
+				<version>3.4.5</version>
+
+				<!-- The plugin should hook into the generate goal -->
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<!-- Manage the plugin's dependency. In this example, we'll use a PostgreSQL 
+					database -->
+				<dependencies>
+					<dependency>
+						<groupId>org.postgresql</groupId>
+						<artifactId>postgresql</artifactId>
+						<version>9.4-1201-jdbc41</version>
+					</dependency>
+				</dependencies>
+
+				<!-- Specify the plugin configuration. The configuration format is the 
+					same as for the standalone code generator -->
+				<configuration>
+
+					<!-- JDBC connection parameters -->
+					<jdbc>
+						<driver>org.postgresql.Driver</driver>
+						<url>jdbc:postgresql:bot</url>
+						<user>postgres</user>
+						<password>123456</password>
+					</jdbc>
+
+					<!-- Generator parameters -->
+					<generator>
+						<database>
+							<name>org.jooq.util.postgres.PostgresDatabase</name>
+							<includes>.*</includes>
+							<excludes></excludes>
+							<inputSchema>star_marines_bot</inputSchema>
+						</database>
+						<target>
+							<packageName>org.jooq.db.generate</packageName>
+							<directory>src/main/java</directory>
+						</target>
+					</generator>
+				</configuration>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeScope>runtime</includeScope>
+							<outputDirectory>lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+
+</project>
