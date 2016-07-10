@@ -136,7 +136,7 @@
 						</manifestEntries>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>com.lix.main.Launcher</mainClass>
+							<mainClass>com.github.br.starmarines.launcher.Launcher</mainClass>
 							<classpathPrefix>dependency-jars/</classpathPrefix>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>osgi/</classpathPrefix>

@@ -2,7 +2,7 @@ package com.github.br.starmarines.main.view.widgets.graph;
 
 import org.apache.commons.collections15.Transformer;
 
-import com.br.starwors.lx.logic.utils.PlanetCloner;
+import com.br.starwors.lx.logic.utils.anotherone.PlanetCloner;
 import com.github.br.starmarines.game.api.galaxy.Planet;
 import com.github.br.starmarines.game.api.galaxy.PlanetType;
 import com.github.br.starmarines.main.model.objects.inner.impl.GameInfo.GameType;

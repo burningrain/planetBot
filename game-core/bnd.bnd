@@ -20,10 +20,11 @@ Bundle-ClassPath: \
 jooq-codegen-3.6.2.jar, \
 jooq-meta-3.6.2.jar
 
--dsannotations:  \
-	*
 Private-Package:  \
-	com.github.br.starmarines.gamecore.db,\
-	org.jooq.db.generate,\
-	org.jooq.db.generate.tables,\
-	org.jooq.db.generate.tables.records
+	com.github.br.starmarines.gamecore
+Export-Package:  \
+	com.github.br.starmarines.gamecore.api,\
+	com.github.br.starmarines.gamecore.spi,\
+	com.github.br.starmarines.gamecore.mistakes
+Service-Component:  \
+	*

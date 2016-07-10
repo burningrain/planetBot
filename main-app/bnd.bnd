@@ -31,6 +31,8 @@ jung-graph-impl-2.0.1.jar, \
 jung-visualization-2.0.1.jar
 	
 Private-Package:  \
+	com.br.starwors.lx.galaxy,\
+	com.br.starwors.lx.logic.utils.anotherone,\
 	com.github.br.starmarines.main.app,\
 	com.github.br.starmarines.main.controller,\
 	com.github.br.starmarines.main.controller.impl,\
@@ -47,9 +49,6 @@ Private-Package:  \
 	com.github.br.starmarines.main.model.services.inner.xml,\
 	com.github.br.starmarines.main.model.services.remote,\
 	com.github.br.starmarines.main.model.services.remote.impl,\
-	com.br.starwors.lx.galaxy,\
-	com.br.starwors.lx.logic.utils,\
-	com.br.starwors.lx.logic.utils.fs,\
 	com.github.br.starmarines.main.view,\
 	com.github.br.starmarines.main.view.model,\
 	com.github.br.starmarines.main.view.model.objects,\

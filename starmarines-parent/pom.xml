@@ -22,7 +22,6 @@
 		<module>../strategy</module>
 		<module>../main-app</module>		
 		<module>../game-core</module>
-		<module>../game-core-dbscripts</module>
 		<module>../assembly</module>
 	</modules>
 

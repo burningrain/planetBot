@@ -44,12 +44,6 @@
 			<artifactId>game-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>com.br</groupId>
-			<artifactId>game-core-dbscripts</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>com.br</groupId>
@@ -139,7 +133,17 @@
 									</fileset>
 								</copy>
 								
-								<!-- TODO копировать ядро и фрагмент --> 
+								<!-- копирование игрового движка --> 
+								<copy todir="target/osgi/bundles/app">
+									<fileset dir="../game-core/target" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование графовой либы игрового движка -->
+								<copy todir="target/osgi/bundles">
+									<fileset dir="../game-core/lib" includes="*.jar">
+									</fileset>
+								</copy>
 								
 							</tasks>
 						</configuration>
