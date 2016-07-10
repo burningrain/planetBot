@@ -28,6 +28,12 @@
 			<artifactId>org.osgi.compendium</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.ipojo.annotations</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.osgi</groupId>
@@ -55,6 +61,11 @@
 
 	<build>
 		<plugins>			
+		
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-ipojo-plugin</artifactId>
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

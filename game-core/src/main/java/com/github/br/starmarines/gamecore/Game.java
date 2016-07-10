@@ -67,8 +67,9 @@ class Game {
 	void addPlayer(Player player) {
 		if(status.equals(GameStatus.CREATED)){
 			int count = currentPlayersCount.incrementAndGet();
-			if(count == info.getPlayersCount()){				
-				changeStatus(GameStatus.WAITING_PLAYERS_STEPS, null);				
+			if(count == info.getPlayersCount()){
+				players.add(player);
+				changeStatus(GameStatus.ALL_PLAYERS_RECRUITED, null);				
 			} else if(count <= info.getPlayersCount()){
 				players.add(player);
 			} else{

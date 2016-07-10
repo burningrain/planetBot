@@ -2,6 +2,7 @@ package com.github.br.starmarines.gamecore;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.jgrapht.UndirectedGraph;
+import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleGraph;
 
 import com.br.starwors.lx.logic.utils.anotherone.PlanetCloner;
@@ -23,14 +25,14 @@ import com.github.br.starmarines.gamecore.mistakes.GameStepMistake;
 public class Galaxy {
 	
 	private final GalaxyType galaxyType;
-	private UndirectedGraph<PlanetVertex, PlanetEdge> graph;
+	private UndirectedGraph<PlanetVertex, DefaultWeightedEdge> graph;
 	private Map<Planet, PlanetVertex> planets;
 	private int year = 0;
 	
 	private List<Planet> startPoints;
 
 	private Galaxy(final GalaxyType galaxyType, 
-					UndirectedGraph<PlanetVertex, PlanetEdge> graph, 
+					UndirectedGraph<PlanetVertex, DefaultWeightedEdge> graph, 
 					Map<Planet, PlanetVertex> planets, 
 					List<Planet> startPoints) {
 		this.galaxyType = galaxyType;
@@ -169,28 +171,36 @@ public class Galaxy {
 		 * игрока. 
 		 */
 		public void choosePlanetsMasters(){
-			int max = 0; // только "+" может быть у вражеских ходов
-			Player strongestPlayer = null;
-			for(Step step : enemySteps){
-				int units = step.getUnits();
-				if(units > max) {
-					max = units; 
-					strongestPlayer = step.getPlayer();
+			// если враги не послали на планету юнитов, считать нечего
+			if(enemySteps.size() == 0){
+				return; 
+			}			
+			
+			enemySteps.add(new Step(new Player(planet.getOwner()), planet.getUnits())); //TODO кривота, убрать
+			// только "+" может быть у вражеских ходов;
+			// сортируем по возрастанию
+			enemySteps.sort(new Comparator<Step>() {
+				@Override
+				public int compare(Step o1, Step o2) {					
+					return o1.getUnits() - o2.getUnits();
 				}
-			}
-			int result = planet.getUnits() - max;
+			});
+			Step first = enemySteps.get(enemySteps.size() - 1);
+			Step second = enemySteps.get(enemySteps.size() - 2);
+			
+			int result = first.getUnits() - second.getUnits();
 			if(result > 0){
-				// планету не захватили
+				// планету захватили или хозяин отбился
+				result = Math.abs(result);
 				planet.setUnits(result);
+				planet.setOwner(first.getPlayer().getName());
 			} else if(result == 0){
 				// не захватили, но всех убили
 				planet.setUnits(result);
 				planet.setOwner("");
 			} else{ 
-				// захватили
-				result = Math.abs(result);
-				planet.setUnits(result);
-				planet.setOwner(strongestPlayer.getName());
+				// второй по числу юнитов обошел первого. Как такое случилось?
+				throw new IllegalStateException("Ошибка при подсчете хозяина планеты");
 			}
 			
 			enemySteps.clear();
@@ -245,21 +255,21 @@ public class Galaxy {
 	}
 	
 	
-	private static class PlanetEdge{
-		
-	}
+//	public static class PlanetEdge {
+//
+//	}
 		
 
 	public static class Builder {
 
-		private UndirectedGraph<PlanetVertex, PlanetEdge> graph;
+		private UndirectedGraph<PlanetVertex, DefaultWeightedEdge> graph;
 		private Map<Planet, PlanetVertex> planets;
 		private final GalaxyType galaxyType;
 		private List<Planet> startPoints;
 
 		public Builder(final GalaxyType galaxyType) {
 			this.galaxyType = galaxyType;
-			graph = new SimpleGraph<>(PlanetEdge.class);
+			graph = new SimpleGraph<>(DefaultWeightedEdge.class);
 			planets = new HashMap<>();
 			startPoints = new LinkedList<>();
 		}

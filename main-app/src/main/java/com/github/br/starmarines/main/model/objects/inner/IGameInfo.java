@@ -19,5 +19,13 @@ public interface IGameInfo extends IModelObject<IGameInfo> {
 	int getStepsCount();
 
 	Collection<Planet> getGalaxy();
+	
+	void setStepsCount(int stepsCount);
+	
+	void clear();
+	
+	void updateGalaxy(final Collection<Planet> galaxy);
+	
+	
 
 }

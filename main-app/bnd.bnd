@@ -3,7 +3,8 @@
 	${junit},\
 	osgi.cmpn;version=4.3,\
 	game-api;version=latest,\
-	com.br.fragment-laf
+	com.br.fragment-laf,\
+	game-core;version=latest
 -outputmask: ${@bsn}-${version;===S;${@version}}.jar
 
 Bundle-Version: 1.0.0.SNAPSHOT

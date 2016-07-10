@@ -1,9 +1,8 @@
--buildpath:  \
+-buildpath: \
 	osgi.core,\
 	${junit},\
 	osgi.cmpn;version=4.3,\
-	common-api;version=latest,\
-	com.br.fragment-laf
+	game-api;version=latest
 -outputmask: ${@bsn}-${version;===S;${@version}}.jar
 
 Bundle-Version: 1.0.0.SNAPSHOT
@@ -16,9 +15,7 @@ testsrc: src/main/test
 #Include-Resource: lib
 
 Bundle-ClassPath: \
-., \
-jooq-codegen-3.6.2.jar, \
-jooq-meta-3.6.2.jar
+
 
 Private-Package:  \
 	com.github.br.starmarines.gamecore
@@ -26,5 +23,4 @@ Export-Package:  \
 	com.github.br.starmarines.gamecore.api,\
 	com.github.br.starmarines.gamecore.spi,\
 	com.github.br.starmarines.gamecore.mistakes
-Service-Component:  \
-	*
+-dsannotations: *

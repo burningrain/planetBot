@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ import com.github.br.starmarines.main.view.widgets.chart.ChartWidget;
 public class ColorVM extends AbstractVM<IColorVM> implements IColorVM {	
 	private Logger logger = LoggerFactory.getLogger(ColorVM.class); 
 	
-	private Map<String, Color> playersColors = new HashMap<String, Color>();
+	private Map<String, Color> playersColors = new ConcurrentHashMap<String, Color>();
 	
 	@Override
 	public Map<String, Color> getPlayersColors() {

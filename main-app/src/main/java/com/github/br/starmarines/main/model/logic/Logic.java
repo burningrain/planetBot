@@ -35,6 +35,9 @@ public class Logic {
 	@Requires
 	private StrategyLogic strategyLogic;
 	
+	@Requires
+	private GameEngineLogic gameEngineLogic;
+	
 
 	public OnlineGameLogic getOnlineGameLogic() {
 		return onlineGameLogic;
@@ -47,6 +50,10 @@ public class Logic {
 	public StrategyLogic getStrategyLogic() {
 		return strategyLogic;
 	}
+
+	public GameEngineLogic getGameEngineLogic() {
+		return gameEngineLogic;
+	}	
 	
 
 }

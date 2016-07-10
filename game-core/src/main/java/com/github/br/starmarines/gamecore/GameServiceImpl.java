@@ -2,10 +2,13 @@ package com.github.br.starmarines.gamecore;
 
 import java.util.Collection;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
-import org.osgi.service.component.annotations.ReferencePolicy;
+import org.apache.felix.ipojo.annotations.BindingPolicy;
+import org.apache.felix.ipojo.annotations.Component;
+import org.apache.felix.ipojo.annotations.Instantiate;
+import org.apache.felix.ipojo.annotations.Provides;
+import org.apache.felix.ipojo.annotations.Requires;
+import org.apache.felix.ipojo.annotations.Validate;
+import org.osgi.service.log.LogService;
 
 import com.github.br.starmarines.game.api.galaxy.Move;
 import com.github.br.starmarines.gamecore.api.GalaxyType;
@@ -13,29 +16,33 @@ import com.github.br.starmarines.gamecore.api.IGameService;
 import com.github.br.starmarines.gamecore.api.Player;
 import com.github.br.starmarines.gamecore.spi.IGameEventListener;
 
-
-@Component(service=IGameService.class, immediate=true, enabled=true)
+@Provides
+@Instantiate
+@Component
 public class GameServiceImpl implements IGameService {
 	
-	private GameContainer gameContainer;
+	@Requires(optional = true)
+	private LogService logService;
 	
-	@Reference(cardinality=ReferenceCardinality.MANDATORY, policy = ReferencePolicy.STATIC)
-	private void setGameContainer(GameContainer gameContainer){
-		this.gameContainer = gameContainer;
+	@Validate
+	private void v(){
+		logService.log(LogService.LOG_DEBUG, this.getClass().getSimpleName() + " start");
 	}
 	
+	@Requires(policy=BindingPolicy.STATIC, proxy=false)
+	private GameContainer gameContainer;	
+
+
+	@Requires(policy=BindingPolicy.STATIC, proxy=false)
 	private GameExecutorManager gameExecutor;
 	
-	@Reference(cardinality = ReferenceCardinality.MANDATORY, policy = ReferencePolicy.STATIC)
-	private void setGameContainer(GameExecutorManager gameExecutor){
-		this.gameExecutor = gameExecutor;
-	}
+
 	
 	//TODO для галактики сделать фабрику, а здесь принимать именно тип из определенного в фабрике
-	public void createGame(String title, int playersCount, Integer maxGameStepAmount, 
+	public Long createGame(String title, int playersCount, Integer maxGameStepAmount, 
 			GalaxyType type, IGameEventListener lisneter){
 		Galaxy galaxy = GalaxyFactory.getGalaxy(playersCount, type);
-		gameContainer.createGame(title, playersCount, galaxy, maxGameStepAmount, lisneter);
+		return gameContainer.createGame(title, playersCount, galaxy, maxGameStepAmount, lisneter);
 	}
 	
 	public void addPlayerToGame(final Long gameId, Player player){

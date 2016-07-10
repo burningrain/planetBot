@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import com.github.br.starmarines.main.controller.IController;
 import com.github.br.starmarines.main.controller.impl.OnlineGameController;
 import com.github.br.starmarines.main.view.widgets.IWidget;
 import com.github.br.starmarines.main.view.wm.impl.MenuOnlineGameWM;

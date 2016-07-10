@@ -1,6 +1,6 @@
 package com.github.br.starmarines.gamecore.api;
 
-public class Player {
+public class Player implements Comparable<Player> {
 	
 	private String name;
 
@@ -35,9 +35,11 @@ public class Player {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
-	}	
-	
-	
-	
+	}
+
+	@Override
+	public int compareTo(Player o) {		
+		return name.compareTo(o.getName());
+	}		
 
 }

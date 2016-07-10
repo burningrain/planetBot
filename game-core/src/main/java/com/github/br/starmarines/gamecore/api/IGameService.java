@@ -7,7 +7,7 @@ import com.github.br.starmarines.gamecore.spi.IGameEventListener;
 
 public interface IGameService {
 
-	void createGame(String title, 
+	Long createGame(String title, 
 					int playersCount, 
 					Integer maxGameStepAmount, 
 					GalaxyType type, 

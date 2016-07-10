@@ -82,6 +82,10 @@ public class StrategiesImpl implements IStrategies {
 		currentStrategy = strategies.get(title);
 	}
 	
+	@Override
+	public String getCurrentStrategy() {		
+		return currentStrategy.getTitle();
+	}	
 	
 	public Collection<Move> step(Collection<Planet> galaxy) {
 		return currentStrategy.step(galaxy);
@@ -165,6 +169,6 @@ public class StrategiesImpl implements IStrategies {
 		for(IModelListener<IStrategies> listener : listeners){
 			listener.update(this);
 		}		
-	}
+	}	
 
 }

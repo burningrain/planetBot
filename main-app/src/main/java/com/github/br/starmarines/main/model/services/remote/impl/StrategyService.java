@@ -1,6 +1,7 @@
 package com.github.br.starmarines.main.model.services.remote.impl;
 
 import java.util.Collection;
+import java.util.Set;
 
 import org.apache.felix.ipojo.annotations.BindingPolicy;
 import org.apache.felix.ipojo.annotations.Component;
@@ -14,6 +15,7 @@ import org.osgi.service.log.LogService;
 import com.github.br.starmarines.game.api.galaxy.Move;
 import com.github.br.starmarines.game.api.galaxy.Planet;
 import com.github.br.starmarines.main.model.objects.remote.IStrategies;
+import com.github.br.starmarines.main.model.objects.remote.impl.StrategiesImpl;
 import com.github.br.starmarines.main.model.services.remote.IStrategyService;
 
 
@@ -41,14 +43,20 @@ public class StrategyService implements IStrategyService {
 	
 
 	@Override
-	public Collection<Move> step(Collection<Planet> galaxy) {		
-		return ((IStrategyService) strategies).step(galaxy);
+	public Collection<Move> step(Collection<Planet> galaxy) {
+		System.out.println("а до сюда дошло? Текущая стратегия: " + strategies.getCurrentStrategy());
+		return strategies.step(galaxy);
 	}
 
 
 	@Override
 	public void setCurrentStrategy(String title) {
 		strategies.setCurrentStrategy(title);		
+	}
+
+	@Override
+	public Set<String> getStrategies() {		
+		return strategies.getStrategies();
 	}
 
 }

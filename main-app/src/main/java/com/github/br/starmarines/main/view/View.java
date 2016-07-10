@@ -14,6 +14,7 @@ import javax.swing.WindowConstants;
 
 import com.github.br.starmarines.main.view.widgets.chart.ChartWidget;
 import com.github.br.starmarines.main.view.widgets.graph.GraphWidget;
+import com.github.br.starmarines.main.view.widgets.menu.MenuGameEngineWidget;
 import com.github.br.starmarines.main.view.widgets.menu.MenuOnlineGameWidget;
 import com.github.br.starmarines.main.view.widgets.menu.MenuReplayGameWidget;
 
@@ -27,6 +28,7 @@ public class View {
     private ChartWidget chartWidget;
     private MenuOnlineGameWidget menuOnlineGameWidget;
     private MenuReplayGameWidget menuReplayGameWidget;
+    private MenuGameEngineWidget engineGameWidget;
     
     
     
@@ -50,6 +52,11 @@ public class View {
 
 	public MenuReplayGameWidget getMenuReplayGameWidget() {
 		return menuReplayGameWidget;
+	}
+	
+	
+	public MenuGameEngineWidget getMenuGameEngineWidget(){
+		return engineGameWidget;
 	}
 
 
@@ -105,6 +112,7 @@ public class View {
                 chartWidget = new ChartWidget();
                 menuOnlineGameWidget = new MenuOnlineGameWidget();
                 menuReplayGameWidget = new MenuReplayGameWidget();
+                engineGameWidget = new MenuGameEngineWidget();
                 // главная панель фрейма
                 JPanel rootPanel = new JPanel();
                 rootPanel.setLayout(new BorderLayout());
@@ -112,7 +120,8 @@ public class View {
                 rootPanel.add(menuOnlineGameWidget, BorderLayout.SOUTH);
                 rootPanel.add(menuReplayGameWidget, BorderLayout.NORTH);
                 rootPanel.add(chartWidget, BorderLayout.EAST);
-
+                rootPanel.add(engineGameWidget, BorderLayout.WEST);
+                
                 jf.getContentPane().add(rootPanel);
                 //jf.pack();
 

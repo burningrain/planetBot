@@ -11,17 +11,18 @@ import org.apache.felix.ipojo.annotations.Validate;
 import org.osgi.service.log.LogService;
 
 import com.github.br.starmarines.main.controller.IController;
+import com.github.br.starmarines.main.controller.impl.GameEngineController;
 import com.github.br.starmarines.main.controller.impl.OnlineGameController;
 import com.github.br.starmarines.main.controller.impl.ReplayController;
 import com.github.br.starmarines.main.model.logic.Logic;
 import com.github.br.starmarines.main.model.objects.IModel;
-import com.github.br.starmarines.main.model.objects.Model;
 import com.github.br.starmarines.main.view.View;
 import com.github.br.starmarines.main.view.model.CommonVM;
 import com.github.br.starmarines.main.view.widgets.IWidget;
 import com.github.br.starmarines.main.view.wm.AbstractWidgetModel;
 import com.github.br.starmarines.main.view.wm.impl.ChartWM;
 import com.github.br.starmarines.main.view.wm.impl.GraphWM;
+import com.github.br.starmarines.main.view.wm.impl.MenuGameEngineWM;
 import com.github.br.starmarines.main.view.wm.impl.MenuOnlineGameWM;
 import com.github.br.starmarines.main.view.wm.impl.MenuReplayGameWM;
 
@@ -80,14 +81,23 @@ public class App implements IApp {
 		menuReplayGameWM.setWidget(menuReplayWidget);
 		menuReplayGameWM.setViewModelListeners(commonVM);
 		
+		IWidget<MenuGameEngineWM, GameEngineController> menuGameEngineWidget = view.getMenuGameEngineWidget();
+		AbstractWidgetModel menuGameEngineWM = new MenuGameEngineWM();
+		menuGameEngineWM.setModelListeners(model);
+		menuGameEngineWM.setWidget(menuGameEngineWidget);
+		menuGameEngineWM.setViewModelListeners(commonVM);
+		
 		IController<ReplayController> replyController = new ReplayController();
 		replyController.setLogic(logic);
 		replyController.setWidget(menuReplayWidget);
 		
 		IController<OnlineGameController> onController = new OnlineGameController();
 		onController.setLogic(logic);
-		onController.setWidget(menuOnlineWidget);		
+		onController.setWidget(menuOnlineWidget);	
 		
+		IController<GameEngineController> engineController = new GameEngineController();
+		engineController.setLogic(logic);
+		engineController.setWidget(menuGameEngineWidget);		
 	}	
 	
 	

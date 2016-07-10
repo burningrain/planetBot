@@ -4,15 +4,31 @@ import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.osgi.service.component.annotations.Component;
+import org.apache.felix.ipojo.annotations.Component;
+import org.apache.felix.ipojo.annotations.Instantiate;
+import org.apache.felix.ipojo.annotations.Provides;
+import org.apache.felix.ipojo.annotations.Requires;
+import org.apache.felix.ipojo.annotations.Validate;
+import org.osgi.service.log.LogService;
 
 import com.github.br.starmarines.game.api.galaxy.Move;
 import com.github.br.starmarines.gamecore.api.Player;
 import com.github.br.starmarines.gamecore.spi.IGameEventListener;
 
-
-@Component(service=GameContainer.class, immediate=true, enabled=true)
+@Provides
+@Instantiate
+@Component(publicFactory=false)
 public class GameContainer {
+	
+	@Requires(optional = true)
+	private LogService logService;
+	
+	@Validate
+	private void v(){
+		logService.log(LogService.LOG_DEBUG, this.getClass().getSimpleName() + " start");
+	}
+	
+	
 
 	private AtomicLong gameSequence = new AtomicLong();	
 	private ConcurrentHashMap<Long, Game> games = new ConcurrentHashMap<>(); 		

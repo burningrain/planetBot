@@ -7,20 +7,29 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
-import org.osgi.service.component.annotations.ReferencePolicy;
+import org.apache.felix.ipojo.annotations.BindingPolicy;
+import org.apache.felix.ipojo.annotations.Component;
+import org.apache.felix.ipojo.annotations.Instantiate;
+import org.apache.felix.ipojo.annotations.Provides;
+import org.apache.felix.ipojo.annotations.Requires;
+import org.apache.felix.ipojo.annotations.Validate;
+import org.osgi.service.log.LogService;
 
-@Component(service=GameExecutorManager.class, immediate=true, enabled=true)
+@Provides
+@Instantiate
+@Component(publicFactory=false)
 public class GameExecutorManager {
 	
+	@Requires(optional = true)
+	private LogService logService;
+	
+	@Validate
+	private void v(){
+		logService.log(LogService.LOG_DEBUG, this.getClass().getSimpleName() + " start");
+	}
+	
+	@Requires(policy=BindingPolicy.STATIC, proxy=false)
 	private GameContainer gameContainer;
-
-	@Reference(cardinality=ReferenceCardinality.MANDATORY, policy = ReferencePolicy.STATIC)
-	private void setGameContainer(GameContainer gameContainer) {
-		this.gameContainer = gameContainer;
-	}	
 
 	private ScheduledExecutorService executor = Executors.newScheduledThreadPool(1); // TODO число потоков должно настраиваться в конфигах
 	private ConcurrentMap<Long, ScheduledFuture<?>> gameFutures = new ConcurrentHashMap<>();
@@ -64,6 +73,7 @@ public class GameExecutorManager {
 		@Override
 		public void run() {				
 			boolean isGameEnd = gameContainer.computeSituation(gameId); 
+			System.out.println("compute step for game=" + gameId + " gameEnd=" + isGameEnd);
 			if(isGameEnd){
 				gameExecutorManager.stopGame(gameId);
 			}			
