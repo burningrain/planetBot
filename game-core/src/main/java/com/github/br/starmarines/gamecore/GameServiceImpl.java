@@ -11,6 +11,7 @@ import org.apache.felix.ipojo.annotations.Validate;
 import org.osgi.service.log.LogService;
 
 import com.github.br.starmarines.game.api.galaxy.Move;
+import com.github.br.starmarines.gamecore.api.Galaxy;
 import com.github.br.starmarines.gamecore.api.GalaxyType;
 import com.github.br.starmarines.gamecore.api.IGameService;
 import com.github.br.starmarines.gamecore.api.Player;

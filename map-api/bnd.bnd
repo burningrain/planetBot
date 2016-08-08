@@ -2,15 +2,19 @@
 	osgi.core,\
 	${junit},\
 	osgi.cmpn;version=4.3,\
-	game-api;version=latest
+	game-core;version=latest
 -outputmask: ${@bsn}-${version;===S;${@version}}.jar
+
 Bundle-Version: 1.0.0.SNAPSHOT
 bin: target/classes
 src: src/main/java
 target-dir: target
 testbin: target/test-classes
-testsrc: src/test
+testsrc: src/test/java
 
--dsannotations:  \
-	*
-Export-Package: strategy
+Bundle-ClassPath: \
+
+
+
+
+Export-Package: com.github.br.starmarines.map.service.api

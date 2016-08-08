@@ -70,6 +70,7 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<tasks>
+								<mkdir dir="target/maps" />
 								<mkdir dir="target/plugins" />
 								<mkdir dir="target/strategies" />
 								<mkdir dir="target/log"/>		
@@ -124,6 +125,18 @@
 								<!-- копирование API -->
 								<copy todir="target/game-api">
 									<fileset dir="../game-api/target" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование API выбора карт -->
+								<copy todir="target/game-api">
+									<fileset dir="../map-api/target" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование плагина загрузки карт -->
+								<copy todir="target/plugins">
+									<fileset dir="../map-service/target" includes="*.jar">
 									</fileset>
 								</copy>
 

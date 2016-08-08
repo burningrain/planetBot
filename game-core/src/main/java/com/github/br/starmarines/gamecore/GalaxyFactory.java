@@ -2,6 +2,7 @@ package com.github.br.starmarines.gamecore;
 
 import com.github.br.starmarines.game.api.galaxy.Planet;
 import com.github.br.starmarines.game.api.galaxy.PlanetType;
+import com.github.br.starmarines.gamecore.api.Galaxy;
 import com.github.br.starmarines.gamecore.api.GalaxyType;
 
 public class GalaxyFactory {

@@ -23,6 +23,8 @@
 		<module>../main-app</module>		
 		<module>../game-core</module>
 		<module>../assembly</module>
+		<module>../map-service</module>
+		<module>../map-api</module>
 	</modules>
 
 
@@ -57,6 +59,20 @@
 			<dependency>
 				<groupId>com.br</groupId>
 				<artifactId>game-core</artifactId>
+				<type>bundle</type>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.br</groupId>
+				<artifactId>map-api</artifactId>
+				<type>bundle</type>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.br</groupId>
+				<artifactId>map-service</artifactId>
 				<type>bundle</type>
 				<version>${project.version}</version>
 			</dependency>

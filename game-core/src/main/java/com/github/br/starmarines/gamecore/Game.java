@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.github.br.starmarines.game.api.galaxy.Move;
 import com.github.br.starmarines.game.api.galaxy.Planet;
+import com.github.br.starmarines.gamecore.api.Galaxy;
 import com.github.br.starmarines.gamecore.api.Player;
 import com.github.br.starmarines.gamecore.mistakes.GameStepMistake;
 import com.github.br.starmarines.gamecore.spi.GameEvent;

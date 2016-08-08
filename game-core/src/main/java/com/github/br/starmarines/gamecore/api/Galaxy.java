@@ -1,4 +1,4 @@
-package com.github.br.starmarines.gamecore;
+package com.github.br.starmarines.gamecore.api;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -18,8 +18,7 @@ import com.br.starwors.lx.logic.utils.anotherone.PlanetCloner;
 import com.github.br.starmarines.game.api.galaxy.Move;
 import com.github.br.starmarines.game.api.galaxy.Planet;
 import com.github.br.starmarines.game.api.galaxy.PlanetType;
-import com.github.br.starmarines.gamecore.api.GalaxyType;
-import com.github.br.starmarines.gamecore.api.Player;
+import com.github.br.starmarines.gamecore.Moves;
 import com.github.br.starmarines.gamecore.mistakes.GameStepMistake;
 
 public class Galaxy {
