@@ -33,3 +33,7 @@ map-api/.project
 */cnf/localrepo/index.*
 */**/*.log*
 assembly/
+
+map-service/.classpath
+map-service/.project
+!map-service/lib/*.jar

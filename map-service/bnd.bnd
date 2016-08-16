@@ -22,3 +22,4 @@ Bundle-ClassPath: \
 ., \
 collections-generic-4.01.jar, \
 Private-Package: com.github.br.starmarines.map.converter
+-dsannotations: *

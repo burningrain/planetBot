@@ -20,6 +20,14 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext</artifactId>
+			<version>2.10.0</version>
+			<scope>test</scope>
+		</dependency>
+
+
+		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.compendium</artifactId>
 			<scope>provided</scope>
@@ -61,6 +69,14 @@
 			<type>bundle</type>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/org.eclipse.gef4.dot_1.0.0.201606040817.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.gef4.common</groupId>
+			<artifactId>org.eclipse.gef4.common</artifactId>
+			<version>1.0.0.201606040817</version>
+			<type>bundle</type>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/org.eclipse.gef4.common_1.0.0.201606040817.jar</systemPath>
 		</dependency>
 
 	</dependencies>
