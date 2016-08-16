@@ -11,14 +11,14 @@
 
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.anarres.graphviz/graphviz-parser -->
-		
+
 		<dependency>
 			<groupId>org.anarres.graphviz</groupId>
 			<artifactId>graphviz-parser</artifactId>
 			<version>1.0.4</version>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.compendium</artifactId>
@@ -37,7 +37,7 @@
 			<type>bundle</type>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.br</groupId>
 			<artifactId>map-api</artifactId>
@@ -45,9 +45,27 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.eclipse.gef4.graph</groupId>
+			<artifactId>org.eclipse.gef4.graph</artifactId>
+			<version>1.0.0.201606040817</version>
+			<type>bundle</type>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/org.eclipse.gef4.graph_1.0.0.201606040817.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.gef4.dot</groupId>
+			<artifactId>org.eclipse.gef4.dot</artifactId>
+			<version>1.0.0.201606040817</version>
+			<type>bundle</type>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/org.eclipse.gef4.dot_1.0.0.201606040817.jar</systemPath>
+		</dependency>
+
 	</dependencies>
-	
-	
+
+
 	<build>
 		<plugins>
 

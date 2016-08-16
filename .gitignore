@@ -27,6 +27,9 @@ hs_err_pid*
 .metadata
 *.project
 *.classpath
+map-api/.classpath
+map-api/.project
 */.settings/
-**/cnf/**/index.*
-**/*.log*
+*/cnf/localrepo/index.*
+*/**/*.log*
+assembly/

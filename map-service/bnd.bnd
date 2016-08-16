@@ -1,6 +1,8 @@
 -buildpath: \
 	osgi.core,\
 	${junit},\
+	org.eclipse.gef4.dot;version=latest,\
+	org.eclipse.gef4.graph;version=latest,\
 	osgi.cmpn;version=4.3,\
 	game-core;version=latest,\
 	map-api;version=latest
