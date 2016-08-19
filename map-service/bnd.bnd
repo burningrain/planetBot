@@ -5,6 +5,7 @@
 	org.eclipse.gef4.graph;version=latest,\
 	osgi.cmpn;version=4.3,\
 	game-core;version=latest,\
+	game-api;version=latest,\
 	map-api;version=latest
 -outputmask: ${@bsn}-${version;===S;${@version}}.jar
 
@@ -16,8 +17,8 @@ testbin: target/test-classes
 testsrc: src/test/java
 Export-Package: com.github.br.starmarines.map.service.impl
 
-Include-Resource: lib
-
+Include-Resource: lib,\
+				  resources/=src/main/resources 
 Bundle-ClassPath: \
 ., \
 collections-generic-4.01.jar, \
