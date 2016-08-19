@@ -6,7 +6,6 @@ import com.github.br.starmarines.gamecore.api.GalaxyType;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 
 public class GameMetaInfoDeserializer implements JsonDeserializer<GameMetaInfo> {

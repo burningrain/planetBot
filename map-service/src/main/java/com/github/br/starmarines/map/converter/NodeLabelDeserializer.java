@@ -1,8 +1,6 @@
 package com.github.br.starmarines.map.converter;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.List;
 
 import com.github.br.starmarines.game.api.galaxy.Planet;
 import com.github.br.starmarines.game.api.galaxy.PlanetType;

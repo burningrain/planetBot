@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.gef4.dot.internal.DotImport;
+import org.eclipse.gef4.graph.Edge;
 import org.eclipse.gef4.graph.Graph;
 import org.eclipse.gef4.graph.Node;
 import org.osgi.service.component.annotations.Component;
@@ -55,6 +56,17 @@ public class MapConvernter implements Converter<File, Galaxy> {
 			Planet planet = gson.fromJson((String) nodePropAttrMap.get("label"), Planet.class);
 			GameMetaInfo gameInfo = gson.fromJson((String) nodePropAttrMap.get("label"), GameMetaInfo.class);
 			gBuilder.addPlanet(planet, gameInfo.getIsStartPoint());
+		}
+		List<Edge> edges = graph.getEdges();
+		for (Edge edge : edges) {
+			Node from = edge.getSource();
+			Map<String, Object> fromAttr = from.getAttributes();
+			Planet planetFrom = gson.fromJson((String) fromAttr.get("label"), Planet.class);
+			Node to = edge.getTarget();
+			Map<String, Object> toAttr = to.getAttributes();
+			Planet planetTo = gson.fromJson((String) toAttr.get("label"), Planet.class);
+			gBuilder.addEdge(planetFrom, planetTo);
+
 		}
 		galaxy = gBuilder.build();
 		return galaxy;
