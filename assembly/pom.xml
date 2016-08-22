@@ -44,6 +44,12 @@
 			<artifactId>game-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>game-ui</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.br</groupId>
@@ -136,6 +142,12 @@
 								<!-- копирование игрового движка --> 
 								<copy todir="target/osgi/bundles/app">
 									<fileset dir="../game-core/target" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование ui-модуля с javafx --> 
+								<copy todir="target/osgi/bundles/app">
+									<fileset dir="../game-ui/target" includes="*.jar">
 									</fileset>
 								</copy>
 								

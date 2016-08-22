@@ -1,0 +1,28 @@
+-runfw: org.apache.felix.framework;version='[4,5)'
+-runee: JavaSE-1.8
+-runsystemcapabilities: ${native_capability}
+
+-resolve.effective: active;skip:="osgi.service"
+
+-runbundles: \
+	org.apache.felix.gogo.command,\
+	org.apache.felix.gogo.runtime,\
+	org.apache.felix.gogo.shell,\
+	game-ui;version=latest,\
+	game-api;version=latest,\
+	game-core;version=latest,\
+	org.apache.felix.ipojo,\
+	org.jgrapht.core
+
+
+
+-runsystempackages: \
+	javafx.application,\
+	javafx.scene,\
+	javafx.stage,\
+	javafx.scene.layout,\
+	javafx.event,\
+	javafx.collections,\
+	javafx.scene.control,\
+	javafx.scene.paint,\
+	javafx.scene.shape
