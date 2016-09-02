@@ -52,6 +52,13 @@
 			<type>bundle</type>
 			<scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>game-api</artifactId>
+			<type>bundle</type>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
