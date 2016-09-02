@@ -14,6 +14,9 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
+import com.github.br.starmarines.gamecore.api.Galaxy;
+import com.github.br.starmarines.gamecore.api.GalaxyType;
+
 public class MapConvernterTest {
 
 	
@@ -31,7 +34,10 @@ public class MapConvernterTest {
 	public void testConvert() throws IOException, URISyntaxException {
 		File in = res.getFile();
 		MapConvernter mConv = new MapConvernter();
-		mConv.convert(in);
-		Assert.assertTrue(true);
+		Galaxy galaxy = mConv.convert(in);
+		Assert.assertNotNull(galaxy);
+		GalaxyType expected = GalaxyType.SMALL_BASES;
+		GalaxyType actual = galaxy.getGalaxyType();
+		Assert.assertEquals(expected, actual);
 	}
 }
