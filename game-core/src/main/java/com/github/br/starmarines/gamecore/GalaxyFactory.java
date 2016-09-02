@@ -1,11 +1,18 @@
 package com.github.br.starmarines.gamecore;
 
+import org.apache.felix.ipojo.annotations.BindingPolicy;
+import org.apache.felix.ipojo.annotations.Requires;
+
 import com.github.br.starmarines.game.api.galaxy.Planet;
 import com.github.br.starmarines.game.api.galaxy.PlanetType;
 import com.github.br.starmarines.gamecore.api.Galaxy;
 import com.github.br.starmarines.gamecore.api.GalaxyType;
+import com.github.br.starmarines.map.service.api.MapService;
 
 public class GalaxyFactory {
+	
+	@Requires(policy=BindingPolicy.STATIC, proxy=false)
+	private static MapService mapService;
 
 	//TODO
 	public static Galaxy getGalaxy(int playersCount, GalaxyType type) {
@@ -15,7 +22,7 @@ public class GalaxyFactory {
 				galaxy = buildTest();
 				break;
 		}
-		return galaxy; 
+		return galaxy; ///map-service/maps/test1.gv по мени?
 	}
 	
 	private static Galaxy buildTest(){
@@ -43,6 +50,10 @@ public class GalaxyFactory {
 		galaxy = builder.build();
 		
 		return galaxy;
+	}
+	
+	public static Galaxy getGalaxyFromMapFile(String title) {
+		return mapService.getMap(title);
 	}
 	
 	private static Planet getPlanet(String id, PlanetType type, int units, String owner){

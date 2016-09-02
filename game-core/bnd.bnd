@@ -2,6 +2,7 @@
 	osgi.core,\
 	${junit},\
 	osgi.cmpn;version=4.3,\
+	map-api;version=latest,\
 	game-api;version=latest
 -outputmask: ${@bsn}-${version;===S;${@version}}.jar
 
