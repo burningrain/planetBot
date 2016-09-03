@@ -17,6 +17,7 @@
 
 
 -runsystempackages: \
+	javafx.fxml, \
 	javafx.application,\
 	javafx.scene,\
 	javafx.stage,\
@@ -25,4 +26,15 @@
 	javafx.collections,\
 	javafx.scene.control,\
 	javafx.scene.paint,\
-	javafx.scene.shape
+	javafx.scene.shape, \
+	javafx.scene.input, \
+	javafx.scene.text, \
+	javafx.animation, \
+	javafx.beans, \
+	javafx.beans.property, \
+	javafx.beans.binding, \
+	javafx.scene.shape, \
+	javafx.util, \
+	javafx.beans.value, \
+	javafx.geometry
+	

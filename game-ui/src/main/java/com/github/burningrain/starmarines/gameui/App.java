@@ -22,28 +22,24 @@ public class App extends Application {
 	
 	@Validate
 	public void startBundle() {
-		Executors
-				.defaultThreadFactory()
-				.newThread(
-						() -> {
-							Thread.currentThread().setContextClassLoader(
-									this.getClass().getClassLoader());
-							launch();
-						}).start();
+//		Executors
+//				.defaultThreadFactory()
+//				.newThread(
+//						() -> {
+//							Thread.currentThread().setContextClassLoader(
+//									this.getClass().getClassLoader());
+//							launch();
+//						}).start();
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-//		BundleContext bc = FrameworkUtil.getBundle(this.getClass())
-//				.getBundleContext();
-//		DependencyManager dm = new DependencyManager(bc);
-//
-//		dm.add(dm.createComponent()
-//				.setInterface(StageService.class.getName(), null)
-//				.setImplementation(new StageServiceImpl(primaryStage)));
-		
-		primaryStage.show();
+		//new Metronome1Main().start(primaryStage);
+		//new MetronomeTransitionMain().start(primaryStage);
+		//new MetronomePathTransitionMain().start(primaryStage);
+		//new ZenPongMain().start(primaryStage);
+		//primaryStage.show();
 	}
 
 	@Invalidate
