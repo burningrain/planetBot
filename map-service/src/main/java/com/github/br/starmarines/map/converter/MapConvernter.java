@@ -1,6 +1,7 @@
 package com.github.br.starmarines.map.converter;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -28,13 +29,13 @@ public class MapConvernter implements Converter<File, Galaxy> {
 	private volatile LogService logService;
 	private static final String CODE_PAGE = "utf-8";
 
-	public LogService getLogService() {
-		return logService;
-	}
-
-	@Reference(unbind = "unbindLog", cardinality = ReferenceCardinality.OPTIONAL, policy = ReferencePolicy.DYNAMIC)
+	@Reference(unbind = "unSetLogService", cardinality = ReferenceCardinality.OPTIONAL, policy = ReferencePolicy.DYNAMIC)
 	public void setLogService(LogService logService) {
 		this.logService = logService;
+	}
+	
+	public void unSetLogService(LogService logService){
+		this.logService = null;
 	}
 
 	@Override
@@ -75,7 +76,7 @@ public class MapConvernter implements Converter<File, Galaxy> {
 	private String getContent(File in) throws IOException {
 		char[] tmp = new char[4096];
 		StringBuilder b = new StringBuilder();
-		try (InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream(in.getPath()),
+		try (InputStreamReader reader = new InputStreamReader(new FileInputStream(in),
 				Charset.forName(CODE_PAGE))) {
 			while (true) {
 				int len = reader.read(tmp);

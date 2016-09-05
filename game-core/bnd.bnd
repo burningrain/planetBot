@@ -2,8 +2,8 @@
 	osgi.core,\
 	${junit},\
 	osgi.cmpn;version=4.3,\
-	map-api;version=latest,\
-	game-api;version=latest
+	game-api;version=latest,\
+	game-core-api;version=latest
 -outputmask: ${@bsn}-${version;===S;${@version}}.jar
 
 Bundle-Version: 1.0.0.SNAPSHOT
@@ -13,13 +13,13 @@ target-dir: target
 testbin: target/test-classes
 testsrc: src/main/test
 
-#Include-Resource: lib
+Include-Resource: lib
 
 Bundle-ClassPath: \
+., \
+jgrapht-core-0.9.2.jar
 
-
-Private-Package:  \
-	com.github.br.starmarines.gamecore
+Private-Package: com.github.br.starmarines.gamecore
 Export-Package:  \
 	com.github.br.starmarines.gamecore.api,\
 	com.github.br.starmarines.gamecore.spi,\

@@ -29,7 +29,7 @@ class Game {
 
 	private final Set<Player> players;
 	private AtomicInteger currentPlayersCount = new AtomicInteger(0);
-	private final Galaxy galaxy;        // мутабельная структура
+	private GalaxyEngine galaxy;  // мутабельная структура
 	
 	private ArrayBlockingQueue<Moves> playersMoves;	
 	private IGameEventListener listener;
@@ -44,12 +44,32 @@ class Game {
 		if(maxStepAmount != null && maxStepAmount <=1) throw new IllegalStateException("Макс. число шагов должно быть больше 1");
 		
 		info = new GameInfo(id, title, playersCount, maxStepAmount, galaxy.getGalaxyType());		
-		this.galaxy = galaxy; 				
+		fillGalaxyEngine(galaxy);				
 		players = new ConcurrentSkipListSet<>();
 		playersMoves = new ArrayBlockingQueue<>(playersCount);
 		
 		this.listener = listener;
 		changeStatus(GameStatus.CREATED, null);
+	}
+	
+	//TODO уродливая штука, переделать
+	private void fillGalaxyEngine(Galaxy galaxy){
+		GalaxyEngine.Builder builder = new GalaxyEngine.Builder(galaxy.getGalaxyType());
+		Set<Planet> startPoints = galaxy.getStartPoints();
+		Set<Planet> planets = galaxy.getPlanets();	
+		
+		for(Planet planet : planets){
+			boolean isStartPoint = startPoints.contains(planet);
+			builder.addPlanet(planet, isStartPoint);
+		}
+		
+		for(Planet planet : planets){
+			List<Planet> neighbours = planet.getNeighbours();
+			for(Planet neigbour : neighbours){
+				builder.addEdge(planet, neigbour);
+			}
+		}
+		this.galaxy = builder.build();
 	}
 	
 	/**

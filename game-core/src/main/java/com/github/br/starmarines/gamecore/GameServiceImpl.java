@@ -12,7 +12,6 @@ import org.osgi.service.log.LogService;
 
 import com.github.br.starmarines.game.api.galaxy.Move;
 import com.github.br.starmarines.gamecore.api.Galaxy;
-import com.github.br.starmarines.gamecore.api.GalaxyType;
 import com.github.br.starmarines.gamecore.api.IGameService;
 import com.github.br.starmarines.gamecore.api.Player;
 import com.github.br.starmarines.gamecore.spi.IGameEventListener;
@@ -37,12 +36,9 @@ public class GameServiceImpl implements IGameService {
 	@Requires(policy=BindingPolicy.STATIC, proxy=false)
 	private GameExecutorManager gameExecutor;
 	
-
 	
-	//TODO для галактики сделать фабрику, а здесь принимать именно тип из определенного в фабрике
 	public Long createGame(String title, int playersCount, Integer maxGameStepAmount, 
-			GalaxyType type, IGameEventListener lisneter){
-		Galaxy galaxy = GalaxyFactory.getGalaxy(playersCount, type);
+			Galaxy galaxy, IGameEventListener lisneter){		
 		return gameContainer.createGame(title, playersCount, galaxy, maxGameStepAmount, lisneter);
 	}
 	

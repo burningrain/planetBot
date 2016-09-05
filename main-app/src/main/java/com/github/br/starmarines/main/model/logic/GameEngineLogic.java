@@ -16,7 +16,7 @@ import com.br.starwors.lx.galaxy.Action;
 import com.br.starwors.lx.logic.utils.CoreUtils;
 import com.github.br.starmarines.game.api.galaxy.Move;
 import com.github.br.starmarines.game.api.galaxy.Planet;
-import com.github.br.starmarines.gamecore.api.GalaxyType;
+import com.github.br.starmarines.gamecore.api.Galaxy;
 import com.github.br.starmarines.gamecore.api.IGameService;
 import com.github.br.starmarines.gamecore.api.Player;
 import com.github.br.starmarines.gamecore.spi.GameEvent;
@@ -61,10 +61,10 @@ public class GameEngineLogic {
 		listener = new GameEventListener(gameService, strategyService, gameInfo, step);
 	}
 	
-	public void startGame(){
+	public void startGame(Galaxy galaxy){
 		if(gameId != null) return;
-		
-		gameId = gameService.createGame("test", 2, null, GalaxyType.BIG_BASES, listener);
+	
+		gameId = gameService.createGame("test", 2, null, galaxy, listener);
 		Set<String> strategies = strategyService.getStrategies();
 		Set<Player> players = new HashSet<>();
 		for(String strategy : strategies){

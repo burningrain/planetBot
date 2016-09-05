@@ -2,7 +2,7 @@
 	osgi.core,\
 	${junit},\
 	osgi.cmpn;version=4.3,\
-	game-core;version=latest
+	game-core-api;version=latest
 -outputmask: ${@bsn}-${version;===S;${@version}}.jar
 
 Bundle-Version: 1.0.0.SNAPSHOT

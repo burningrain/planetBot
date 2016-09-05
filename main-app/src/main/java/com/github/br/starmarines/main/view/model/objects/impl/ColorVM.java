@@ -8,9 +8,6 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.github.br.starmarines.main.model.objects.IModel;
 import com.github.br.starmarines.main.model.objects.IModelListener;
 import com.github.br.starmarines.main.model.objects.inner.IGameInfo;
@@ -19,7 +16,6 @@ import com.github.br.starmarines.main.view.model.objects.IColorVM;
 import com.github.br.starmarines.main.view.widgets.chart.ChartWidget;
 
 public class ColorVM extends AbstractVM<IColorVM> implements IColorVM {	
-	private Logger logger = LoggerFactory.getLogger(ColorVM.class); 
 	
 	private Map<String, Color> playersColors = new ConcurrentHashMap<String, Color>();
 	

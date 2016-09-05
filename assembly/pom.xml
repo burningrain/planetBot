@@ -42,6 +42,12 @@
 		
 		<dependency>
 			<groupId>com.br</groupId>
+			<artifactId>map-service</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.br</groupId>
 			<artifactId>game-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -132,6 +138,12 @@
 								<!-- копирование API выбора карт -->
 								<copy todir="target/game-api">
 									<fileset dir="../map-api/target" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование API игрового движка -->
+								<copy todir="target/game-api">
+									<fileset dir="../game-core-api/target" includes="*.jar">
 									</fileset>
 								</copy>
 								

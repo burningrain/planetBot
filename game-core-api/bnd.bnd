@@ -5,8 +5,8 @@ src: src/main/java
 target-dir: target
 testbin: target/test-classes
 testsrc: src/main/test
-
+-buildpath: game-api;version=latest
 Export-Package: \
-	com.br.starwors.lx.logic.utils.anotherone,\
-	com.github.br.starmarines.game.api.galaxy,\
-	com.github.br.starmarines.game.api.strategy
+	com.github.br.starmarines.gamecore.api,\
+	com.github.br.starmarines.gamecore.mistakes,\
+	com.github.br.starmarines.gamecore.spi
