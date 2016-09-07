@@ -61,7 +61,7 @@ class Game {
 		for(Planet planet : planets){
 			boolean isStartPoint = startPoints.contains(planet);
 			builder.addPlanet(planet, isStartPoint);
-		}
+		}		
 		
 		for(Planet planet : planets){
 			List<Planet> neighbours = planet.getNeighbours();
@@ -69,6 +69,7 @@ class Game {
 				builder.addEdge(planet, neigbour);
 			}
 		}
+		
 		this.galaxy = builder.build();
 	}
 	

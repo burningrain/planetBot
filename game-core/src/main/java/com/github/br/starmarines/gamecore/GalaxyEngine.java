@@ -265,27 +265,34 @@ public class GalaxyEngine {
 		private UndirectedGraph<PlanetVertex, DefaultWeightedEdge> graph;
 		private Map<Planet, PlanetVertex> planets;
 		private final GalaxyType galaxyType;
-		private List<Planet> startPoints;
+		private List<Planet> startPoints;		
+		private Map<String, Planet> planetsMap;
 
 		public Builder(final GalaxyType galaxyType) {
 			this.galaxyType = galaxyType;
 			graph = new SimpleGraph<>(DefaultWeightedEdge.class);
 			planets = new HashMap<>();
 			startPoints = new LinkedList<>();
+			planetsMap = new HashMap<>();
 		}
 
 		public Builder addEdge(Planet source, Planet target) {
-			source.addNeighbour(target);
-			target.addNeighbour(source);
-			graph.addEdge(planets.get(source), planets.get(target));
+			Planet s = planetsMap.get(source.getId());
+			Planet t = planetsMap.get(target.getId());
+			s.addNeighbour(t);
+			t.addNeighbour(s);
+			graph.addEdge(planets.get(s), planets.get(t));
 			return this;
 		}
 
 		public Builder addPlanet(Planet planet, boolean isStartPoint) {
-			if(isStartPoint) startPoints.add(planet);
+			Planet copy = PlanetCloner.lazyCopyPlanet(planet);
+			planetsMap.put(copy.getId(), copy);
 			
-			PlanetVertex vertex = new PlanetVertex(planet);
-			planets.put(planet, vertex);
+			if(isStartPoint) startPoints.add(copy);
+			
+			PlanetVertex vertex = new PlanetVertex(copy);
+			planets.put(copy, vertex);
 			graph.addVertex(vertex);
 			return this;
 		}

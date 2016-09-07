@@ -1,10 +1,9 @@
 graph "{'galaxyType':'SMALL_BASES'}" {
     1[label="{'id':'1','type':'TYPE_A','units':0,'owner':'','isStartPoint':false}"];
     2[label="{'id':'2','type':'TYPE_D','units':500,'owner':'','isStartPoint':true}"];
-    3[label="{'id':'3','type':'TYPE_C','units':500,'owner':'','isStartPoint':true}"];
-    4[label="{'id':'4','type':'TYPE_D','units':0,'owner':'','isStartPoint':false}"];
-    5[label="{'id':'5','type':'TYPE_B','units':0,'owner':'','isStartPoint':false}"];
-    6[label="{'id':'6','type':'TYPE_B','units':500,'owner':'','isStartPoint':true}"];
+    3[label="{'id':'3','type':'TYPE_C','units':0,'owner':'','isStartPoint':false}"];
+    4[label="{'id':'4','type':'TYPE_D','units':500,'owner':'','isStartPoint':true}"];
+    5[label="{'id':'5','type':'TYPE_B','units':0,'owner':'','isStartPoint':false}"];    
     1 -- 2;
     1 -- 3;
     1 -- 4;
@@ -13,6 +12,4 @@ graph "{'galaxyType':'SMALL_BASES'}" {
     2 -- 5;
     4 -- 3;
     4 -- 5;
-    2 -- 6;
-    4 -- 6;
 }
