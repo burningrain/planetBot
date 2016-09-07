@@ -23,7 +23,23 @@ Bundle-ClassPath: \
 org.eclipse.gef4.common_1.0.0.201606040817.jar, \
 org.eclipse.gef4.dot_1.0.0.201606040817.jar, \
 org.eclipse.gef4.graph_1.0.0.201606040817.jar, \
-gson-2.7.jar
+gson-2.7.jar, \
+antlr-runtime-3.2.jar, \
+aopalliance-1.0.jar, \
+guava-19.0-rc3.jar, \
+guice-3.0.jar, \
+javax.inject-1.jar, \
+log4j-1.2.16.jar, \
+org.eclipse.emf.common-2.11.0-v20150805-0538.jar, \
+org.eclipse.emf.ecore-2.11.1-v20150805-0538.jar, \
+org.eclipse.emf.ecore.xmi-2.11.1-v20150805-0538.jar, \
+org.eclipse.equinox.common-3.6.0.jar, \
+org.eclipse.xtend.lib-2.10.0.jar, \
+org.eclipse.xtend.lib.macro-2.10.0.jar, \
+org.eclipse.xtext-2.10.0.jar, \
+org.eclipse.xtext.util-2.10.0.jar, \
+org.eclipse.xtext.xbase.lib-2.10.0.jar
+
 #guice-multibindings-4.0, \
 #guice-4.0-beta.jar, \
 #aopalliance-1.0.jar, \
@@ -52,4 +68,10 @@ Import-Package: \
 	com.github.br.starmarines.game.api.galaxy;version='[1.0,2)',\
 	com.github.br.starmarines.gamecore.api;version='[1.0,2)',\
 	com.github.br.starmarines.map.service.api;version='[1.0,2)',\
-	org.osgi.service.log;version='[1.3,2)'
+	org.osgi.service.log;version='[1.3,2)', \
+	org.xml.sax.helpers, \
+	javafx.beans, \
+	javafx.beans.binding, \
+	javafx.beans.property, \
+	javafx.beans.value, \
+	javafx.collections

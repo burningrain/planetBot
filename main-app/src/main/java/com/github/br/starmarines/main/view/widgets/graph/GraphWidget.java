@@ -118,8 +118,7 @@ public class GraphWidget extends JPanel implements
 		 * после добавления {@link Area#subtract(Area)} в трансформер 
 		 * переставали рендериться стрелки. Ничего умнее этого хака не придумал.
 		 */
-		public void renderVertex(RenderContext<Planet, String> rc, Layout<Planet, String> layout, Planet v) {
-			
+		public void renderVertex(RenderContext<Planet, String> rc, Layout<Planet, String> layout, Planet v) {			
 			super.renderVertex(rc, layout, v);	        
 	        rc.setVertexShapeTransformer(vertexHole);
 	        rc.setVertexFillPaintTransformer(vertexHolePaint);

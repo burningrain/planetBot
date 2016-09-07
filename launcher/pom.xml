@@ -24,7 +24,7 @@
 
 		<dependency>
 			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.compendium</artifactId>			
+			<artifactId>org.osgi.compendium</artifactId>
 		</dependency>
 
 		<!-- iPOJO -->
@@ -85,8 +85,8 @@
 			<artifactId>org.apache.felix.http.servlet-api</artifactId>
 			<version>1.1.0</version>
 		</dependency>
-		
-		<!-- TODO копировать либы для ядра игры --> 
+
+		<!-- TODO копировать либы для ядра игры -->
 
 
 		<!-- OSGI console -->

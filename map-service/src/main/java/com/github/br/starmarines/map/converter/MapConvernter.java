@@ -70,6 +70,10 @@ public class MapConvernter implements Converter<File, Galaxy> {
 
 		}
 		galaxy = gBuilder.build();
+		if (logService != null) {
+			logService.log(LogService.LOG_DEBUG, "galaxy = " + galaxy.getGalaxyType());
+		}
+		
 		return galaxy;
 	}
 
