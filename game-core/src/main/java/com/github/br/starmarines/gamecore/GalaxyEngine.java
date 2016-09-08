@@ -156,11 +156,14 @@ public class GalaxyEngine {
 			PlanetType planetType = planet.getType();
 			int units = planet.getUnits();
 			if(owner != null && !owner.isEmpty()){
-				units = units + units * planetType.getIncrement()/100;
-				if(units > planetType.getLimit()){
-					units = planetType.getLimit();
-				}
-				planet.setUnits(units);
+				boolean isNeedRegeneration = units < planetType.getLimit();
+				if(isNeedRegeneration){
+					units = units + units * planetType.getIncrement()/100;
+					if(units > planetType.getLimit()){
+						units = planetType.getLimit();
+					}
+					planet.setUnits(units);
+				}				
 			}
 		}
 		
