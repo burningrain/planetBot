@@ -10,16 +10,16 @@
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.command)',\
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.runtime)',\
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.log)'
--runbundles:  \
+-runbundles: \
 	org.apache.felix.gogo.command;version='[0.14.0,0.14.1)',\
 	org.apache.felix.gogo.runtime;version='[0.12.1,0.12.2)',\
 	org.apache.felix.gogo.shell;version='[0.10.0,0.10.1)',\
-	common-api;version=latest,\
 	main-app;version=latest,\
-	strategy;version=latest,\
 	org.apache.felix.ipojo,\
 	javax.servlet;version=3.0.0,\
 	org.apache.felix.scr;version=1.8.2,\
 	com.br.fragment-laf,\
 	ch.qos.logback.core;version=1.1.2,\
-	ch.qos.logback.classic;version=1.1.2
+	ch.qos.logback.classic;version=1.1.2,\
+	slf4j.api,\
+	game-core;version=latest

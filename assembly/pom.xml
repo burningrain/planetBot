@@ -16,6 +16,7 @@
 		<dir.osgi>${dir.launcher}/osgi</dir.osgi>
 		<dir.config>${dir.launcher}/config</dir.config>
 		<dir.bundles>${dir.launcher}/osgi/bundles</dir.bundles>
+		<dir.maps>../map-service/maps</dir.maps>
 
 		
 	</properties>
@@ -36,6 +37,12 @@
 		<dependency>
 			<groupId>com.br</groupId>
 			<artifactId>main-app</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>map-service</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		
@@ -70,6 +77,7 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<tasks>
+								<mkdir dir="target/maps" />
 								<mkdir dir="target/plugins" />
 								<mkdir dir="target/strategies" />
 								<mkdir dir="target/log"/>		
@@ -126,6 +134,30 @@
 									<fileset dir="../game-api/target" includes="*.jar">
 									</fileset>
 								</copy>
+								
+								<!-- копирование API выбора карт -->
+								<copy todir="target/game-api">
+									<fileset dir="../map-api/target" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование API игрового движка -->
+								<copy todir="target/game-api">
+									<fileset dir="../game-core-api/target" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование плагина загрузки карт -->
+								<copy todir="target/plugins">
+									<fileset dir="../map-service/target" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование предустановленных карт -->
+								<copy todir="target/maps">
+									<fileset dir="${dir.maps}" includes="*.gv">
+									</fileset>
+								</copy>
 
 								<!-- копирование стратегии -->
 								<copy todir="target/strategies">
@@ -144,7 +176,6 @@
 									<fileset dir="../game-core/lib" includes="*.jar">
 									</fileset>
 								</copy>
-								
 							</tasks>
 						</configuration>
 						<goals>

@@ -9,7 +9,7 @@ bin: target/classes
 src: src/main/java
 target-dir: target
 testbin: target/test-classes
-testsrc: src/main/test
+testsrc: src/test
 
 -dsannotations:  \
 	*

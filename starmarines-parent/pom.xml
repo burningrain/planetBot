@@ -22,7 +22,10 @@
 		<module>../strategy</module>
 		<module>../main-app</module>		
 		<module>../game-core</module>
+		<module>../game-core-api</module>
 		<module>../assembly</module>
+		<module>../map-service</module>
+		<module>../map-api</module>
 	</modules>
 
 
@@ -57,6 +60,27 @@
 			<dependency>
 				<groupId>com.br</groupId>
 				<artifactId>game-core</artifactId>
+				<type>bundle</type>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.br</groupId>
+				<artifactId>game-core-api</artifactId>
+				<type>bundle</type>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.br</groupId>
+				<artifactId>map-api</artifactId>
+				<type>bundle</type>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.br</groupId>
+				<artifactId>map-service</artifactId>
 				<type>bundle</type>
 				<version>${project.version}</version>
 			</dependency>
@@ -117,26 +141,4 @@
 
 		</plugins>
 	</build>
-<pluginRepositories>
-  <pluginRepository>
-      <id>central</id>
-      <name>Maven Plugin Repository</name>
-      <url>http://repo1.maven.org/maven2</url>
-      <layout>default</layout>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <releases>
-        <updatePolicy>never</updatePolicy>
-      </releases>
-    </pluginRepository>
-    <pluginRepository>
-       <id>apache.snapshots</id>
-           <name>Apache Snapshot Repository</name>
-           <url>http://repository.apache.org/snapshots</url>
-           <releases>
-                <enabled>false</enabled>
-            </releases>
-     </pluginRepository>
-</pluginRepositories>
 </project>

@@ -1,10 +1,12 @@
--buildpath:  \
+-buildpath: \
 	osgi.core,\
 	${junit},\
 	osgi.cmpn;version=4.3,\
+	game-core;version=latest,\
 	game-api;version=latest,\
 	com.br.fragment-laf,\
-	game-core;version=latest
+	org.apache.felix.ipojo.annotations,\
+	map-api;version=latest
 -outputmask: ${@bsn}-${version;===S;${@version}}.jar
 
 Bundle-Version: 1.0.0.SNAPSHOT
@@ -12,7 +14,7 @@ bin: target/classes
 src: src/main/java
 target-dir: target
 testbin: target/test-classes
-testsrc: src/main/test
+testsrc: src/test
 Import-Package:  \
 	org.pushingpixels.substance.api.skin,\
 	*
@@ -31,9 +33,9 @@ jung-api-2.0.1.jar, \
 jung-graph-impl-2.0.1.jar, \
 jung-visualization-2.0.1.jar
 	
-Private-Package:  \
+Private-Package: \
 	com.br.starwors.lx.galaxy,\
-	com.br.starwors.lx.logic.utils.anotherone,\
+	com.br.starwors.lx.logic.utils,\
 	com.github.br.starmarines.main.app,\
 	com.github.br.starmarines.main.controller,\
 	com.github.br.starmarines.main.controller.impl,\

@@ -13,8 +13,6 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.github.br.starmarines.main.controller.IController;
 import com.github.br.starmarines.main.view.widgets.IWidget;
@@ -27,8 +25,6 @@ public class ChartWidget extends JPanel implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	private Logger logger = LoggerFactory.getLogger(ChartWidget.class);
 
 	private ChartWM wm;
 

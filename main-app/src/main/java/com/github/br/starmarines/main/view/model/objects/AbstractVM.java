@@ -3,16 +3,12 @@ package com.github.br.starmarines.main.view.model.objects;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.github.br.starmarines.main.model.objects.IModel;
 import com.github.br.starmarines.main.view.model.objects.impl.ColorVM;
 
 
 
 public abstract class AbstractVM<VM> implements IObjectVM<VM> {
-	private Logger logger = LoggerFactory.getLogger(AbstractVM.class); 
 	
 	private List<IObjectVMListener<VM>> listeners = new LinkedList<>();
 	

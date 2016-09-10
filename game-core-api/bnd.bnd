@@ -1,0 +1,12 @@
+-outputmask: ${@bsn}-${version;===S;${@version}}.jar
+Bundle-Version: 1.0.0.SNAPSHOT
+bin: target/classes
+src: src/main/java
+target-dir: target
+testbin: target/test-classes
+testsrc: src/main/test
+-buildpath: game-api;version=latest
+Export-Package: \
+	com.github.br.starmarines.gamecore.api,\
+	com.github.br.starmarines.gamecore.mistakes,\
+	com.github.br.starmarines.gamecore.spi
