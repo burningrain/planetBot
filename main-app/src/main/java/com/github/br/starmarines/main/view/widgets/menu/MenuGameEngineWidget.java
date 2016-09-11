@@ -19,6 +19,7 @@ import com.github.br.starmarines.gamecore.api.Galaxy;
 import com.github.br.starmarines.main.controller.impl.GameEngineController;
 import com.github.br.starmarines.main.view.widgets.IWidget;
 import com.github.br.starmarines.main.view.wm.impl.MenuGameEngineWM;
+import com.github.br.starmarines.map.service.api.MapValidationException;
 
 public class MenuGameEngineWidget extends JPanel implements
 		IWidget<MenuGameEngineWM, GameEngineController> {
@@ -82,7 +83,12 @@ public class MenuGameEngineWidget extends JPanel implements
 					setVisible(false);
 					ChooseMapDialog.this.dispatchEvent(new WindowEvent(
 							ChooseMapDialog.this, WindowEvent.WINDOW_CLOSING));
-					MenuGameEngineWidget.this.startGame(mapTitle); // FIXME
+					try {
+						MenuGameEngineWidget.this.startGame(mapTitle); // FIXME
+					} catch (MapValidationException e) {
+						//TODO: Обработать
+						e.printStackTrace();
+					}
 				}
 			});
 
@@ -94,7 +100,7 @@ public class MenuGameEngineWidget extends JPanel implements
 		}
 	}
 
-	public void startGame(String galaxy) {
+	public void startGame(String galaxy) throws MapValidationException{
 		Galaxy g = controller.getMap(galaxy);
 		controller.start(g);
 	}

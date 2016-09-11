@@ -27,8 +27,8 @@ public class MapConvernterTest {
 	public void testConvert() throws IOException, URISyntaxException {
 		File in = res.getFile();
 		MapConvernter mConv = new MapConvernter();
-		//Galaxy galaxy = mConv.convert(in);
-		//Assert.assertNotNull(galaxy);
+//		Galaxy galaxy = mConv.convert(in);
+//		Assert.assertNotNull(galaxy);
 		
 	}
 }

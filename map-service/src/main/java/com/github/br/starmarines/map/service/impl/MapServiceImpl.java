@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.br.starmarines.map.service.api.MapValidationException;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
@@ -45,7 +46,7 @@ public class MapServiceImpl implements MapService {
 	}
 
 	@Override
-	public Galaxy getMap(String title) {
+	public Galaxy getMap(String title) throws MapValidationException {
 		File folder = getMapsDirectory();
 		File[] listOfFiles = folder.listFiles();		
 		
