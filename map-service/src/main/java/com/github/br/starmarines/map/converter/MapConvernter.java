@@ -39,7 +39,7 @@ public class MapConvernter implements Converter<File, Galaxy> {
     }
 
     @Override
-    public Galaxy convert(File in) throws IOException {
+    public Galaxy convert(File in) throws IOException, MapValidationException {
         if (logService != null) {
             logService.log(LogService.LOG_DEBUG, "Convertation start");
         }
