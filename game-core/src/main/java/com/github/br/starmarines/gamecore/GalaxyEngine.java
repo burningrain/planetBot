@@ -43,7 +43,7 @@ public class GalaxyEngine {
 	}
 	
 	public void initPlayersPositions(Set<String> owners){
-		if(owners.size() > startPoints.size()) throw new IllegalStateException("РЎС‚Р°СЂС‚РѕРІС‹С… С‚РѕС‡РµРє РјРµРЅСЊС€Рµ, С‡РµРј РёРіСЂРѕРєРѕРІ");
+		if(owners.size() > startPoints.size()) throw new IllegalStateException("Стартовых точек меньше, чем игроков");
 		
 		Collections.shuffle(startPoints);
 		Iterator<Planet> it = startPoints.iterator();
@@ -54,7 +54,7 @@ public class GalaxyEngine {
 	}
 	
 	
-	// TODO РјСѓС‚Р°Р±РµР»СЊРЅС‹Р№ РјРµС‚РѕРґ
+	// TODO мутабельный метод
 	public Collection<Planet> updateState(Collection<Moves> moves, Map<Player, List<GameStepMistake>> refEmptyMap){
 		year++;
 		
@@ -68,19 +68,19 @@ public class GalaxyEngine {
 				PlanetVertex targetVertex = planets.get(move.getTo());
 				
 				if(!graph.containsEdge(sourceVertex, targetVertex)){
-					mistakesList.add(new GameStepMistake("РњРµР¶РґСѓ РїР»Р°РЅРµС‚Р°РјРё РЅРµС‚ СЃРІСЏР·Рё", player, move));
+					mistakesList.add(new GameStepMistake("Между планетами нет связи", player, move));
 					continue;
 				}	
 				
-				// Р±СЂР°С‚СЊ СЋРЅРёС‚РѕРІ РјРѕР¶РЅРѕ С‚РѕР»СЊРєРѕ СЃРѕ СЃРІРѕРµР№ РїР»Р°РЅРµС‚С‹
+				// брать юнитов можно только со своей планеты 
 				String owner = move.getFrom().getOwner();
 				if(!player.getName().equals(owner)){
-					mistakesList.add(new GameStepMistake("Р‘СЂР°С‚СЊ СЋРЅРёС‚РѕРІ РјРѕР¶РЅРѕ С‚РѕР»СЊРєРѕ СЃРѕ СЃРІРѕРµР№ РїР»Р°РЅРµС‚С‹", player, move));
+					mistakesList.add(new GameStepMistake("Брать юнитов можно только со своей планеты", player, move));
 					continue;
 				}	
 				
 				if(!sourceVertex.canMoveUnits(move.getAmount())){
-					mistakesList.add(new GameStepMistake("РќРµР»СЊР·СЏ Р±СЂР°С‚СЊ СЃ РїР»Р°РЅРµС‚С‹ СЋРЅРёС‚РѕРІ Р±РѕР»СЊС€Рµ, С‡РµРј РµСЃС‚СЊ", player, move));
+					mistakesList.add(new GameStepMistake("Нельзя брать с планеты юнитов больше, чем есть", player, move));
 					continue;
 				}
 								
@@ -135,13 +135,13 @@ public class GalaxyEngine {
 		}
 		
 		/**
-		 * Р’С‹С‡РёСЃР»СЏРµС‚СЃСЏ РєРѕР»РёС‡РµСЃС‚РІРѕ СЋРЅРёС‚РѕРІ С…РѕР·СЏРёРЅР° РїР»Р°РЅРµС‚С‹, СЃ СѓС‡РµС‚РѕРј СѓР»РµС‚РµРІС€РёС… СЃ СЌС‚РѕР№ РїР»Р°РЅРµС‚С‹ 
-		 * Рё РїСЂРёР»РµС‚РµРІС€РёС… РЅР° РЅРµРµ СЋРЅРёС‚РѕРІ СЌС‚РѕРіРѕ РёРіСЂРѕРєР°.
+		 * Вычисляется количество юнитов хозяина планеты, с учетом улетевших с этой планеты 
+		 * и прилетевших на нее юнитов этого игрока.
 		 */
 		public void computePlanetsUnitsAmount(){
 			for(Step step : ownerSteps){
 				int units = step.getUnits();
-				int result = planet.getUnits() + units; // units РјРѕРіСѓС‚ Р±С‹С‚СЊ Рё "+" Рё "-"
+				int result = planet.getUnits() + units; // units могут быть и "+" и "-"
 				if(result < 0) result = 0;
 				planet.setUnits(result);
 			}
@@ -149,7 +149,7 @@ public class GalaxyEngine {
 		}
 		
 		/**
-		 * РџРѕР»СѓС‡РёРІС€РµРµСЃСЏ РєРѕР»РёС‡РµСЃС‚РІРѕ СѓРІРµР»РёС‡РёРІР°РµС‚СЃСЏ РїРѕ РїСЂР°РІРёР»Р°Рј СЂРµРіРµРЅРµСЂР°С†РёРё СЋРЅРёС‚РѕРІ РґР»СЏ СЌС‚РѕР№ РїР»Р°РЅРµС‚С‹. 
+		 * Получившееся количество увеличивается по правилам регенерации юнитов для этой планеты. 
 		 */
 		public void unitsRegeneration(){
 			String owner = planet.getOwner();
@@ -168,20 +168,20 @@ public class GalaxyEngine {
 		}
 		
 		/**
-		 * РџРѕСЃР»Рµ СЌС‚РѕРіРѕ РїСЂРѕРёСЃС…РѕРґРёС‚ РІС‹Р±РѕСЂ РЅРѕРІРѕРіРѕ С…РѕР·СЏРёРЅР° РїР»Р°РЅРµС‚С‹ (РІ СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РЅР° РїР»Р°РЅРµС‚Сѓ Р±С‹Р»Рё РїРѕСЃР»Р°РЅС‹ С‡СЊРё-С‚Рѕ РµС‰Рµ СЋРЅРёС‚С‹). 
-		 * РҐРѕР·СЏРёРЅРѕРј РїР»Р°РЅРµС‚С‹ СЃС‚Р°РЅРѕРІРёС‚СЃСЏ РёРіСЂРѕРє СЃ РЅР°РёР±РѕР»СЊС€РёРј РєРѕР»РёС‡РµСЃС‚РІРѕРј СЋРЅРёС‚РѕРІ. РџСЂРё СЌС‚РѕРј СЋРЅРёС‚С‹ РІСЃРµС… РѕСЃС‚Р°Р»СЊРЅС‹С… РёРіСЂРѕРєРѕРІ 
-		 * СѓРЅРёС‡С‚РѕР¶Р°СЋС‚СЃСЏ, Р° Сѓ РїРѕР±РµРґРёС‚РµР»СЏ РѕСЃС‚Р°РµС‚СЃСЏ С‡РёСЃР»Рѕ СЋРЅРёС‚РѕРІ, РЅР° РєРѕС‚РѕСЂРѕРµ РѕРЅ РїСЂРµРІРѕСЃС…РѕРґРёР» СЃР»РµРґСѓСЋС‰РµРіРѕ РїРѕ С‡РёСЃР»РµРЅРЅРѕСЃС‚Рё 
-		 * РёРіСЂРѕРєР°. 
+		 * После этого происходит выбор нового хозяина планеты (в случае, если на планету были посланы чьи-то еще юниты). 
+		 * Хозяином планеты становится игрок с наибольшим количеством юнитов. При этом юниты всех остальных игроков 
+		 * уничтожаются, а у победителя остается число юнитов, на которое он превосходил следующего по численности 
+		 * игрока. 
 		 */
 		public void choosePlanetsMasters(){
-			// РµСЃР»Рё РІСЂР°РіРё РЅРµ РїРѕСЃР»Р°Р»Рё РЅР° РїР»Р°РЅРµС‚Сѓ СЋРЅРёС‚РѕРІ, СЃС‡РёС‚Р°С‚СЊ РЅРµС‡РµРіРѕ
+			// если враги не послали на планету юнитов, считать нечего
 			if(enemySteps.size() == 0){
 				return; 
 			}			
 			
-			enemySteps.add(new Step(new Player(planet.getOwner()), planet.getUnits())); //TODO РєСЂРёРІРѕС‚Р°, СѓР±СЂР°С‚СЊ
-			// С‚РѕР»СЊРєРѕ "+" РјРѕР¶РµС‚ Р±С‹С‚СЊ Сѓ РІСЂР°Р¶РµСЃРєРёС… С…РѕРґРѕРІ;
-			// СЃРѕСЂС‚РёСЂСѓРµРј РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ
+			enemySteps.add(new Step(new Player(planet.getOwner()), planet.getUnits())); //TODO кривота, убрать
+			// только "+" может быть у вражеских ходов;
+			// сортируем по возрастанию
 			enemySteps.sort(new Comparator<Step>() {
 				@Override
 				public int compare(Step o1, Step o2) {					
@@ -193,17 +193,16 @@ public class GalaxyEngine {
 			
 			int result = first.getUnits() - second.getUnits();
 			if(result > 0){
-				// РїР»Р°РЅРµС‚Сѓ Р·Р°С…РІР°С‚РёР»Рё РёР»Рё С…РѕР·СЏРёРЅ РѕС‚Р±РёР»СЃСЏ
-				result = Math.abs(result);
+				// планету захватили или хозяин отбился
 				planet.setUnits(result);
 				planet.setOwner(first.getPlayer().getName());
 			} else if(result == 0){
-				// РЅРµ Р·Р°С…РІР°С‚РёР»Рё, РЅРѕ РІСЃРµС… СѓР±РёР»Рё
+				// не захватили, но всех убили
 				planet.setUnits(result);
 				planet.setOwner("");
 			} else{ 
-				// РІС‚РѕСЂРѕР№ РїРѕ С‡РёСЃР»Сѓ СЋРЅРёС‚РѕРІ РѕР±РѕС€РµР» РїРµСЂРІРѕРіРѕ. РљР°Рє С‚Р°РєРѕРµ СЃР»СѓС‡РёР»РѕСЃСЊ?
-				throw new IllegalStateException("РћС€РёР±РєР° РїСЂРё РїРѕРґСЃС‡РµС‚Рµ С…РѕР·СЏРёРЅР° РїР»Р°РЅРµС‚С‹");
+				// второй по числу юнитов обошел первого. Как такое случилось?
+				throw new IllegalStateException("Ошибка при подсчете хозяина планеты");
 			}
 			
 			enemySteps.clear();
