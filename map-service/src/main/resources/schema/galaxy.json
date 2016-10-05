@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "galaxy",
+  "description": "Schema for checking validity for game map (.gv format) with inline JSON",
+  "type": "object",
+  "properties": {
+    "galaxyType": {
+      "description": "Mandatory parameter to change map type. Available types: BIG_BASES, SMALL_BASES",
+      "type": "string"
+    }
+  },
+  "required": [
+    "galaxyType"
+  ]
+}
