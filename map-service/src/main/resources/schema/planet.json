@@ -8,7 +8,7 @@
       "description": "Mandatory parameter to attache planet properties from gv file Nodes ",
       "type": "number",
       "minimum": 1,
-      "exclusiveMinimum": true
+      "exclusiveMinimum": false
     },
     "type" : {
       "description": "Mandatory parameter to change planet properties used in game mechanics",

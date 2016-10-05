@@ -51,6 +51,13 @@
 			<version>2.7</version>
 		</dependency>
 
+		<!-- Либе нужен другой JSON двиг-->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.3</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.github.fge</groupId>
 			<artifactId>json-schema-validator</artifactId>
