@@ -1,5 +1,6 @@
 package com.github.br.starmarines.gamecore;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -51,17 +52,18 @@ public class GalaxyEngine {
 			Planet planet = it.next();
 			planet.setOwner(owner);
 		}
-	}
-	
-	
+	}	
+
 	// TODO мутабельный метод
 	public Collection<Planet> updateState(Collection<Moves> moves, Map<Player, List<GameStepMistake>> refEmptyMap){
 		year++;
-		
+
 		for(Moves m : moves){
 			LinkedList<GameStepMistake> mistakesList = new LinkedList<>();
 			Player player = m.getPlayer();
 			
+			// добавленные юниты не считаются. Нельзя перекинуть на планету с 1 юнитом 100 юнитов и сразу же взять с неё 101 юнит
+			Map<Planet, Integer> fromPlanets = m.getComputeFromPlanets(); 
 			Collection<Move> actions = m.get();
 			for(Move move : actions){
 				PlanetVertex sourceVertex = planets.get(move.getFrom());
@@ -79,7 +81,8 @@ public class GalaxyEngine {
 					continue;
 				}	
 				
-				if(!sourceVertex.canMoveUnits(move.getAmount())){
+				int fromMove = fromPlanets.get(move.getFrom()); // берем суммарную потерю юнитов на планете от всех ходов игрока
+				if(!sourceVertex.canMoveUnits(fromMove)){
 					mistakesList.add(new GameStepMistake("Нельзя брать с планеты юнитов больше, чем есть", player, move));
 					continue;
 				}
@@ -99,7 +102,7 @@ public class GalaxyEngine {
 		
 		return PlanetCloner.clonePlanets(planets.keySet());	
 	}	
-	
+
 	public int getYear() {
 		return year;
 	}	
@@ -114,12 +117,12 @@ public class GalaxyEngine {
 		
 		private Planet planet;
 		private List<Step> ownerSteps;
-		private List<Step> enemySteps;
+		private HashMap<Player, Integer> enemySteps;
 		
 		public PlanetVertex(Planet planet){
 			this.planet = planet;
 			ownerSteps = new LinkedList<>();
-			enemySteps = new LinkedList<>();
+			enemySteps = new HashMap<>();
 		}
 		
 		public boolean canMoveUnits(int amount){
@@ -130,7 +133,14 @@ public class GalaxyEngine {
 			if(step.getPlayer().getName().equals(planet.getOwner())){
 				ownerSteps.add(step);
 			} else{
-				enemySteps.add(step);
+				// враг может сделать несколько ходов на одну планету (н-р, с разных планет). Считаем его суммарный удар.
+				int value = 0;
+				if(enemySteps.get(step.getPlayer()) == null){
+					value = step.getUnits();
+				} else{
+					value = enemySteps.get(step.getPlayer()) + step.getUnits();
+				}
+				enemySteps.put(step.getPlayer(), value);
 			}			
 		}
 		
@@ -142,7 +152,11 @@ public class GalaxyEngine {
 			for(Step step : ownerSteps){
 				int units = step.getUnits();
 				int result = planet.getUnits() + units; // units могут быть и "+" и "-"
-				if(result < 0) result = 0;
+				//TODO выкидывать ошибку? Отправлено юнитов больше, чем есть?
+				if(result <= 0) {
+					result = 0;
+					planet.setOwner("");
+				} 
 				planet.setUnits(result);
 			}
 			ownerSteps.clear();
@@ -179,23 +193,26 @@ public class GalaxyEngine {
 				return; 
 			}			
 			
-			enemySteps.add(new Step(new Player(planet.getOwner()), planet.getUnits())); //TODO кривота, убрать
+			enemySteps.put(new Player(planet.getOwner()), planet.getUnits()); //TODO кривота, убрать
 			// только "+" может быть у вражеских ходов;
-			// сортируем по возрастанию
-			enemySteps.sort(new Comparator<Step>() {
+			// сортируем по убыванию
+			Object[] steps = enemySteps.entrySet().toArray();
+			Arrays.sort(steps, new Comparator() {
 				@Override
-				public int compare(Step o1, Step o2) {					
-					return o1.getUnits() - o2.getUnits();
+				public int compare(Object o1, Object o2) {
+					return ((Map.Entry<Player, Integer>) o2).getValue()
+			                   .compareTo(((Map.Entry<Player, Integer>) o1).getValue());
 				}
+				
 			});
-			Step first = enemySteps.get(enemySteps.size() - 1);
-			Step second = enemySteps.get(enemySteps.size() - 2);
+			Map.Entry<Player, Integer> first = (Map.Entry<Player, Integer>)steps[0];
+			Map.Entry<Player, Integer> second = (Map.Entry<Player, Integer>)steps[1];
 			
-			int result = first.getUnits() - second.getUnits();
+			int result = first.getValue() - second.getValue();
 			if(result > 0){
 				// планету захватили или хозяин отбился
 				planet.setUnits(result);
-				planet.setOwner(first.getPlayer().getName());
+				planet.setOwner(first.getKey().getName());
 			} else if(result == 0){
 				// не захватили, но всех убили
 				planet.setUnits(result);
