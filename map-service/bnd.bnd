@@ -20,9 +20,25 @@ testsrc: src/test/java
 Include-Resource: lib 
 Bundle-ClassPath: \
 ., \
-org.eclipse.gef4.common_1.0.0.201606040817.jar, \
-org.eclipse.gef4.dot_1.0.0.201606040817.jar, \
-org.eclipse.gef4.graph_1.0.0.201606040817.jar, \
+jackson-annotations-2.8.0.jar, \
+jackson-core-2.8.3.jar, \
+jackson-coreutils-1.8.jar, \
+jackson-databind-2.8.3.jar, \
+activation-1.1.jar, \
+btf-1.2.jar, \
+joda-time-2.3.jar, \
+jopt-simple-4.6.jar, \
+json-schema-core-1.2.5.jar, \
+json-schema-validator-2.2.6.jar, \
+jsr305-3.0.0.jar, \
+libphonenumber-6.2.jar, \
+mailapi-1.4.3.jar, \
+msg-simple-1.1.jar, \
+rhino-1.7R4.jar, \
+uri-template-0.9.jar, \
+org.eclipse.gef4.common_1.0.0.201606082015.jar, \
+org.eclipse.gef4.dot_1.0.0.201606082015.jar, \
+org.eclipse.gef4.graph_1.0.0.201606082015.jar, \
 gson-2.7.jar, \
 antlr-runtime-3.2.jar, \
 aopalliance-1.0.jar, \
@@ -40,6 +56,23 @@ org.eclipse.xtext-2.10.0.jar, \
 org.eclipse.xtext.util-2.10.0.jar, \
 org.eclipse.xtext.xbase.lib-2.10.0.jar
 
+
+#jackson-annotations-2.8.0.jar, \
+#jackson-core-2.8.3.jar, \
+#jackson-coreutils-1.8.jar, \
+#jackson-databind-2.8.3.jar, \
+#activation-1.1.jar, \
+#btf-1.2.jar, \
+#joda-time-2.3.jar, \
+#jopt-simple-4.6.jar, \
+#json-schema-core-1.2.5.jar, \
+#json-schema-validator-2.2.6.jar, \
+#jsr305-3.0.0.jar, \
+#libphonenumber-6.2.jar, \
+#mailapi-1.4.3.jar, \
+#msg-simple-1.1.jar, \
+#rhino-1.7R4.jar, \
+#uri-template-0.9.jar, \
 #guice-multibindings-4.0, \
 #guice-4.0-beta.jar, \
 #aopalliance-1.0.jar, \

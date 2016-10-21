@@ -64,6 +64,12 @@
 			<version>2.2.6</version>
 		</dependency>
 
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+		</dependency>
+
 <!--		
 
 		<dependency>
@@ -102,7 +108,7 @@
 			<version>1.0.0.201606040817</version>
 			<type>bundle</type>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/org.eclipse.gef4.graph_1.0.0.201606040817.jar</systemPath>
+			<systemPath>${project.basedir}/lib/org.eclipse.gef4.graph_1.1.0.201609060946.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -111,7 +117,7 @@
 			<version>1.0.0.201606040817</version>
 			<type>bundle</type>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/org.eclipse.gef4.dot_1.0.0.201606040817.jar</systemPath>
+			<systemPath>${project.basedir}/lib/org.eclipse.gef4.dot_1.0.1.201609060946.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.gef4.common</groupId>
@@ -119,7 +125,7 @@
 			<version>1.0.0.201606040817</version>
 			<type>bundle</type>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/org.eclipse.gef4.common_1.0.0.201606040817.jar</systemPath>
+			<systemPath>${project.basedir}/lib/org.eclipse.gef4.common_1.1.0.201609060946.jar</systemPath>
 		</dependency>
 
 	</dependencies>

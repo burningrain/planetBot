@@ -15,10 +15,12 @@ import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.log.LogService;
 
+import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
@@ -47,11 +49,12 @@ public class MapConvernter implements Converter<File, Galaxy> {
                 .registerTypeAdapter(GameMetaInfo.class, new GameMetaInfoDeserializer()).create();
         String graphFile = getContent(in);
         Graph graph = new DotImport().importDot(graphFile);
+        URL urlPlanetSchema = getClass().getClassLoader().getResource("schema/planet.json");
+        URL urlGalaxySchema = getClass().getClassLoader().getResource("schema/galaxy.json");
         Map<String, Object> atribMap = graph.getAttributes();
-        if ((String) atribMap.get("_name") == null) {
-            throw new MapValidationException("Errero parse map from file", "Galaxy meta" +
-                    " information lost in _name attrib in Graph name");
-        }
+        Validator validator = new MapValidator();
+
+        validator.validate(gson.toJson(atribMap.get("_name")), );
         GameMetaInfo galaxyInfo = gson.fromJson((String) atribMap.get("_name"), GameMetaInfo.class);
         Galaxy.Builder gBuilder = new Galaxy.Builder(galaxyInfo.getType());
         Galaxy galaxy = null;
