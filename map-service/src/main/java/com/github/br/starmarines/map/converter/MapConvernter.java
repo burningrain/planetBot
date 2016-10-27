@@ -24,6 +24,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
+import javafx.collections.*;
 
 @Component
 public class MapConvernter implements Converter<File, Galaxy> {
@@ -49,12 +50,13 @@ public class MapConvernter implements Converter<File, Galaxy> {
                 .registerTypeAdapter(GameMetaInfo.class, new GameMetaInfoDeserializer()).create();
         String graphFile = getContent(in);
         Graph graph = new DotImport().importDot(graphFile);
+        Map<String, Object> atribMap = graph.getAttributes();
         URL urlPlanetSchema = getClass().getClassLoader().getResource("schema/planet.json");
         URL urlGalaxySchema = getClass().getClassLoader().getResource("schema/galaxy.json");
-        Map<String, Object> atribMap = graph.getAttributes();
+        
         Validator validator = new MapValidator();
 
-        validator.validate(gson.toJson(atribMap.get("_name")), );
+//        validator.validate(gson.toJson(atribMap.get("_name")), );
         GameMetaInfo galaxyInfo = gson.fromJson((String) atribMap.get("_name"), GameMetaInfo.class);
         Galaxy.Builder gBuilder = new Galaxy.Builder(galaxyInfo.getType());
         Galaxy galaxy = null;

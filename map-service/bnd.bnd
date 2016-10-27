@@ -6,7 +6,8 @@
 	osgi.cmpn;version=4.3,\
 	game-api;version=latest,\
 	map-api;version=latest,\
-	game-core-api;version=latest
+	game-core-api;version=latest,\
+	org.eclipse.gef4.common
 -outputmask: ${@bsn}-${version;===S;${@version}}.jar
 
 Bundle-Version: 1.0.0.SNAPSHOT
@@ -36,9 +37,9 @@ mailapi-1.4.3.jar, \
 msg-simple-1.1.jar, \
 rhino-1.7R4.jar, \
 uri-template-0.9.jar, \
-org.eclipse.gef4.common_1.0.0.201606082015.jar, \
-org.eclipse.gef4.dot_1.0.0.201606082015.jar, \
-org.eclipse.gef4.graph_1.0.0.201606082015.jar, \
+org.eclipse.gef4.common_1.1.0.201609060946.jar, \
+org.eclipse.gef4.dot_1.0.1.201609060946.jar, \
+org.eclipse.gef4.graph_1.1.0.201609060946.jar, \
 gson-2.7.jar, \
 antlr-runtime-3.2.jar, \
 aopalliance-1.0.jar, \
@@ -107,4 +108,5 @@ Import-Package: \
 	javafx.beans.binding, \
 	javafx.beans.property, \
 	javafx.beans.value, \
-	javafx.collections
+	javafx.collections,\
+	*
