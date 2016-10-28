@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -87,7 +88,10 @@ public class MenuGameEngineWidget extends JPanel implements
 						MenuGameEngineWidget.this.startGame(mapTitle); // FIXME
 					} catch (MapValidationException e) {
 						//TODO: Обработать
-						e.printStackTrace();
+						JOptionPane.showMessageDialog(new JFrame(),
+							    e.getMessage(),
+							    "Ошибка игравой карты",
+							    JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});

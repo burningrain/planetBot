@@ -106,12 +106,7 @@ public class MapConvernter implements Converter<File, Galaxy> {
 	    FileUtils.copyURLToFile(urlGalaxySchema, galaxyFile);
 	    String galaxySchema = FileUtils.readFileToString(galaxyFile, CODE_PAGE);
 	    Validator validator = new MapValidator();
-	    try {
-	    	result = validator.validate(inJSON, galaxySchema);
-		} catch (Exception e) {
-			throw new MapValidationException("Error: Current map have some problem"
-					+ " in galaxy meta info.",  e.getMessage());
-		}
+	    result = validator.validate(inJSON, galaxySchema);
 		return result;
 	}
 	
@@ -122,12 +117,7 @@ public class MapConvernter implements Converter<File, Galaxy> {
 		FileUtils.copyURLToFile(urlPlanetSchema, planetFile);
 	    String planetSchema = FileUtils.readFileToString(planetFile, CODE_PAGE);
 	    Validator validator = new MapValidator();
-	    try {
-	    	result = validator.validate(inJSON, planetSchema);
-		} catch (Exception e) {
-			throw new MapValidationException("Error: Current map have some "
-					+ "problem in planet meta info.",  e.getMessage());
-		}
+	    result = validator.validate(inJSON, planetSchema);
 		return result;
 	}
 
