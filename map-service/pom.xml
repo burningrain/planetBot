@@ -11,10 +11,14 @@
 	<packaging>bundle</packaging>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.compendium</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
@@ -108,7 +112,7 @@
 			<version>1.0.0.201606040817</version>
 			<type>bundle</type>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/org.eclipse.gef4.graph_1.1.0.201609060946.jar</systemPath>
+			<systemPath>${project.basedir}/lib/org.eclipse.gef4.graph_1.0.0.201606040817.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -117,7 +121,7 @@
 			<version>1.0.0.201606040817</version>
 			<type>bundle</type>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/org.eclipse.gef4.dot_1.0.1.201609060946.jar</systemPath>
+			<systemPath>${project.basedir}/lib/org.eclipse.gef4.dot_1.0.0.201606040817.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.gef4.common</groupId>
@@ -125,7 +129,12 @@
 			<version>1.0.0.201606040817</version>
 			<type>bundle</type>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/org.eclipse.gef4.common_1.1.0.201609060946.jar</systemPath>
+			<systemPath>${project.basedir}/lib/org.eclipse.gef4.common_1.0.0.201606040817.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+			<version>4.6.0</version>
 		</dependency>
 
 	</dependencies>
@@ -133,7 +142,6 @@
 
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>

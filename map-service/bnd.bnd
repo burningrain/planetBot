@@ -6,8 +6,7 @@
 	osgi.cmpn;version=4.3,\
 	game-api;version=latest,\
 	map-api;version=latest,\
-	game-core-api;version=latest,\
-	org.eclipse.gef4.common
+	game-core-api;version=latest
 -outputmask: ${@bsn}-${version;===S;${@version}}.jar
 
 Bundle-Version: 1.0.0.SNAPSHOT
@@ -18,7 +17,8 @@ testbin: target/test-classes
 testsrc: src/test/java
 
 
-Include-Resource: lib 
+Include-Resource: lib, \
+src/main/resources
 Bundle-ClassPath: \
 ., \
 jackson-annotations-2.8.0.jar, \
@@ -26,6 +26,7 @@ jackson-core-2.8.3.jar, \
 jackson-coreutils-1.8.jar, \
 jackson-databind-2.8.3.jar, \
 activation-1.1.jar, \
+commons-io-2.5.jar, \
 btf-1.2.jar, \
 joda-time-2.3.jar, \
 jopt-simple-4.6.jar, \
@@ -37,9 +38,9 @@ mailapi-1.4.3.jar, \
 msg-simple-1.1.jar, \
 rhino-1.7R4.jar, \
 uri-template-0.9.jar, \
-org.eclipse.gef4.common_1.1.0.201609060946.jar, \
-org.eclipse.gef4.dot_1.0.1.201609060946.jar, \
-org.eclipse.gef4.graph_1.1.0.201609060946.jar, \
+org.eclipse.gef4.common_1.0.0.201606040817.jar, \
+org.eclipse.gef4.dot_1.0.0.201606040817.jar, \
+org.eclipse.gef4.graph_1.0.0.201606040817.jar, \
 gson-2.7.jar, \
 antlr-runtime-3.2.jar, \
 aopalliance-1.0.jar, \
@@ -73,6 +74,7 @@ org.eclipse.xtext.xbase.lib-2.10.0.jar
 #mailapi-1.4.3.jar, \
 #msg-simple-1.1.jar, \
 #rhino-1.7R4.jar, \
+#commons-io-2.5.jar, \
 #uri-template-0.9.jar, \
 #guice-multibindings-4.0, \
 #guice-4.0-beta.jar, \
@@ -108,5 +110,4 @@ Import-Package: \
 	javafx.beans.binding, \
 	javafx.beans.property, \
 	javafx.beans.value, \
-	javafx.collections,\
-	*
+	javafx.collections
