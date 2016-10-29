@@ -8,6 +8,7 @@ import com.github.br.starmarines.main.model.logic.GameEngineLogic;
 import com.github.br.starmarines.main.model.logic.Logic;
 import com.github.br.starmarines.main.view.widgets.IWidget;
 import com.github.br.starmarines.map.service.api.MapService;
+import com.github.br.starmarines.map.service.api.MapValidationException;
 
 public class GameEngineController implements IController<GameEngineController> {
 	
@@ -27,7 +28,7 @@ public class GameEngineController implements IController<GameEngineController> {
 		return mapService.getAllTitles();		
 	}
 	
-	public Galaxy getMap(String title){
+	public Galaxy getMap(String title) throws MapValidationException{
 		return mapService.getMap(title);
 	}
 	

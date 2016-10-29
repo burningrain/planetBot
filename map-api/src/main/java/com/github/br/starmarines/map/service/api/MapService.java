@@ -10,6 +10,6 @@ public interface MapService {
 	
 	List<String> getTitles(int startIndex, int count); // для пейджинга
 	
-	Galaxy getMap(String title);
+	Galaxy getMap(String title) throws MapValidationException;
 
 }

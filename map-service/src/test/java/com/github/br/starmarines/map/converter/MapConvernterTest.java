@@ -10,6 +10,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import com.github.br.starmarines.map.service.api.MapValidationException;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,8 +28,12 @@ public class MapConvernterTest {
 	public void testConvert() throws IOException, URISyntaxException {
 		File in = res.getFile();
 		MapConvernter mConv = new MapConvernter();
-		//Galaxy galaxy = mConv.convert(in);
-		//Assert.assertNotNull(galaxy);
+//		try {
+//			Galaxy galaxy = mConv.convert(in);
+//		} catch (MapValidationException e) {
+//			e.printStackTrace();
+//		}
+//		Assert.assertNotNull(galaxy);
 		
 	}
 }
