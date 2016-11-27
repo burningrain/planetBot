@@ -44,14 +44,14 @@ public class StageCoachMain extends Application {
 
 	@Validate
 	public void main() {
-		Executors
-		.defaultThreadFactory()
-		.newThread(
-				() -> {
-					Thread.currentThread().setContextClassLoader(
-							this.getClass().getClassLoader());
-					launch();
-				}).start();
+//		Executors
+//		.defaultThreadFactory()
+//		.newThread(
+//				() -> {
+//					Thread.currentThread().setContextClassLoader(
+//							this.getClass().getClassLoader());
+//					launch();
+//				}).start();
 	}
 
 	private StageStyle configStageStyle() {

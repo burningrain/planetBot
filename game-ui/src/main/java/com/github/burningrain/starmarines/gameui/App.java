@@ -38,8 +38,8 @@ public class App extends Application {
 		//new Metronome1Main().start(primaryStage);
 		//new MetronomeTransitionMain().start(primaryStage);
 		//new MetronomePathTransitionMain().start(primaryStage);
-		//new ZenPongMain().start(primaryStage);
-		//primaryStage.show();
+		new ZenPongMain().start(primaryStage);
+		primaryStage.show();
 	}
 
 	@Invalidate

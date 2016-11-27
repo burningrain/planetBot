@@ -1,4 +1,4 @@
--runfw: org.apache.felix.framework;version='[4,5)'
+-runfw: org.apache.felix.framework;version='[5.2.0,5.2.0]'
 -runee: JavaSE-1.8
 -runsystemcapabilities: ${native_capability}
 
@@ -8,11 +8,10 @@
 	org.apache.felix.gogo.command,\
 	org.apache.felix.gogo.runtime,\
 	org.apache.felix.gogo.shell,\
-	game-ui;version=latest,\
-	game-api;version=latest,\
 	game-core;version=latest,\
 	org.apache.felix.ipojo,\
-	org.jgrapht.core
+	org.jgrapht.core,\
+	game-ui;version=latest
 
 
 
@@ -36,5 +35,6 @@
 	javafx.scene.shape, \
 	javafx.util, \
 	javafx.beans.value, \
-	javafx.geometry
+	javafx.geometry, \
+	javafx.scene.web
 	

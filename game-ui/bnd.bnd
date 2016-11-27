@@ -1,5 +1,5 @@
 -buildpath:  \
-	osgi.core,\
+	osgi.core;version=5.0\
 	${junit},\
 	osgi.cmpn;version=4.3,\
 	game-api;version=latest,\
@@ -21,4 +21,5 @@ Bundle-ClassPath: \
 
 Private-Package: \
 	com.github.burningrain.starmarines.gameui,\
-	com.github.burningrain.chapter3
+	com.github.burningrain.chapter3,\
+	com.github.burningrain.chapter3controller
