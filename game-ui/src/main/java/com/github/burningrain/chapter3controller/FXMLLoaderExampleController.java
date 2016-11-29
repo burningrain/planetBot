@@ -1,5 +1,6 @@
 package com.github.burningrain.chapter3controller;
 
+import org.apache.felix.ipojo.annotations.BindingPolicy;
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
@@ -16,8 +17,8 @@ import javafx.scene.web.WebView;
 @Component(publicFactory=false)
 public class FXMLLoaderExampleController {
 	
-	@Requires
-	SimpleOsgiService simpleService;
+	@Requires(policy=BindingPolicy.STATIC)
+	SimpleOsgiServiceImpl simpleService;
 
 	@FXML
 	private TextField address;
@@ -37,6 +38,7 @@ public class FXMLLoaderExampleController {
 
 	@FXML
 	public void actionHandler() {
+		System.out.println("Contr: " + this);
 		simpleService.doSomething();		
 		webView.getEngine().load(address.getText());
 	}

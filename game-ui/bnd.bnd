@@ -13,10 +13,12 @@ target-dir: target
 testbin: target/test-classes
 testsrc: src/test/java
 
-Include-Resource: lib
+Include-Resource: lib, \
+src/main/resources
 
 Bundle-ClassPath: \
-
+jfoenix-1.0.0.jar, \
+.
 	
 
 Private-Package: \

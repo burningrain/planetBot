@@ -10,11 +10,13 @@ import org.apache.felix.ipojo.annotations.Requires;
 import org.apache.felix.ipojo.annotations.Validate;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.ServiceReference;
+
+import com.jfoenix.controls.JFXDecorator;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -36,23 +38,28 @@ public class FXMLLoaderExampleMain extends Application {
 	}
 
 	private void showStage() {
+		System.out.println("Contr: " + fxmlController);
 		Platform.runLater(()->{
 			FXMLLoader fxmlLoader = new FXMLLoader();
 			fxmlLoader
 					.setLocation(FXMLLoaderExampleMain.class
-							.getResource("/com/github/burningrain/chapter3controller/FXMLLoaderExample.fxml"));
+							.getResource("/com/github/burningrain/chapter3controller/2.fxml"));
 			fxmlController.setName("name: FXMLLoaderExampleController");
 			System.out.println(fxmlController.getName());
 			fxmlLoader.setController(fxmlController);
-			VBox vBox = null;
+			Node vBox = null;
 			try {
 				vBox = fxmlLoader.load();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Scene scene = new Scene(vBox, 600, 400);
 			Stage stage = stageService.getStage();
+			JFXDecorator decorator = new JFXDecorator(stage, vBox);
+			decorator.setCustomMaximize(true);				
+			Scene scene = new Scene(decorator, 600, 400);
+//			scene.getStylesheets().add(FXMLLoaderExampleMain.class.getResource("/resources/css/jfoenix-fonts.css").toExternalForm());
+//			scene.getStylesheets().add(FXMLLoaderExampleMain.class.getResource("/resources/css/jfoenix-design2.css").toExternalForm());
 			stage.setTitle("FXMLLoader Example");
 			stage.setScene(scene);
 			stage.show();

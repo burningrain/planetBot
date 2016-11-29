@@ -5,6 +5,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
 	minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0"
@@ -12,14 +16,26 @@
 	<children>
 		<HBox spacing="10.0">
 			<children>
+
+				<JFXTogglePane alignment="TOP_CENTER" pickOnBounds="false"
+					prefHeight="143.0" prefWidth="212.0">
+					<children>
+						<JFXToggleButton alignment="TOP_CENTER"
+							contentDisplay="RIGHT" toggleColor="#8f6700" toggleLineColor="#c28d78" />
+					</children>
+				</JFXTogglePane>
+				<JFXTextField focusColor="#8f6700" />
+				<JFXTextArea focusColor="#8f6700" minWidth="83.0"
+					prefHeight="78.0" prefWidth="83.0" />
 				<TextField fx:id="address" onAction="#actionHandler"
 					HBox.hgrow="ALWAYS">
 					<padding>
 						<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
 					</padding>
 				</TextField>
-				<Button fx:id="loadButton" mnemonicParsing="false" onAction="#actionHandler"
-					text="Load" />
+				<JFXButton fx:id="loadButton" text="Search"
+					xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+					mnemonicParsing="false" onAction="#actionHandler" />
 			</children>
 		</HBox>
 		<WebView fx:id="webView" prefHeight="200.0" prefWidth="200.0"
