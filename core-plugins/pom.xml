@@ -9,11 +9,11 @@
 		<relativePath>../starmarines-parent</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>game-ui</artifactId>
+	<artifactId>core-plugins</artifactId>
 	<packaging>bundle</packaging>
 
-	<dependencies>
-		
+	<dependencies>		
+	
 		<dependency>
 			<groupId>com.br</groupId>
 			<artifactId>plugin-api</artifactId>

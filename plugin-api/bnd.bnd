@@ -7,19 +7,12 @@ Bundle-Version: 1.0.0.SNAPSHOT
 bin: target/classes
 src: src/main/java
 target-dir: target
-testbin: target/classes
+testbin: target/test-classes
 testsrc: src/test/java
 
-Include-Resource: lib,\
-				src/main/resources
-				
 
 Bundle-ClassPath: \
 
 	
 
-Private-Package: \
-	com.github.br.starmarines.gameui,\
-	com.github.burningrain.chapter3,\
-	com.github.burningrain.chapter3controller,\
-	com.github.br.starmarines.gameui.impl
+Export-Package: com.github.br.starmarines.ui.api

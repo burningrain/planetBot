@@ -15,15 +15,25 @@
 		<dir.launcher>../launcher/target</dir.launcher>
 		<dir.osgi>${dir.launcher}/osgi</dir.osgi>
 		<dir.config>${dir.launcher}/config</dir.config>
-		<dir.bundles>${dir.launcher}/osgi/bundles</dir.bundles>
-
-		
+		<dir.bundles>${dir.launcher}/osgi/bundles</dir.bundles>		
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.br</groupId>
 			<artifactId>game-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>plugin-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>core-plugins</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
@@ -76,6 +86,7 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<tasks>
+								<mkdir dir="target/models" />
 								<mkdir dir="target/plugins" />
 								<mkdir dir="target/strategies" />
 								<mkdir dir="target/log"/>		
@@ -148,6 +159,18 @@
 								<!-- копирование ui-модуля с javafx --> 
 								<copy todir="target/osgi/bundles/app">
 									<fileset dir="../game-ui/target" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование API для UI -->
+								<copy todir="target/game-api">
+									<fileset dir="../plugin-api/target" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование ядровых UI-плагинов -->
+								<copy todir="target/core-plugins">
+									<fileset dir="../core-plugins/target" includes="*.jar">
 									</fileset>
 								</copy>
 								

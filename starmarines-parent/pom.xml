@@ -23,6 +23,8 @@
 		<module>../main-app</module>		
 		<module>../game-core</module>
 		<module>../game-ui</module>
+		<module>../plugin-api</module>
+		<module>../core-plugins</module>
 		<module>../assembly</module>
 	</modules>
 
@@ -51,6 +53,13 @@
 			<dependency>
 				<groupId>com.br</groupId>
 				<artifactId>game-api</artifactId>
+				<type>bundle</type>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.br</groupId>
+				<artifactId>plugin-api</artifactId>
 				<type>bundle</type>
 				<version>${project.version}</version>
 			</dependency>

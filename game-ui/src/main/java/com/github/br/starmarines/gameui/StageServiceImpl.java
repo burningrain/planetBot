@@ -1,4 +1,4 @@
-package com.github.burningrain.chapter3controller;
+package com.github.br.starmarines.gameui;
 
 import javafx.stage.Stage;
 

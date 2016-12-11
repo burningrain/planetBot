@@ -1,8 +1,8 @@
 -buildpath: \
 	osgi.core;version=5.0${junit},\
-	osgi.cmpn;version=4.3
--outputmask: ${@bsn}-${version;===S;${@version}}.jar
-
+	osgi.cmpn;version=4.3,\
+	plugin-api;version=latest
+	
 Bundle-Version: 1.0.0.SNAPSHOT
 bin: target/classes
 src: src/main/java
@@ -16,10 +16,6 @@ Include-Resource: lib,\
 
 Bundle-ClassPath: \
 
-	
-
-Private-Package: \
-	com.github.br.starmarines.gameui,\
-	com.github.burningrain.chapter3,\
-	com.github.burningrain.chapter3controller,\
-	com.github.br.starmarines.gameui.impl
+Export-Package: \
+	com.github.br.starmarines.coreplugins.menu,\
+	com.github.br.starmarines.coreplugins.toolbar

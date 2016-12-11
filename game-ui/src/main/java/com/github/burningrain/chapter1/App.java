@@ -1,4 +1,4 @@
-package com.github.burningrain.starmarines.gameui;
+package com.github.burningrain.chapter1;
 
 import java.util.concurrent.Executors;
 
