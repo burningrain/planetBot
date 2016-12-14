@@ -169,7 +169,7 @@
 								</copy>
 								
 								<!-- копирование ядровых UI-плагинов -->
-								<copy todir="target/core-plugins">
+								<copy todir="target/plugins">
 									<fileset dir="../core-plugins/target" includes="*.jar">
 									</fileset>
 								</copy>

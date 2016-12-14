@@ -36,5 +36,6 @@
 	javafx.util, \
 	javafx.beans.value, \
 	javafx.geometry, \
-	javafx.scene.web
+	javafx.scene.web, \
+	javafx.scene.control
 	

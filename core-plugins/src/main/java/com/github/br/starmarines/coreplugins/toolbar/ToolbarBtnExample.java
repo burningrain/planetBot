@@ -11,7 +11,7 @@ import com.github.br.starmarines.ui.api.IToolBar;
 
 @Provides
 @Instantiate
-@Component(publicFactory=false)
+@Component(publicFactory = false)
 public class ToolbarBtnExample implements IToolBar {
 
 	@Override
