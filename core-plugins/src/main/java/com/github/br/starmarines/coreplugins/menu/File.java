@@ -5,27 +5,22 @@ import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
 
 import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 
 import com.github.br.starmarines.ui.api.IMenu;
 
 @Provides
 @Instantiate
-@Component(publicFactory=false)
+@Component
 public class File implements IMenu {
 
 	@Override
 	public int getOrder() {
-		return -10000;
+		return Integer.MIN_VALUE;
 	}
 
 	@Override
 	public Menu getNode() {
-		Menu menu = new Menu("File");		
-		MenuItem newMenuItem = new MenuItem("Close");
-		//newMenuItem.addEventHandler(eventType, eventHandler);
-	    menu.getItems().addAll(newMenuItem);
-	    return menu;
+	    return new Menu("File");
 	}
 
 }
