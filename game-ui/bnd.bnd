@@ -20,6 +20,4 @@ Bundle-ClassPath: \
 
 Private-Package: \
 	com.github.br.starmarines.gameui,\
-	com.github.burningrain.chapter3,\
-	com.github.burningrain.chapter3controller,\
 	com.github.br.starmarines.gameui.impl

@@ -19,4 +19,5 @@ Bundle-ClassPath: \
 Export-Package: \
 	com.github.br.starmarines.coreplugins.menu,\
 	com.github.br.starmarines.coreplugins.toolbar,\
-	com.github.br.starmarines.coreplugins.menuitems
+	com.github.br.starmarines.coreplugins.menuitems,\
+	com.github.br.starmarines.coreplugins.pane
