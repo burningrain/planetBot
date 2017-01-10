@@ -16,26 +16,48 @@
 
 
 -runsystempackages: \
-	javafx.scene.control,\
-	javafx.fxml,\
+	javafx.fxml, \
 	javafx.application,\
 	javafx.scene,\
-	javafx.scene.layout,\
 	javafx.stage,\
+	javafx.scene.layout,\
 	javafx.event,\
 	javafx.collections,\
+	javafx.scene.control,\
 	javafx.scene.paint,\
-	javafx.scene.shape,\
-	javafx.scene.input,\
-	javafx.scene.text,\
-	javafx.animation,\
-	javafx.beans,\
-	javafx.beans.property,\
-	javafx.beans.binding,\
-	javafx.scene.shape,\
-	javafx.util,\
-	javafx.beans.value,\
-	javafx.geometry,\
-	javafx.scene.web,\
-	javafx.css
+	javafx.scene.shape, \
+	javafx.scene.input, \
+	javafx.scene.text, \
+	javafx.concurrent, \
+	javafx.scene.effect, \
+	javafx.scene.image, \
+	javafx.scene.canvas, \
+	javafx.scene.chart, \
+	javafx.scene.transform, \
+	javafx.util.converter, \
+	javafx.animation, \
+	javafx.beans, \
+	javafx.beans.property, \
+	javafx.beans.binding, \
+	javafx.scene.shape, \
+	javafx.util, \
+	javafx.beans.value, \
+	javafx.geometry, \
+	javafx.print, \
+	com.sun.javafx.css, \
+	com.sun.javafx.geom, \
+	com.sun.javafx.geom.transform, \
+	com.sun.javafx.jmx, \
+	com.sun.javafx.scene.control, \
+	com.sun.javafx.scene.control.behavior, \
+	com.sun.javafx.scene.control.skin, \
+	com.sun.javafx.sg.prism, \
+	com.sun.javafx.util, \
+	javafx.collections.transformation, \
+	com.sun.javafx.css.converters, \
+	javafx.css, \
+	javafx.scene.web
+
+
+	
 	

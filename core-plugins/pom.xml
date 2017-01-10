@@ -52,6 +52,14 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.yworks</groupId>
+			<artifactId>com.yworks</artifactId>
+			<version>1.0.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/yfiles-for-javafx.jar</systemPath>
+		</dependency>
 
 	</dependencies>
 	

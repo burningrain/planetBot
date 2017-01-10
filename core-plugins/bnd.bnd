@@ -10,14 +10,19 @@ target-dir: target
 testbin: target/classes
 testsrc: src/test/java
 
-Include-Resource: lib,\
-				src/main/resources
-				
 
-Bundle-ClassPath: \
+Include-Resource: lib,\
+src/main/resources
+		
+Private-Package:  \
 
 Export-Package: \
 	com.github.br.starmarines.coreplugins.menu,\
 	com.github.br.starmarines.coreplugins.toolbar,\
 	com.github.br.starmarines.coreplugins.menuitems,\
 	com.github.br.starmarines.coreplugins.pane
+
+
+Bundle-ClassPath: \
+yfiles-for-javafx.jar, \
+.
