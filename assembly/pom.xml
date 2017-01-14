@@ -15,7 +15,11 @@
 		<dir.launcher>../launcher/target</dir.launcher>
 		<dir.osgi>${dir.launcher}/osgi</dir.osgi>
 		<dir.config>${dir.launcher}/config</dir.config>
-		<dir.bundles>${dir.launcher}/osgi/bundles</dir.bundles>		
+		<dir.bundles>${dir.launcher}/osgi/bundles</dir.bundles>
+
+<dir.maps>../map-service/maps</dir.maps>
+
+		
 	</properties>
 
 	<dependencies>
@@ -24,7 +28,7 @@
 			<artifactId>game-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.br</groupId>
 			<artifactId>plugin-api</artifactId>
@@ -51,10 +55,16 @@
 		
 		<dependency>
 			<groupId>com.br</groupId>
-			<artifactId>game-core</artifactId>
+			<artifactId>map-service</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>game-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.br</groupId>
 			<artifactId>game-ui</artifactId>
@@ -86,7 +96,7 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<tasks>
-								<mkdir dir="target/models" />
+<mkdir dir="target/models" />								<mkdir dir="target/maps" />
 								<mkdir dir="target/plugins" />
 								<mkdir dir="target/strategies" />
 								<mkdir dir="target/log"/>		
@@ -144,6 +154,30 @@
 									</fileset>
 								</copy>
 
+								<!-- копирование API выбора карт -->
+								<copy todir="target/game-api">
+									<fileset dir="../map-api/target" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование API игрового движка -->
+								<copy todir="target/game-api">
+									<fileset dir="../game-core-api/target" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование плагина загрузки карт -->
+								<copy todir="target/plugins">
+									<fileset dir="../map-service/target" includes="*.jar">
+									</fileset>
+								</copy>
+								
+								<!-- копирование предустановленных карт -->
+								<copy todir="target/maps">
+									<fileset dir="${dir.maps}" includes="*.gv">
+									</fileset>
+								</copy>
+
 								<!-- копирование стратегии -->
 								<copy todir="target/strategies">
 									<fileset dir="../strategy/target" includes="*.jar">
@@ -180,7 +214,7 @@
 									</fileset>
 								</copy>
 								
-							</tasks>
+</tasks>
 						</configuration>
 						<goals>
 							<goal>run</goal>

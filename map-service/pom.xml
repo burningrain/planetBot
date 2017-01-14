@@ -1,0 +1,197 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.br</groupId>
+		<artifactId>starmarines</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../starmarines-parent</relativePath>
+	</parent>
+	<artifactId>map-service</artifactId>
+	<packaging>bundle</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>map-api</artifactId>
+			<type>bundle</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>game-core-api</artifactId>
+			<type>bundle</type>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>game-api</artifactId>
+			<type>bundle</type>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.7</version>
+		</dependency>
+
+		<!-- Либе нужен другой JSON двиг-->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.fge</groupId>
+			<artifactId>json-schema-validator</artifactId>
+			<version>2.2.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+		</dependency>
+
+<!--		
+
+		<dependency>
+			<groupId>com.google.collections</groupId>
+			<artifactId>google-collections</artifactId>
+			<version>1.0</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>4.0-beta</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-multibindings</artifactId>
+			<version>4.0</version>
+			<scope>runtime</scope>
+		</dependency>
+ -->
+
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext</artifactId>
+			<version>2.10.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.eclipse.gef4.graph</groupId>
+			<artifactId>org.eclipse.gef4.graph</artifactId>
+			<version>1.0.0.201606040817</version>
+			<type>bundle</type>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/org.eclipse.gef4.graph_1.0.0.201606040817.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.gef4.dot</groupId>
+			<artifactId>org.eclipse.gef4.dot</artifactId>
+			<version>1.0.0.201606040817</version>
+			<type>bundle</type>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/org.eclipse.gef4.dot_1.0.0.201606040817.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.gef4.common</groupId>
+			<artifactId>org.eclipse.gef4.common</artifactId>
+			<version>1.0.0.201606040817</version>
+			<type>bundle</type>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/org.eclipse.gef4.common_1.0.0.201606040817.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+			<version>4.6.0</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.eclipse.emf</groupId>
+		    <artifactId>org.eclipse.emf.ecore</artifactId>
+		    <version>2.11.1-v20150805-0538</version>
+		    <type>bundle</type>
+			<scope>system</scope>
+		    <systemPath>${project.basedir}/lib/org.eclipse.emf.ecore-2.11.1-v20150805-0538.jar</systemPath>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.eclipse.emf</groupId>
+		    <artifactId>org.eclipse.emf.ecore</artifactId>
+		    <version>2.11.1-v20150805-0538</version>
+		    <type>bundle</type>
+			<scope>system</scope>
+		    <systemPath>${project.basedir}/lib/org.eclipse.emf.common-2.11.0-v20150805-0538.jar</systemPath>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.eclipse.emf</groupId>
+		    <artifactId>org.eclipse.emf.ecore</artifactId>
+		    <version>2.11.1-v20150805-0538</version>
+		    <type>bundle</type>
+			<scope>system</scope>
+		    <systemPath>${project.basedir}/lib/org.eclipse.emf.ecore.xmi-2.11.1-v20150805-0538.jar</systemPath>
+		</dependency>
+
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeScope>runtime</includeScope>
+							<outputDirectory>lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+
+
+
+</project>

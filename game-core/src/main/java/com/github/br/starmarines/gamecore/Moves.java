@@ -1,8 +1,11 @@
 package com.github.br.starmarines.gamecore;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.github.br.starmarines.game.api.galaxy.Move;
+import com.github.br.starmarines.game.api.galaxy.Planet;
 import com.github.br.starmarines.gamecore.api.Player;
 
 public class Moves {
@@ -21,6 +24,24 @@ public class Moves {
 	
 	public Player getPlayer(){
 		return player;
+	}
+	
+	/**
+	 * возвращает карту "планета, откуда улетают юниты-суммарное число юнитов, которое улетает"  
+	 */
+	public Map<Planet, Integer> getComputeFromPlanets(){
+		HashMap<Planet, Integer> planets = new HashMap<>();
+		for(Move move : moves){
+			Planet from = move.getFrom();
+			int value = 0;
+			if(planets.containsKey(from)){
+				value = planets.get(from) + move.getAmount();				
+			} else{
+				value = move.getAmount();
+			}
+			planets.put(from, value);
+		}
+		return planets;
 	}
 
 	@Override
@@ -46,7 +67,7 @@ public class Moves {
 		} else if (!player.equals(other.player))
 			return false;
 		return true;
-	}	
+	}
 	
 	
 

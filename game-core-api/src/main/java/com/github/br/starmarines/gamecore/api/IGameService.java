@@ -10,7 +10,7 @@ public interface IGameService {
 	Long createGame(String title, 
 					int playersCount, 
 					Integer maxGameStepAmount, 
-					GalaxyType type, 
+					Galaxy galaxy, 
 					IGameEventListener lisneter);
 	
 	void addPlayerToGame(final Long gameId, Player player);

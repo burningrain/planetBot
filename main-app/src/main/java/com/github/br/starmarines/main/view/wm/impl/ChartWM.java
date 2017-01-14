@@ -4,9 +4,6 @@ import java.awt.Color;
 import java.util.Map;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.github.br.starmarines.main.model.objects.IModel;
 import com.github.br.starmarines.main.model.objects.IModelListener;
 import com.github.br.starmarines.main.model.objects.inner.IGameInfo;
@@ -17,7 +14,6 @@ import com.github.br.starmarines.main.view.widgets.chart.ChartWidget;
 import com.github.br.starmarines.main.view.wm.AbstractWidgetModel;
 
 public class ChartWM extends AbstractWidgetModel {
-	private Logger logger = LoggerFactory.getLogger(ChartWM.class); 
 	
 	private Set<String> players;
 	private Map<String, Integer> units;
@@ -44,7 +40,6 @@ public class ChartWM extends AbstractWidgetModel {
 		@Override
 		public void update(IColorVM vm) {			
 			playersColors = vm.getPlayersColors();
-			logger.debug("get players = {}", playersColors);
 		}
 	};
 	

@@ -1,0 +1,7 @@
+-runbundles: \
+	game-core;version=latest,\
+	map-api;version=latest,\
+	game-api;version=latest,\
+	org.apache.felix.ipojo;version=1.12.1
+-runfw: org.apache.felix.framework;version='[5.2.0,5.2.0]'
+-runee: JavaSE-1.8

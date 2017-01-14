@@ -6,7 +6,7 @@ target-dir: target
 testbin: target/test-classes
 testsrc: src/main/test
 
-Export-Package:  \
-	com.github.br.starmarines.game.api.strategy,\
+Export-Package: \
+	com.br.starwors.lx.logic.utils.anotherone,\
 	com.github.br.starmarines.game.api.galaxy,\
-	com.br.starwors.lx.logic.utils.anotherone
+	com.github.br.starmarines.game.api.strategy

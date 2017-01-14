@@ -8,6 +8,8 @@ import org.apache.felix.ipojo.annotations.Requires;
 import org.apache.felix.ipojo.annotations.Validate;
 import org.osgi.service.log.LogService;
 
+import com.github.br.starmarines.map.service.api.MapService;
+
 @Component
 @Instantiate
 @Provides
@@ -38,6 +40,9 @@ public class Logic {
 	@Requires
 	private GameEngineLogic gameEngineLogic;
 	
+	@Requires(optional=true)
+	private MapService mapLogic;
+	
 
 	public OnlineGameLogic getOnlineGameLogic() {
 		return onlineGameLogic;
@@ -55,5 +60,8 @@ public class Logic {
 		return gameEngineLogic;
 	}	
 	
+	public MapService getMapService() {
+		return mapLogic;
+	}	
 
 }
