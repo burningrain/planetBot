@@ -11,7 +11,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk.version>1.7</jdk.version>
+		<jdk.version>1.8</jdk.version>
 	</properties>
 
 
@@ -25,6 +25,7 @@
 		<module>../game-core-api</module>
 		<module>../assembly</module>
 		<module>../map-service</module>
+		<module>../map-service-graphml</module>
 		<module>../map-api</module>
 	</modules>
 

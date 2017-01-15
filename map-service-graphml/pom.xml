@@ -1,24 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>starmarines</artifactId>
 		<groupId>com.br</groupId>
+		<artifactId>starmarines</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../starmarines-parent</relativePath>
 	</parent>
-	<modelVersion>4.0.0</modelVersion>
-
-	<artifactId>game-core</artifactId>
+	<artifactId>map-service-graphml</artifactId>
 	<packaging>bundle</packaging>
 
-
 	<dependencies>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>com.br</groupId>
-			<artifactId>game-api</artifactId>
+			<artifactId>map-api</artifactId>
 			<type>bundle</type>
 			<scope>provided</scope>
 		</dependency>
@@ -31,49 +43,38 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.compendium</artifactId>
+			<groupId>com.br</groupId>
+			<artifactId>game-api</artifactId>
+			<type>bundle</type>
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.apache.felix.ipojo.annotations</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.core</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.2</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- graph library -->
+		<!-- graph library export/import graphML -->
+		<!-- временное решение до версии 1.01 -->
 		<dependency>
 			<groupId>org.jgrapht</groupId>
 			<artifactId>jgrapht-core</artifactId>
-			<version>0.9.2</version>
-		</dependency>			
+			<version>1.0.1-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/jgrapht-core-1.0.1-SNAPSHOT.jar</systemPath>
+		</dependency>
+
+		<!-- export/import to graphML -->
+		<!-- временное решение до версии 1.01 -->
+		<dependency>
+			<groupId>org.jgrapht</groupId>
+			<artifactId>jgrapht-ext</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/jgrapht-ext-1.0.1-SNAPSHOT.jar</systemPath>
+		</dependency>
 
 
 	</dependencies>
 
+
 	<build>
 		<plugins>
-
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-ipojo-plugin</artifactId>
-			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -95,6 +96,8 @@
 
 		</plugins>
 	</build>
+
+
 
 
 </project>

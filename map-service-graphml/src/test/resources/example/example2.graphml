@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+	xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<key id="key0" for="node" attr.name="Owner" attr.type="string" />
+	<key id="key1" for="node" attr.name="Type" attr.type="string" />
+	<key id="key2" for="node" attr.name="Units" attr.type="int" />
+	<key id="key3" for="node" attr.name="IsStartPoint" attr.type="boolean" />
+	<graph edgedefault="undirected">
+		<node id="1">
+			<data key="key0"></data>
+			<data key="key1">TYPE_D</data>
+			<data key="key2">200</data>
+			<data key="key3">true</data>
+		</node>
+		<node id="2">
+			<data key="key0"></data>
+			<data key="key1">TYPE_C</data>
+			<data key="key2">100</data>
+			<data key="key3">true</data>
+		</node>
+		<edge id="1" source="2" target="1" />
+	</graph>
+</graphml>

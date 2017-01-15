@@ -1,0 +1,41 @@
+-buildpath: \
+	osgi.core,\
+	${junit},\
+	osgi.cmpn;version=4.3,\
+	game-api;version=latest,\
+	map-api;version=latest,\
+	game-core-api;version=latest
+-outputmask: ${@bsn}-${version;===S;${@version}}.jar
+
+Bundle-Version: 1.0.0.SNAPSHOT
+bin: target/classes
+src: src/main/java
+target-dir: target
+testbin: target/test-classes
+testsrc: src/test/java
+
+
+Include-Resource: lib, \
+src/main/resources
+Bundle-ClassPath: \
+.,\
+antlr4-runtime-4.5.3.jar,\
+jgraph-5.13.0.0.jar,\
+jgrapht-core-1.0.1-SNAPSHOT.jar,\
+jgrapht-ext-1.0.1-SNAPSHOT.jar,\
+jgraphx-2.0.0.1.jar
+
+Private-Package: \
+	com.github.br.starmarines.map.converter,\
+	com.github.br.starmarines.map.converter.fromgalaxy,\
+	com.github.br.starmarines.map.converter.togalaxy
+-dsannotations: *
+
+Export-Package: com.github.br.starmarines.map.impl
+
+Import-Package: \
+	com.github.br.starmarines.game.api.galaxy;version='[1.0,2)',\
+	com.github.br.starmarines.gamecore.api;version='[1.0,2)',\
+	com.github.br.starmarines.map.service.api;version='[1.0,2)',\
+	org.osgi.service.log;version='[1.3,2)',\
+	*

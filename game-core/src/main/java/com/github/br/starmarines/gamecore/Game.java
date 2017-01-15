@@ -29,7 +29,7 @@ class Game {
 
 	private final Set<Player> players;
 	private AtomicInteger currentPlayersCount = new AtomicInteger(0);
-	private GalaxyEngine galaxy;  // мутабельная структура
+	private GalaxyEngine galaxyEngine;  // мутабельная структура
 	
 	private ArrayBlockingQueue<Moves> playersMoves;	
 	private IGameEventListener listener;
@@ -59,6 +59,7 @@ class Game {
 		Set<Planet> planets = galaxy.getPlanets();	
 		
 		for(Planet planet : planets){
+			if(planet.getOwner() == null) planet.setOwner("");
 			boolean isStartPoint = startPoints.contains(planet);
 			builder.addPlanet(planet, isStartPoint);
 		}		
@@ -70,7 +71,7 @@ class Game {
 			}
 		}
 		
-		this.galaxy = builder.build();
+		this.galaxyEngine = builder.build();
 	}
 	
 	/**
@@ -82,7 +83,7 @@ class Game {
 		for(Player player : players){
 			owners.add(player.getName());
 		}
-		galaxy.initPlayersPositions(owners);		
+		galaxyEngine.initPlayersPositions(owners);
 	}
 
 	// мутабельный потокобезопасный??? метод
@@ -123,12 +124,12 @@ class Game {
 		changeStatus(GameStatus.COMPUTE_STEP, null);
 		
 		Map<Player, List<GameStepMistake>> mistakes = new HashMap<>();
-		Collection<Planet> result = galaxy.updateState(playersMoves, mistakes);			
+		Collection<Planet> result = galaxyEngine.updateState(playersMoves, mistakes);
 		boolean gameEnd = isGameEnd(result);
 		Integer maxStepAmount = info.getMaxStepAmount();
-		gameEnd = gameEnd || (maxStepAmount != null && galaxy.getYear() >= maxStepAmount);
+		gameEnd = gameEnd || (maxStepAmount != null && galaxyEngine.getYear() >= maxStepAmount);
 		if(gameEnd) status = GameStatus.FINISH;
-		GameStepResult gameStep = new GameStepResult(gameEnd, result, mistakes, galaxy.getYear(),  getPlayers());
+		GameStepResult gameStep = new GameStepResult(gameEnd, result, mistakes, galaxyEngine.getYear(),  getPlayers());
 		
 		playersMoves.clear();
 		changeStatus(GameStatus.WAITING_PLAYERS_STEPS, gameStep);

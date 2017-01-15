@@ -15,14 +15,17 @@ public class Galaxy {
 	private final GalaxyType galaxyType;
 	private final Set<Planet> planets;
 	private final Set<Planet> startPoints;
+	private final Set<Edge> edges;
 
 	private Galaxy(final GalaxyType galaxyType,  
 					final Collection<Planet> planets, 
+					Set<Edge> edges,
 					final Set<Planet> startPoints) {
 		this.galaxyType = galaxyType;
-		this.planets = new HashSet<Planet>(planets);		
+		this.planets = new HashSet<Planet>(planets);
+		this.edges = new HashSet<Galaxy.Edge>(edges);
 		this.startPoints = startPoints;
-	}		
+	}
 
 	public GalaxyType getGalaxyType() {
 		return galaxyType;
@@ -34,18 +37,25 @@ public class Galaxy {
 	
 	public Set<Planet> getPlanets(){
 		return Collections.unmodifiableSet(planets);
-	}			
+	}
+
+	public Set<Edge> getEdges() {
+		return Collections.unmodifiableSet(edges);
+	}
+
 
 	public static class Builder {
 
 		private final Map<String, Planet> planets;
+		private final Set<Edge> edges;
 		private final GalaxyType galaxyType;
 		private final Set<Planet> startPoints;
 
 		public Builder(final GalaxyType galaxyType) {
 			this.galaxyType = galaxyType;			
-			planets = new HashMap<>();
-			startPoints = new HashSet<>();
+			this.planets = new HashMap<>();
+			this.edges = new HashSet<>(); 
+			this.startPoints = new HashSet<>();
 		}
 
 		public Builder addEdge(Planet source, Planet target) {
@@ -53,6 +63,7 @@ public class Galaxy {
 			Planet t = planets.get(target.getId());
 			s.addNeighbour(t);
 			t.addNeighbour(s);
+			edges.add(new Edge(s, t));
 			return this;
 		}
 
@@ -63,8 +74,59 @@ public class Galaxy {
 		}
 
 		public Galaxy build() {
-			return new Galaxy(galaxyType, planets.values(), startPoints);
+			return new Galaxy(galaxyType, planets.values(), edges, startPoints);
 		}
+	}
+	
+	public static class Edge {
+		
+		private Planet from;
+		private Planet to;
+		
+		public Edge(Planet from, Planet to){
+			this.from = from;
+			this.to = to;
+		}
+
+		public Planet getFrom() {
+			return from;
+		}
+
+		public Planet getTo() {
+			return to;
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((from == null) ? 0 : from.hashCode());
+			result = prime * result + ((to == null) ? 0 : to.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Edge other = (Edge) obj;
+			if (from == null) {
+				if (other.from != null)
+					return false;
+			} else if (!from.equals(other.from))
+				return false;
+			if (to == null) {
+				if (other.to != null)
+					return false;
+			} else if (!to.equals(other.to))
+				return false;
+			return true;
+		}		
+		
 	}
 
 }

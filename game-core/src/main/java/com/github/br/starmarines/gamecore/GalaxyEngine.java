@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.jgrapht.UndirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleGraph;
 
@@ -26,14 +27,14 @@ import com.github.br.starmarines.gamecore.mistakes.GameStepMistake;
 public class GalaxyEngine {
 	
 	private final GalaxyType galaxyType;
-	private UndirectedGraph<PlanetVertex, DefaultWeightedEdge> graph;
+	private UndirectedGraph<PlanetVertex, DefaultEdge> graph;
 	private Map<Planet, PlanetVertex> planets;
 	private int year = 0;
 	
 	private List<Planet> startPoints;
 
 	private GalaxyEngine(final GalaxyType galaxyType, 
-					UndirectedGraph<PlanetVertex, DefaultWeightedEdge> graph, 
+					UndirectedGraph<PlanetVertex, DefaultEdge> graph, 
 					Map<Planet, PlanetVertex> planets, 
 					List<Planet> startPoints) {
 		this.galaxyType = galaxyType;
@@ -281,7 +282,7 @@ public class GalaxyEngine {
 
 	public static class Builder {
 
-		private UndirectedGraph<PlanetVertex, DefaultWeightedEdge> graph;
+		private UndirectedGraph<PlanetVertex, DefaultEdge> graph;
 		private Map<Planet, PlanetVertex> planets;
 		private final GalaxyType galaxyType;
 		private List<Planet> startPoints;		
@@ -289,7 +290,7 @@ public class GalaxyEngine {
 
 		public Builder(final GalaxyType galaxyType) {
 			this.galaxyType = galaxyType;
-			graph = new SimpleGraph<>(DefaultWeightedEdge.class);
+			graph = new SimpleGraph<>(DefaultEdge.class);
 			planets = new HashMap<>();
 			startPoints = new LinkedList<>();
 			planetsMap = new HashMap<>();
