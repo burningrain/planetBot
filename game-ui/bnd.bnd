@@ -15,10 +15,12 @@ Include-Resource: lib,\
 				
 
 Bundle-ClassPath: \
-
 	
 
 Private-Package: \
 	com.github.br.starmarines.gameui,\
 	com.github.br.starmarines.gameui.impl
+	
+
+	
 	
