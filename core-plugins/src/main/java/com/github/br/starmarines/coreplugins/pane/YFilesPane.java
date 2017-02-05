@@ -3,25 +3,25 @@ package com.github.br.starmarines.coreplugins.pane;
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
+import org.apache.felix.ipojo.annotations.Requires;
 
 import com.github.br.starmarines.ui.api.IPane;
-import com.yworks.yfiles.view.GraphControl;
-import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyleRenderer;
+import com.yworks.yfiles.view.GraphControl;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
+import com.yworks.yfiles.view.input.MouseHoverInputMode;
 
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-
 
 @Provides
 @Instantiate
 @Component(publicFactory = false)
-public class YFilesPane implements IPane{
+public class YFilesPane implements IPane {
+	
+	@Requires
+	GalaxyRequestHandler requestHandlerService;
 
 	@Override
 	public int getOrder() {
@@ -32,19 +32,12 @@ public class YFilesPane implements IPane{
 	@Override
 	public Node getNode() {
 		StackPane pane = new StackPane();
-		com.yworks.yfiles.view.GraphControl graphControl = new GraphControl();
-		ShapeNodeStyle nodeStyle = new ShapeNodeStyle();
-		// Sets a default style.
-		graphControl.getGraph().getNodeDefaults();
-		// Gets the IGraph
-		IGraph graph = graphControl.getGraph();
-		// and creates some nodes.
-		graph.createNode(new RectD(10, 10, 100, 100), nodeStyle);
-		graph.createNode(new RectD(150, 150, 100, 100), nodeStyle);
-		graph.createNode(new RectD(250, 250, 100, 100), nodeStyle);
-		graphControl.setInputMode(new GraphEditorInputMode());
+		GraphControl graphControl = new GraphControl();
+		requestHandlerService.setGraphControl(graphControl);
+		graphControl.setInputMode(new MouseHoverInputMode());
 		pane.getChildren().add(graphControl);
 		return pane;
+
 	}
 
 }

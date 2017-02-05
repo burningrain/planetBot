@@ -14,8 +14,9 @@ testsrc: src/test/java
 Include-Resource: lib,\
 src/main/resources
 		
-Private-Package:  \
-
+Private-Package: \
+	com.github.br.starmarines.coreplugins.event,\
+	com.github.br.starmarines.coreplugins.event.tools
 Export-Package: \
 	com.github.br.starmarines.coreplugins.menu,\
 	com.github.br.starmarines.coreplugins.toolbar,\
