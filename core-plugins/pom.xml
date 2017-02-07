@@ -60,6 +60,20 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/yfiles-for-javafx.jar</systemPath>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>game-api</artifactId>
+			<type>bundle</type>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.br</groupId>
+			<artifactId>game-core-api</artifactId>
+			<type>bundle</type>
+			<scope>provided</scope>
+		</dependency>
 
 	</dependencies>
 	

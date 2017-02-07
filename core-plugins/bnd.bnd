@@ -1,7 +1,9 @@
 -buildpath: \
 	osgi.core;version=5.0${junit},\
 	osgi.cmpn;version=4.3,\
-	plugin-api;version=latest
+	plugin-api;version=latest,\
+	game-api;version=latest,\
+	game-core-api;version=latest
 	
 Bundle-Version: 1.0.0.SNAPSHOT
 bin: target/classes
@@ -22,7 +24,11 @@ Export-Package: \
 	com.github.br.starmarines.coreplugins.toolbar,\
 	com.github.br.starmarines.coreplugins.menuitems,\
 	com.github.br.starmarines.coreplugins.pane
-  
+
+Import-Package: \
+	com.github.br.starmarines.game.api.galaxy;version='[1.0,2)',\
+	com.github.br.starmarines.gamecore.api;version='[1.0,2)',\
+	com.github.br.starmarines.map.service.api;version='[1.0,2)  
 
 Bundle-ClassPath: \
 yfiles-for-javafx.jar, \
