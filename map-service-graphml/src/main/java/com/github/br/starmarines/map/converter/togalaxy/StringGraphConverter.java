@@ -33,7 +33,7 @@ public class StringGraphConverter implements Converter<String, UndirectedGraph<V
 					public VertexPlanet buildVertex(String id,
 							Map<String, String> attributes) {						
 						Planet planet = new Planet(id);
-						planet.setOwner(attributes.get("Owner"));
+						planet.setOwner(attributes.get("Owner") == null? "" : attributes.get("Owner"));
 						planet.setType(PlanetType.valueOf(attributes.get("Type")));
 						planet.setUnits(Integer.parseInt(attributes.get("Units")));
 						return new VertexPlanet(planet, Boolean.valueOf(attributes.get("IsStartPoint")));

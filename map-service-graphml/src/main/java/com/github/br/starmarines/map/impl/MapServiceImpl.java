@@ -25,6 +25,7 @@ import com.github.br.starmarines.map.converter.fromgalaxy.GalaxyGraphConverter;
 import com.github.br.starmarines.map.converter.fromgalaxy.GraphStringConverter;
 import com.github.br.starmarines.map.converter.togalaxy.FileStringConverter;
 import com.github.br.starmarines.map.converter.togalaxy.GraphGalaxyConverter;
+import com.github.br.starmarines.map.converter.togalaxy.GraphmlConverter;
 import com.github.br.starmarines.map.converter.togalaxy.StringGraphConverter;
 import com.github.br.starmarines.map.service.api.MapService;
 import com.github.br.starmarines.map.service.api.MapValidationException;
@@ -34,6 +35,7 @@ public class MapServiceImpl implements MapService {
 
 	// --> to Galaxy
 	private Converter<File, String> fileStringConverter;
+	private Converter<String, String> xmlToXmlConverter;
 	private Converter<String, UndirectedGraph<VertexPlanet, GalaxyEdge>> stringGraphConverter;
 	private Converter<UndirectedGraph<VertexPlanet, GalaxyEdge>, Galaxy> graphGalaxyConverter;
 	// <-- from Galaxy
@@ -67,6 +69,7 @@ public class MapServiceImpl implements MapService {
 		String mapAsString = null;
 		try {
 			mapAsString = fileStringConverter.convert(map);
+			mapAsString = xmlToXmlConverter.convert(mapAsString);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -116,20 +119,6 @@ public class MapServiceImpl implements MapService {
 		return file;
 	}
 	
-	
-//	protected void setConverter(Converter converter){
-//		if(converter instanceof FileStringConverter){
-//			setFileStringConverter((FileStringConverter) converter);
-//		} else if(converter instanceof StringGraphConverter){
-//			setStringGraphConverter((StringGraphConverter) converter);
-//		} else if(converter instanceof GraphGalaxyConverter){
-//			setGraphGalaxyConverter((GraphGalaxyConverter) converter);
-//		} else if(converter instanceof GalaxyGraphConverter){
-//			setGraphGalaxyConverter((GalaxyGraphConverter) converter);
-//		} else if(converter instanceof GraphStringConverter){
-//			setGraphStringConverter((GraphStringConverter) converter);
-//		}
-//	}
 
 	@Reference(cardinality = ReferenceCardinality.MANDATORY, policy=ReferencePolicy.STATIC)
 	protected void setFileStringConverter(FileStringConverter fileStringConverter) {
@@ -154,6 +143,11 @@ public class MapServiceImpl implements MapService {
 	@Reference(cardinality = ReferenceCardinality.MANDATORY, policy=ReferencePolicy.STATIC)
 	protected void setGraphStringConverter(GraphStringConverter graphStringConverter) {
 		this.graphStringConverter = graphStringConverter;
+	}
+	
+	@Reference(cardinality = ReferenceCardinality.MANDATORY, policy=ReferencePolicy.STATIC)
+	protected void setXmlToXmlConverter(GraphmlConverter xmlToXmlConverter) {
+		this.xmlToXmlConverter = xmlToXmlConverter;
 	}
 
 	@Reference(cardinality = ReferenceCardinality.OPTIONAL, policy=ReferencePolicy.DYNAMIC, unbind="unSetLogService")
