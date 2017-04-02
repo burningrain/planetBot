@@ -12,23 +12,14 @@ target-dir: target
 testbin: target/classes
 testsrc: src/test/java
 
-
 Include-Resource: lib,\
 src/main/resources
 		
-Private-Package: \
-	com.github.br.starmarines.coreplugins.event,\
-	com.github.br.starmarines.coreplugins.event.tools
 Export-Package: \
 	com.github.br.starmarines.coreplugins.menu,\
 	com.github.br.starmarines.coreplugins.toolbar,\
-	com.github.br.starmarines.coreplugins.menuitems,\
-	com.github.br.starmarines.coreplugins.pane
+	com.github.br.starmarines.coreplugins.menuitems
 
-Import-Package: \
-	com.github.br.starmarines.game.api.galaxy;version='[1.0,2)',\
-	com.github.br.starmarines.gamecore.api;version='[1.0,2)',\
-	com.github.br.starmarines.map.service.api;version='[1.0,2)  
 
 Bundle-ClassPath: \
 yfiles-for-javafx.jar, \

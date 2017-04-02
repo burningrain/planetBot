@@ -9,9 +9,11 @@
 	org.apache.felix.gogo.runtime,\
 	org.apache.felix.gogo.shell,\
 	org.apache.felix.ipojo,\
-	game-ui;version=latest,\
-	plugin-api;version=latest,\
-	core-plugins;version=latest
+	game-ui,\
+	plugin-api,\
+	game-core-api,\
+	game-api,\
+	map-api
 
 
 
@@ -44,17 +46,17 @@
 	javafx.beans.value, \
 	javafx.geometry, \
 	javafx.print, \
-	com.sun.javafx.css, \
-	com.sun.javafx.geom, \
-	com.sun.javafx.geom.transform, \
-	com.sun.javafx.jmx, \
-	com.sun.javafx.scene.control, \
-	com.sun.javafx.scene.control.behavior, \
-	com.sun.javafx.scene.control.skin, \
-	com.sun.javafx.sg.prism, \
-	com.sun.javafx.util, \
+	javafx.css, \
+	javafx.geom, \
+	javafx.geom.transform, \
+	javafx.jmx, \
+	javafx.scene.control, \
+	javafx.scene.control.behavior, \
+	javafx.scene.control.skin, \
+	javafx.sg.prism, \
+	javafx.util, \
 	javafx.collections.transformation, \
-	com.sun.javafx.css.converters, \
+	javafx.css.converters, \
 	javafx.css, \
 	javafx.scene.web
 
