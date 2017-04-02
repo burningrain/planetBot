@@ -18,9 +18,13 @@ src/main/resources
 Export-Package: \
 	com.github.br.starmarines.coreplugins.menu,\
 	com.github.br.starmarines.coreplugins.toolbar,\
-	com.github.br.starmarines.coreplugins.menuitems
+	com.github.br.starmarines.coreplugins.menuitems,\
+	com.github.br.starmarines.coreplugins.pane
 
 
 Bundle-ClassPath: \
 yfiles-for-javafx.jar, \
 .
+Private-Package: \
+	com.github.br.starmarines.coreplugins.event,\
+	com.github.br.starmarines.coreplugins.event.tools
