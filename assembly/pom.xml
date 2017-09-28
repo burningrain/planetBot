@@ -16,9 +16,7 @@
 		<dir.osgi>${dir.launcher}/osgi</dir.osgi>
 		<dir.config>${dir.launcher}/config</dir.config>
 		<dir.bundles>${dir.launcher}/osgi/bundles</dir.bundles>
-		<!-- <dir.maps>../map-service/maps</dir.maps> -->
 		<dir.maps>../map-service-graphml/maps</dir.maps>
-		
 	</properties>
 
 	<dependencies>
@@ -39,14 +37,7 @@
 			<artifactId>main-app</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
-		<!--   
-		<dependency>
-			<groupId>com.br</groupId>
-			<artifactId>map-service</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		-->
+
 		<dependency>
 			<groupId>com.br</groupId>
 			<artifactId>map-service-graphml</artifactId>
@@ -155,10 +146,6 @@
 								</copy>
 								
 								<!-- копирование плагина загрузки карт -->
-								<!-- <copy todir="target/plugins">
-									<fileset dir="../map-service/target" includes="*.jar">
-									</fileset>
-								</copy> -->
 								<copy todir="target/plugins">
 									<fileset dir="../map-service-graphml/target" includes="*.jar">
 									</fileset>

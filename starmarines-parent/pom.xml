@@ -24,7 +24,6 @@
 		<module>../game-core</module>
 		<module>../game-core-api</module>
 		<module>../assembly</module>
-		<module>../map-service</module>
 		<module>../map-service-graphml</module>
 		<module>../map-api</module>
 	</modules>
