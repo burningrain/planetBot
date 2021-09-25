@@ -23,7 +23,6 @@ Export-Package: \
 
 
 Bundle-ClassPath: \
-yfiles-for-javafx.jar, \
 .
 Private-Package: \
 	com.github.br.starmarines.coreplugins.event,\

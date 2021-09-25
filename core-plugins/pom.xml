@@ -54,14 +54,6 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>com.yworks</groupId>
-			<artifactId>com.yworks</artifactId>
-			<version>1.0.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/yfiles-for-javafx.jar</systemPath>
-		</dependency>
-		
-		<dependency>
 			<groupId>com.br</groupId>
 			<artifactId>game-api</artifactId>
 			<type>bundle</type>
