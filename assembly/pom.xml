@@ -1,231 +1,237 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<artifactId>starmarines</artifactId>
-		<groupId>com.br</groupId>
-		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../starmarines-parent</relativePath>
-	</parent>
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>assembly</artifactId>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>starmarines</artifactId>
+        <groupId>com.br</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../starmarines-parent</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>assembly</artifactId>
 
-	<packaging>pom</packaging>
+    <packaging>pom</packaging>
 
-	<properties>
-		<dir.launcher>../launcher/target</dir.launcher>
-		<dir.osgi>${dir.launcher}/osgi</dir.osgi>
-		<dir.config>${dir.launcher}/config</dir.config>
-		<dir.bundles>${dir.launcher}/osgi/bundles</dir.bundles>
+    <properties>
+        <dir.launcher>../launcher/target</dir.launcher>
+        <dir.osgi>${dir.launcher}/osgi</dir.osgi>
+        <dir.config>${dir.launcher}/config</dir.config>
+        <dir.bundles>${dir.launcher}/osgi/bundles</dir.bundles>
 
-<dir.maps>../map-service/maps</dir.maps>
+        <dir.maps>../map-service/maps</dir.maps>
 
-		
-	</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.br</groupId>
-			<artifactId>game-api</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+    </properties>
 
-		<dependency>
-			<groupId>com.br</groupId>
-			<artifactId>plugin-api</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.br</groupId>
-			<artifactId>core-plugins</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>com.br</groupId>
+            <artifactId>game-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.br</groupId>
-			<artifactId>launcher</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>com.br</groupId>
+            <artifactId>plugin-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.br</groupId>
-			<artifactId>main-app</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.br</groupId>
-			<artifactId>map-service</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.br</groupId>
-			<artifactId>game-core</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>com.br</groupId>
+            <artifactId>core-plugins</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.br</groupId>
-			<artifactId>game-ui</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>com.br</groupId>
+            <artifactId>launcher</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.br</groupId>
-			<artifactId>fragment-laf</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>com.br</groupId>
+            <artifactId>main-app</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.br</groupId>
-			<artifactId>strategy</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>com.br</groupId>
+            <artifactId>map-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-	</dependencies>
+        <dependency>
+            <groupId>com.br</groupId>
+            <artifactId>game-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-	<build>
-		<plugins>
+        <dependency>
+            <groupId>com.br</groupId>
+            <artifactId>game-ui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>generate-sources</id>
-						<phase>generate-sources</phase>
-						<configuration>
-							<tasks>
-<mkdir dir="target/models" />								<mkdir dir="target/maps" />
-								<mkdir dir="target/plugins" />
-								<mkdir dir="target/strategies" />
-								<mkdir dir="target/log"/>		
-								<mkdir dir="target/osgi/bundles/app"/>
-								<mkdir dir="target/osgi/config"/>
-								<mkdir dir="target/cfg"/>									
-								
-								<!-- копирование файла конфигурации логгирования -->
+        <dependency>
+            <groupId>com.br</groupId>
+            <artifactId>fragment-laf</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.br</groupId>
+            <artifactId>strategy</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-sources</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="target/plugins" />
+                                <mkdir dir="target/maps" />
+                                <mkdir dir="target/strategies" />
+                                <mkdir dir="target/log"/>
+                                <mkdir dir="target/osgi/bundles/app"/>
+                                <mkdir dir="target/osgi/config"/>
+                                <mkdir dir="target/cfg"/>
+
+                                <!-- копирование файла конфигурации логгирования -->
                                 <copy todir="target/log">
                                     <fileset dir="${dir.launcher}/log" includes="*.*">
                                     </fileset>
-                                </copy>								
+                                </copy>
 
-								<!-- копирование запускающего jar-ника -->
-								<copy todir="target">
-									<fileset dir="${dir.launcher}" includes="*.jar">
-									</fileset>
-								</copy>
-								
-								<!-- копирование главного приложения и osgi-контейнера -->
-								<copy todir="target/osgi">
-									<fileset dir="${dir.osgi}" includes="*.*">
-									</fileset>
-								</copy>
-								<copy todir="target/osgi/config">
-									<fileset dir="${dir.config}" includes="*.*">
-									</fileset>
-								</copy>
-								<copy todir="target/osgi/bundles">
-									<fileset dir="${dir.bundles}" includes="*.*">
-									</fileset>
-								</copy>												
+                                <!-- копирование запускающего jar-ника -->
+                                <copy todir="target">
+                                    <fileset dir="${dir.launcher}" includes="*.jar">
+                                    </fileset>
+                                </copy>
 
-								<!-- копирование главного приложения-бандла -->								
-								<copy todir="target/osgi/bundles/app">
-									<fileset dir="../main-app/target" includes="*.jar">
-									</fileset>
-								</copy>
-								
-								<!-- копирование cfg-файлов приложения-бандла -->
-								<copy todir="target/cfg">
-									<fileset dir="../main-app/src/main/resources/cfg" includes="*.cfg">
-									</fileset>
-								</copy>
+                                <!-- копирование главного приложения и osgi-контейнера -->
+                                <copy todir="target/osgi">
+                                    <fileset dir="${dir.osgi}" includes="*.*">
+                                    </fileset>
+                                </copy>
+                                <copy todir="target/osgi/config">
+                                    <fileset dir="${dir.config}" includes="*.*">
+                                    </fileset>
+                                </copy>
+                                <copy todir="target/osgi/bundles">
+                                    <fileset dir="${dir.bundles}" includes="*.*">
+                                    </fileset>
+                                </copy>
 
-								<!-- копирование фрагмента с look and feel -->
-								<copy todir="target/osgi/bundles">
-									<fileset dir="../fragment-laf/target" includes="*.jar">
-									</fileset>
-								</copy>
+                                <!-- копирование главного приложения-бандла -->
+                                <copy todir="target/osgi/bundles/app">
+                                    <fileset dir="../main-app/target" includes="*.jar">
+                                    </fileset>
+                                </copy>
 
-								<!-- копирование API -->
-								<copy todir="target/game-api">
-									<fileset dir="../game-api/target" includes="*.jar">
-									</fileset>
-								</copy>
+                                <!-- копирование cfg-файлов приложения-бандла -->
+                                <copy todir="target/cfg">
+                                    <fileset dir="../main-app/src/main/resources/cfg" includes="*.cfg">
+                                    </fileset>
+                                </copy>
 
-								<!-- копирование API выбора карт -->
-								<copy todir="target/game-api">
-									<fileset dir="../map-api/target" includes="*.jar">
-									</fileset>
-								</copy>
-								
-								<!-- копирование API игрового движка -->
-								<copy todir="target/game-api">
-									<fileset dir="../game-core-api/target" includes="*.jar">
-									</fileset>
-								</copy>
-								
-								<!-- копирование плагина загрузки карт -->
-								<copy todir="target/plugins">
-									<fileset dir="../map-service/target" includes="*.jar">
-									</fileset>
-								</copy>
-								
-								<!-- копирование предустановленных карт -->
-								<copy todir="target/maps">
-									<fileset dir="${dir.maps}" includes="*.gv">
-									</fileset>
-								</copy>
+                                <!-- копирование фрагмента с look and feel -->
+                                <copy todir="target/osgi/bundles">
+                                    <fileset dir="../fragment-laf/target" includes="*.jar">
+                                    </fileset>
+                                </copy>
 
-								<!-- копирование стратегии -->
-								<copy todir="target/strategies">
-									<fileset dir="../strategy/target" includes="*.jar">
-									</fileset>
-								</copy>
-								
-								<!-- копирование игрового движка --> 
-								<copy todir="target/osgi/bundles/app">
-									<fileset dir="../game-core/target" includes="*.jar">
-									</fileset>
-								</copy>
-								
-								<!-- копирование ui-модуля с javafx --> 
-								<copy todir="target/osgi/bundles/app">
-									<fileset dir="../game-ui/target" includes="*.jar">
-									</fileset>
-								</copy>
-								
-								<!-- копирование API для UI -->
-								<copy todir="target/game-api">
-									<fileset dir="../plugin-api/target" includes="*.jar">
-									</fileset>
-								</copy>
-								
-								<!-- копирование ядровых UI-плагинов -->
-								<copy todir="target/plugins">
-									<fileset dir="../core-plugins/target" includes="*.jar">
-									</fileset>
-								</copy>
-								
-								<!-- копирование графовой либы игрового движка -->
-								<copy todir="target/osgi/bundles">
-									<fileset dir="../game-core/lib" includes="*.jar">
-									</fileset>
-								</copy>
-								
-</tasks>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+                                <!-- копирование API -->
+                                <copy todir="target/game-api">
+                                    <fileset dir="../game-api/target" includes="*.jar">
+                                    </fileset>
+                                </copy>
+
+                                <!-- копирование API выбора карт -->
+                                <copy todir="target/game-api">
+                                    <fileset dir="../map-api/target" includes="*.jar">
+                                    </fileset>
+                                </copy>
+
+                                <!-- копирование API игрового движка -->
+                                <copy todir="target/game-api">
+                                    <fileset dir="../game-core-api/target" includes="*.jar">
+                                    </fileset>
+                                </copy>
+
+                                <!-- копирование плагина загрузки карт -->
+                                <copy todir="target/osgi/bundles/app">
+                                    <fileset dir="../map-service/target" includes="*.jar">
+                                    </fileset>
+                                </copy>
+
+                                <!-- копирование сервиса работы со стратегиями -->
+                                <copy todir="target/osgi/bundles/app">
+                                    <fileset dir="../strategy-service/target" includes="*.jar">
+                                    </fileset>
+                                </copy>
+
+                                <!-- копирование предустановленных карт -->
+                                <copy todir="target/maps">
+                                    <fileset dir="${dir.maps}" includes="*.gv">
+                                    </fileset>
+                                </copy>
+
+                                <!-- копирование стратегии -->
+                                <copy todir="target/strategies">
+                                    <fileset dir="../strategy/target" includes="*.jar">
+                                    </fileset>
+                                </copy>
+
+                                <!-- копирование игрового движка -->
+                                <copy todir="target/osgi/bundles/app">
+                                    <fileset dir="../game-core/target" includes="*.jar">
+                                    </fileset>
+                                </copy>
+
+                                <!-- копирование ui-модуля с javafx -->
+                                <copy todir="target/osgi/bundles/app">
+                                    <fileset dir="../game-ui/target" includes="*.jar">
+                                    </fileset>
+                                </copy>
+
+                                <!-- копирование API для UI -->
+                                <copy todir="target/game-api">
+                                    <fileset dir="../plugin-api/target" includes="*.jar">
+                                    </fileset>
+                                </copy>
+
+                                <!-- копирование ядровых UI-плагинов -->
+                                <copy todir="target/plugins">
+                                    <fileset dir="../core-plugins/target" includes="*.jar">
+                                    </fileset>
+                                </copy>
+
+                                <!-- копирование графовой либы игрового движка -->
+                                <copy todir="target/osgi/bundles">
+                                    <fileset dir="../game-core/lib" includes="*.jar">
+                                    </fileset>
+                                </copy>
+
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
 
-		</plugins>
-	</build>
+        </plugins>
+    </build>
 
 
 </project>

@@ -37,8 +37,7 @@ public class GameEngineLogic {
 	
 	@Requires(optional = true)
 	private LogService logService;
-	
-	
+
 	@Requires
 	private IGameService gameService;
 	

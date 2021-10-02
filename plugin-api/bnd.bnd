@@ -12,7 +12,8 @@ testsrc: src/test/java
 
 
 Bundle-ClassPath: \
+.
 
-	
 
-Export-Package: com.github.br.starmarines.ui.api
+Export-Package: com.github.br.starmarines.ui.api,\
+                com.github.br.starmarines.ui.api.utils

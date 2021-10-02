@@ -5,26 +5,26 @@ import com.github.br.starmarines.gamecore.api.Player;
 
 public class GameStepMistake {
 
-	private Player player;
-	private Move move;
-	private final String message;
-	
-	public GameStepMistake(String message, Player player, Move move){
-		this.message = message;
-		this.player = player;
-		this.move = move;
-	}
+    private Player player;
+    private Move move;
+    private final String message;
 
-	public Player getPlayer() {
-		return player;
-	}
+    public GameStepMistake(String message, Player player, Move move) {
+        this.message = message;
+        this.player = player;
+        this.move = move;
+    }
 
-	public Move getMove() {
-		return move;
-	}
+    public Player getPlayer() {
+        return player;
+    }
 
-	public String getMessage() {
-		return message;
-	}	
-	
+    public Move getMove() {
+        return move;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
 }

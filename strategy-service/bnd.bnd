@@ -1,0 +1,31 @@
+-buildpath: \
+	osgi.core,\
+	${junit},\
+	osgi.cmpn;version=4.3,\
+	game-api;version=latest,\
+	map-api;version=latest,\
+	game-core-api;version=latest
+-outputmask: ${@bsn}-${version;===S;${@version}}.jar
+
+Bundle-Version: 1.0.0.SNAPSHOT
+bin: target/classes
+src: src/main/java
+target-dir: target
+testbin: target/test-classes
+testsrc: src/test/java
+
+Include-Resource: lib, \
+src/main/resources
+Bundle-ClassPath: \
+., \
+
+Export-Package: com.github.br.starmarines.service.strategy
+
+Import-Package: \
+	com.github.br.starmarines.game.api.galaxy,\
+    com.github.br.starmarines.game.api.strategy,\
+	com.github.br.starmarines.gamecore.api,\
+    org.osgi.service.log
+
+Private-Package: \
+    com.github.br.starmarines.service.strategy.impl

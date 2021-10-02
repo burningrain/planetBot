@@ -12,13 +12,14 @@ import com.github.br.starmarines.ui.api.IMenu;
 public class Help implements IMenu {
 
 	@Override
+	public int getOrder() {
+		return Integer.MAX_VALUE;
+	}
+
+	@Override
 	public Menu getNode() {
 	    return new Menu("Help");
 	}
 
-	@Override
-	public int getOrder() {
-		return Integer.MAX_VALUE;
-	}
 
 }

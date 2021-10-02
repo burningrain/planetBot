@@ -11,60 +11,73 @@ import com.github.br.starmarines.game.api.galaxy.Planet;
 
 
 public class Galaxy {
-	
-	private final GalaxyType galaxyType;
-	private final Set<Planet> planets;
-	private final Set<Planet> startPoints;
 
-	private Galaxy(final GalaxyType galaxyType,  
-					final Collection<Planet> planets, 
-					final Set<Planet> startPoints) {
-		this.galaxyType = galaxyType;
-		this.planets = new HashSet<Planet>(planets);		
-		this.startPoints = startPoints;
-	}		
+    private final int maxPlayersCount;
+    private final GalaxyType galaxyType;
+    private final Set<Planet> planets;
+    private final Set<Planet> startPoints;
 
-	public GalaxyType getGalaxyType() {
-		return galaxyType;
-	}
-	
-	public Set<Planet> getStartPoints(){
-		return Collections.unmodifiableSet(startPoints);
-	}
-	
-	public Set<Planet> getPlanets(){
-		return Collections.unmodifiableSet(planets);
-	}			
+    private Galaxy(int maxPlayersCount,
+                   GalaxyType galaxyType,
+                   Collection<Planet> planets,
+                   Set<Planet> startPoints) {
+        this.maxPlayersCount = maxPlayersCount;
+        this.galaxyType = galaxyType;
+        this.planets = new HashSet<Planet>(planets);
+        this.startPoints = startPoints;
+    }
 
-	public static class Builder {
+    public int getMaxPlayersCount() {
+        return maxPlayersCount;
+    }
 
-		private final Map<String, Planet> planets;
-		private final GalaxyType galaxyType;
-		private final Set<Planet> startPoints;
+    public GalaxyType getGalaxyType() {
+        return galaxyType;
+    }
 
-		public Builder(final GalaxyType galaxyType) {
-			this.galaxyType = galaxyType;			
-			planets = new HashMap<>();
-			startPoints = new HashSet<>();
-		}
+    public Set<Planet> getStartPoints() {
+        return Collections.unmodifiableSet(startPoints);
+    }
 
-		public Builder addEdge(Planet source, Planet target) {
-			Planet s = planets.get(source.getId());
-			Planet t = planets.get(target.getId());
-			s.addNeighbour(t);
-			t.addNeighbour(s);
-			return this;
-		}
+    public Set<Planet> getPlanets() {
+        return Collections.unmodifiableSet(planets);
+    }
 
-		public Builder addPlanet(Planet planet, boolean isStartPoint) {
-			if(isStartPoint) startPoints.add(planet);			
-			planets.put(planet.getId(), planet);
-			return this;
-		}
+    public static class Builder {
 
-		public Galaxy build() {
-			return new Galaxy(galaxyType, planets.values(), startPoints);
-		}
-	}
+        private int maxPlayersCount;
+        private final Map<String, Planet> planets;
+        private final GalaxyType galaxyType;
+        private final Set<Planet> startPoints;
+
+        public Builder(final GalaxyType galaxyType) {
+            this.galaxyType = galaxyType;
+            planets = new HashMap<>();
+            startPoints = new HashSet<>();
+        }
+
+        public Builder addEdge(Planet source, Planet target) {
+            Planet s = planets.get(source.getId());
+            Planet t = planets.get(target.getId());
+            s.addNeighbour(t);
+            t.addNeighbour(s);
+            return this;
+        }
+
+        public Builder addPlanet(Planet planet, boolean isStartPoint) {
+            if (isStartPoint) startPoints.add(planet);
+            planets.put(planet.getId(), planet);
+            return this;
+        }
+
+        public Builder maxPlayersCount(int maxPlayersCount) {
+            this.maxPlayersCount = maxPlayersCount;
+            return this;
+        }
+
+        public Galaxy build() {
+            return new Galaxy(maxPlayersCount, galaxyType, planets.values(), startPoints);
+        }
+    }
 
 }

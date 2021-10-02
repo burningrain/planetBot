@@ -1,29 +1,38 @@
 -buildpath: \
-	osgi.core;version=5.0${junit},\
+	osgi.core,\
 	osgi.cmpn;version=4.3,\
 	plugin-api;version=latest,\
 	game-api;version=latest,\
-	game-core-api;version=latest
+	game-core-api;version=latest,\
+	map-api;version=latest,\
+	strategy-service;version=latest,\
+	org.apache.felix.ipojo.annotations
+-outputmask: ${@bsn}-${version;===S;${@version}}.jar
 	
 Bundle-Version: 1.0.0.SNAPSHOT
 bin: target/classes
 src: src/main/java
 target-dir: target
-testbin: target/classes
+testbin: target/test-classes
 testsrc: src/test/java
 
-Include-Resource: lib,\
+Import-Package:  \
+	*
+
+Include-Resource: lib, \
 src/main/resources
+Bundle-ClassPath: \
+., \
 		
 Export-Package: \
+	com.github.br.starmarines.coreplugins.internal.newgame,\
 	com.github.br.starmarines.coreplugins.menu,\
-	com.github.br.starmarines.coreplugins.toolbar,\
-	com.github.br.starmarines.coreplugins.menuitems,\
-	com.github.br.starmarines.coreplugins.pane
+	com.github.br.starmarines.coreplugins.menuitems.file,\
+	com.github.br.starmarines.coreplugins.menuitems.help
 
 
-Bundle-ClassPath: \
-.
+
 Private-Package: \
-	com.github.br.starmarines.coreplugins.event,\
-	com.github.br.starmarines.coreplugins.event.tools
+    com.github.br.starmarines.coreplugins.internal,\
+    com.github.br.starmarines.coreplugins.internal.newgame
+

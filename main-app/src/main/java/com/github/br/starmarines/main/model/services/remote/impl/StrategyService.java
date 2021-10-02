@@ -32,7 +32,7 @@ public class StrategyService implements IStrategyService {
 	
 	
 	@Validate
-	private void v(){
+	private void validate(){
 		logService.log(LogService.LOG_DEBUG, this.getClass().getSimpleName() + " start");
 	}
 	

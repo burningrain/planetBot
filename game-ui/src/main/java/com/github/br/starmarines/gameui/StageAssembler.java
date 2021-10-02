@@ -1,13 +1,14 @@
 package com.github.br.starmarines.gameui;
 
+import com.github.br.starmarines.ui.api.StageContainer;
 import org.apache.felix.ipojo.annotations.BindingPolicy;
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.apache.felix.ipojo.annotations.Validate;
 
-import com.github.br.starmarines.gameui.impl.PaneController;
-import com.github.br.starmarines.gameui.impl.TopController;
+import com.github.br.starmarines.gameui.impl.CenterComponent;
+import com.github.br.starmarines.gameui.impl.TopComponent;
 
 import javafx.application.Platform;
 import javafx.scene.Parent;
@@ -20,13 +21,13 @@ import javafx.stage.Stage;
 public class StageAssembler {
 
 	@Requires(policy = BindingPolicy.STATIC, proxy = false)
-	private StageService stageService;
+	private StageContainer stageContainer;
 
 	@Requires(policy = BindingPolicy.STATIC, proxy = false)
-	private TopController topController;
+	private TopComponent topComponent;
 
 	@Requires(policy = BindingPolicy.STATIC, proxy = false)
-	private PaneController paneController;
+	private CenterComponent centerComponent;
 
 	@Validate
 	public void init() {
@@ -35,18 +36,18 @@ public class StageAssembler {
 
 	private void showStage() {
 		Platform.runLater(() -> {
-			Scene scene = new Scene(fillScene(), 800, 600);
-			Stage stage = stageService.getStage();
+			Scene scene = new Scene(createMainPane(), 800, 600); //TODO вынести в настройки
+			Stage stage = stageContainer.getStage();
 			stage.setTitle("Planet bot");
 			stage.setScene(scene);
 			stage.show();
 		});
 	}
 
-	private Parent fillScene() {
+	private Parent createMainPane() {
 		BorderPane borderPane = new BorderPane();
-		borderPane.setTop(topController.getNode());
-		borderPane.setCenter(paneController.getNode());
+		borderPane.setTop(topComponent.getNode());
+		borderPane.setCenter(centerComponent.getNode());
 		return borderPane;
 	}
 
