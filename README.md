@@ -1,2 +1,3 @@
 planetBot
 =========
+go to wiki

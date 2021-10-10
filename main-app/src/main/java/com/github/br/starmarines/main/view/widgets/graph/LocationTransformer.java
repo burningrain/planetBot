@@ -84,7 +84,7 @@ public class LocationTransformer implements Transformer<Planet, Point2D> {
             Collections.sort(entry.getValue(), new Comparator<Planet>() {
                 @Override
                 public int compare(Planet o1, Planet o2) {
-                    return Integer.valueOf(o1.getId()) - Integer.valueOf(o2.getId());
+                    return o1.getId().compareTo(o2.getId());
                 }
             });
         }

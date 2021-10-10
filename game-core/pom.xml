@@ -22,7 +22,7 @@
 			<type>bundle</type>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.br</groupId>
 			<artifactId>game-core-api</artifactId>
@@ -35,7 +35,7 @@
 			<artifactId>org.osgi.compendium</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.apache.felix.ipojo.annotations</artifactId>
@@ -55,7 +55,7 @@
 			<version>1.7.2</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- graph library -->
 		<dependency>
 			<groupId>org.jgrapht</groupId>
@@ -67,8 +67,8 @@
 	</dependencies>
 
 	<build>
-		<plugins>			
-		
+		<plugins>
+
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-ipojo-plugin</artifactId>

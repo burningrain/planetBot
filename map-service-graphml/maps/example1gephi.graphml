@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+<key attr.name="label" attr.type="string" for="node" id="label"/>
+<key attr.name="Edge Label" attr.type="string" for="edge" id="edgelabel"/>
+<key attr.name="weight" attr.type="double" for="edge" id="weight"/>
+<key attr.name="r" attr.type="int" for="node" id="r"/>
+<key attr.name="g" attr.type="int" for="node" id="g"/>
+<key attr.name="b" attr.type="int" for="node" id="b"/>
+<key attr.name="x" attr.type="float" for="node" id="x"/>
+<key attr.name="y" attr.type="float" for="node" id="y"/>
+<key attr.name="size" attr.type="float" for="node" id="size"/>
+<key attr.name="IsStartPoint" attr.type="boolean" for="node" id="key3"/>
+<key attr.name="Type" attr.type="string" for="node" id="key1"/>
+<key attr.name="Owner" attr.type="string" for="node" id="key0"/>
+<key attr.name="Units" attr.type="int" for="node" id="key2"/>
+<graph edgedefault="undirected">
+<node id="1">
+<data key="label">1</data>
+<data key="key3">true</data>
+<data key="key1">TYPE_D</data>
+<data key="key2">200</data>
+<data key="size">10.0</data>
+<data key="r">0</data>
+<data key="g">0</data>
+<data key="b">0</data>
+<data key="x">85.21912</data>
+<data key="y">415.16968</data>
+</node>
+<node id="2">
+<data key="label">2</data>
+<data key="key3">true</data>
+<data key="key1">TYPE_C</data>
+<data key="key2">100</data>
+<data key="size">10.0</data>
+<data key="r">0</data>
+<data key="g">0</data>
+<data key="b">0</data>
+<data key="x">-85.21912</data>
+<data key="y">-415.16968</data>
+</node>
+<edge id="1" source="2" target="1">
+<data key="weight">1.0</data>
+</edge>
+</graph>
+</graphml>

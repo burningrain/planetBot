@@ -28,7 +28,7 @@
 		<module>../plugin-api</module>
 		<module>../core-plugins</module>
 		<module>../assembly</module>
-		<module>../map-service</module>
+		<module>../map-service-graphml</module>
 		<module>../map-api</module>
 	</modules>
 
