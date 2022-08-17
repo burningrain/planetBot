@@ -1,6 +1,6 @@
 -buildpath: \
 	osgi.core,\
-	osgi.cmpn;version=4.3,\
+	osgi.cmpn;version='7.0',\
 	plugin-api;version=latest,\
 	game-api;version=latest,\
 	game-core-api;version=latest,\
@@ -27,12 +27,15 @@ Bundle-ClassPath: \
 Export-Package: \
 	com.github.br.starmarines.coreplugins.internal.newgame,\
 	com.github.br.starmarines.coreplugins.menu,\
+	com.github.br.starmarines.coreplugins.menuitems,\
 	com.github.br.starmarines.coreplugins.menuitems.file,\
-	com.github.br.starmarines.coreplugins.menuitems.help
-
+	com.github.br.starmarines.coreplugins.menuitems.help,\
+	com.github.br.starmarines.coreplugins.pane,\
+	com.github.br.starmarines.coreplugins.toolbar
 
 
 Private-Package: \
     com.github.br.starmarines.coreplugins.internal,\
-    com.github.br.starmarines.coreplugins.internal.newgame
+    com.github.br.starmarines.coreplugins.internal.newgame,\
+    com.github.br.starmarines.coreplugins.internal.dto
 

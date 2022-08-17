@@ -1,11 +1,6 @@
 package com.github.br.starmarines.gameui;
 
 import com.github.br.starmarines.ui.api.StageContainer;
-import org.apache.felix.ipojo.annotations.BindingPolicy;
-import org.apache.felix.ipojo.annotations.Component;
-import org.apache.felix.ipojo.annotations.Instantiate;
-import org.apache.felix.ipojo.annotations.Requires;
-import org.apache.felix.ipojo.annotations.Validate;
 
 import com.github.br.starmarines.gameui.impl.CenterComponent;
 import com.github.br.starmarines.gameui.impl.TopComponent;
@@ -15,21 +10,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.osgi.service.component.annotations.*;
 
-@Instantiate
-@Component(publicFactory = false)
+@Component
 public class StageAssembler {
 
-	@Requires(policy = BindingPolicy.STATIC, proxy = false)
+	@Reference(policy = ReferencePolicy.STATIC, cardinality = ReferenceCardinality.MANDATORY)
 	private StageContainer stageContainer;
 
-	@Requires(policy = BindingPolicy.STATIC, proxy = false)
+	@Reference(policy = ReferencePolicy.STATIC, cardinality = ReferenceCardinality.MANDATORY)
 	private TopComponent topComponent;
 
-	@Requires(policy = BindingPolicy.STATIC, proxy = false)
+	@Reference(policy = ReferencePolicy.STATIC, cardinality = ReferenceCardinality.MANDATORY)
 	private CenterComponent centerComponent;
 
-	@Validate
+	@Activate
 	public void init() {
 		showStage();
 	}

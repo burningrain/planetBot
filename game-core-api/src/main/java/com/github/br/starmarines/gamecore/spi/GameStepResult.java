@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.br.starmarines.game.api.galaxy.Planet;
-import com.github.br.starmarines.gamecore.api.Player;
+import com.github.br.starmarines.game.api.galaxy.Player;
 import com.github.br.starmarines.gamecore.mistakes.GameStepMistake;
 
 public class GameStepResult {

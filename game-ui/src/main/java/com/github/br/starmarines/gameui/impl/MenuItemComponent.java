@@ -5,8 +5,6 @@ import javafx.scene.control.MenuItem;
 
 import com.github.br.starmarines.gameui.AbstractOrderComponent;
 import com.github.br.starmarines.ui.api.IMenuItem;
-import javafx.scene.control.ToolBar;
-import org.apache.felix.ipojo.annotations.Validate;
 
 
 public class MenuItemComponent extends AbstractOrderComponent<Menu, MenuItem, IMenuItem> {

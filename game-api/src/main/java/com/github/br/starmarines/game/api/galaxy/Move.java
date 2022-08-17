@@ -41,11 +41,8 @@ public class Move {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("from ").append(from.getId()).append(" to ")
-		.append(to.getId()).append(" -- ").append(amount);
-		
-		return  sb.toString();
+		return "from " + from.getId() + " to " +
+				to.getId() + " -- " + amount;
 	}
 	
 }

@@ -32,7 +32,7 @@ public class GraphWM extends AbstractWidgetModel {
 	private Collection<Action> currentActions;
 	
 	// from VM
-	private Map<String, Color> playersColors;
+	private Map<Short, Color> playersColors;
 
 	// self
 	private Collection<Action> lastActions;
@@ -126,7 +126,7 @@ public class GraphWM extends AbstractWidgetModel {
 		return currentActions;
 	}
 
-	public Map<String, Color> getPlayersColors() {
+	public Map<Short, Color> getPlayersColors() {
 		return playersColors;
 	}	
 	

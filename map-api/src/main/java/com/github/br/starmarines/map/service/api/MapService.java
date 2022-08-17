@@ -6,7 +6,7 @@ import com.github.br.starmarines.gamecore.api.Galaxy;
 
 public interface MapService {
 
-	//todo помимо названий хранить число игроков
+	//todo помимо названий хранить максимальное число игроков
 	List<String> getAllTitles();
 	
 	List<String> getTitles(int startIndex, int count); // для пейджинга

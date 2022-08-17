@@ -11,6 +11,6 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>game-api</artifactId>
-	<packaging>bundle</packaging>	
+	<packaging>bundle</packaging>
 
 </project>

@@ -18,6 +18,13 @@
 
 		<dependency>
 			<groupId>com.br</groupId>
+			<artifactId>map-api</artifactId>
+			<type>bundle</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.br</groupId>
 			<artifactId>game-api</artifactId>
 			<type>bundle</type>
 			<scope>provided</scope>
@@ -32,19 +39,13 @@
 
 		<dependency>
 			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.compendium</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.apache.felix.ipojo.annotations</artifactId>
+			<artifactId>osgi.cmpn</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.core</artifactId>
+			<artifactId>osgi.core</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
@@ -52,7 +53,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.2</version>
+			<version>1.7.36</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -60,19 +61,14 @@
 		<dependency>
 			<groupId>org.jgrapht</groupId>
 			<artifactId>jgrapht-core</artifactId>
-			<version>0.9.2</version>
-		</dependency>			
+			<version>1.5.1</version>
+		</dependency>
 
 
 	</dependencies>
 
 	<build>
 		<plugins>
-
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-ipojo-plugin</artifactId>
-			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

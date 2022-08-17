@@ -27,19 +27,15 @@ public class GraphStringConverter implements
 		// https://github.com/jgrapht/jgrapht/blob/master/jgrapht-demo/src/main/java/org/jgrapht/demo/GraphMLDemo.java
 		GraphMLExporter<VertexPlanet, GalaxyEdge> exporter = new GraphMLExporter<>();
 
-		exporter.setVertexAttributeProvider(new ComponentAttributeProvider<VertexPlanet>() {
-			
-			@Override
-			public Map<String, String> getComponentAttributes(VertexPlanet component) {
-				HashMap<String, String> map = new HashMap<String, String>();
-				Planet planet = component.getPlanet();
-				map.put("Owner", planet.getOwner());
-				map.put("Type", planet.getType().name());
-				map.put("Units", String.valueOf(planet.getUnits()));
-				map.put("IsStartPoint", String.valueOf(component.isStartPoint()));
-				
-				return map;
-			}
+		exporter.setVertexAttributeProvider(component -> {
+			HashMap<String, String> map = new HashMap<String, String>();
+			Planet planet = component.getPlanet();
+			map.put("Owner", String.valueOf(planet.getOwnerId()));
+			map.put("Type", planet.getType().name());
+			map.put("Units", String.valueOf(planet.getUnits()));
+			map.put("IsStartPoint", String.valueOf(component.isStartPoint()));
+
+			return map;
 		});
 		
 		// set to export the internal edge weights

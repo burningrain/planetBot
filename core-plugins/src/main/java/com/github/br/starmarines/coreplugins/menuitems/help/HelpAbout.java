@@ -1,16 +1,12 @@
 package com.github.br.starmarines.coreplugins.menuitems.help;
 
-import org.apache.felix.ipojo.annotations.Component;
-import org.apache.felix.ipojo.annotations.Instantiate;
-import org.apache.felix.ipojo.annotations.Provides;
-
 import javafx.scene.control.MenuItem;
 
 import com.github.br.starmarines.ui.api.IMenuItem;
+import org.osgi.service.component.annotations.Component;
 
-@Provides
-@Instantiate
-@Component
+
+@Component(service = IMenuItem.class)
 public class HelpAbout implements IMenuItem {
 
 	@Override

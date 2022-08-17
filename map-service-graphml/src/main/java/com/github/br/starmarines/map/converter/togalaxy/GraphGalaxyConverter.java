@@ -6,24 +6,19 @@ import org.jgrapht.UndirectedGraph;
 import org.osgi.service.component.annotations.Component;
 
 import com.github.br.starmarines.gamecore.api.Galaxy;
-import com.github.br.starmarines.gamecore.api.GalaxyType;
-import com.github.br.starmarines.map.converter.Converter;
 import com.github.br.starmarines.map.converter.GalaxyEdge;
 import com.github.br.starmarines.map.converter.VertexPlanet;
 
 @Component(service=GraphGalaxyConverter.class)
-public class GraphGalaxyConverter implements
-		Converter<UndirectedGraph<VertexPlanet, GalaxyEdge>, Galaxy> {
+public class GraphGalaxyConverter {
 
-	@Override
-	public Galaxy convert(UndirectedGraph<VertexPlanet, GalaxyEdge> graph) {
-		//TODO вообще убрать параметр после fx. По факту нужен, чтобы верно отрисовать граф
-		Galaxy.Builder builder = new Galaxy.Builder(GalaxyType.SMALL_BASES);
+	public Galaxy convert(String title, UndirectedGraph<VertexPlanet, GalaxyEdge> graph) {
+		Galaxy.Builder builder = new Galaxy.Builder(title);
 		
 		Set<VertexPlanet> planets = graph.vertexSet();
 		Set<GalaxyEdge> edges = graph.edgeSet();
-		planets.stream().forEach(p -> builder.addPlanet(p.getPlanet(), p.isStartPoint()));
-		edges.stream().forEach((e) -> builder.addEdge(e.getFrom().getPlanet(), e.getTo().getPlanet()));		
+		planets.forEach(p -> builder.addPlanet(p.getPlanet(), p.isStartPoint()));
+		edges.forEach((e) -> builder.addEdge(e.getFrom().getPlanet().getId(), e.getTo().getPlanet().getId()));
 		
 		return builder.build();
 	}

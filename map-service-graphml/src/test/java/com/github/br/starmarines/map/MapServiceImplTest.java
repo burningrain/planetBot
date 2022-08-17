@@ -15,7 +15,6 @@ import org.junit.Test;
 import com.github.br.starmarines.game.api.galaxy.Planet;
 import com.github.br.starmarines.game.api.galaxy.PlanetType;
 import com.github.br.starmarines.gamecore.api.Galaxy;
-import com.github.br.starmarines.gamecore.api.GalaxyType;
 import com.github.br.starmarines.map.converter.GalaxyEdge;
 import com.github.br.starmarines.map.converter.VertexPlanet;
 import com.github.br.starmarines.map.converter.fromgalaxy.GalaxyGraphConverter;
@@ -29,22 +28,24 @@ public class MapServiceImplTest {
 			+ "чем разруливать баги grapht")
 	@Test
 	public void testConvertGalaxyToGraphML() {
-		Galaxy.Builder builder = new Galaxy.Builder(GalaxyType.BIG_BASES);
+		Galaxy.Builder builder = new Galaxy.Builder("test");
 		
-		Planet planet1 = new Planet("1");
-		planet1.setOwner("owner1");
+		Planet planet1 = new Planet();
+		planet1.setId((short) 1);
+		planet1.setOwnerId((short) 1);
 		planet1.setType(PlanetType.TYPE_C);
 		planet1.setUnits(100);
 		
-		Planet planet2 = new Planet("2");
-		planet2.setOwner("owner2");
+		Planet planet2 = new Planet();
+		planet2.setId((short) 2);
+		planet2.setOwnerId((short) 2);
 		planet2.setType(PlanetType.TYPE_D);
 		planet2.setUnits(200);
 		
 		builder.addPlanet(planet1, true);
 		builder.addPlanet(planet2, true);
 		
-		builder.addEdge(planet1, planet2);
+		builder.addEdge(planet1.getId(), planet2.getId());
 	    Galaxy galaxy = builder.build();
 	    
 	    GalaxyGraphConverter galaxyGraphConverter = new GalaxyGraphConverter();
@@ -67,7 +68,7 @@ public class MapServiceImplTest {
         UndirectedGraph<VertexPlanet, GalaxyEdge> graph = stringGraphConverter
 				.convert(mapAsString);
         GraphGalaxyConverter graphGalaxyConverter = new GraphGalaxyConverter();
-		Galaxy galaxy = graphGalaxyConverter.convert(graph);
+		Galaxy galaxy = graphGalaxyConverter.convert(url.getFile(), graph);
 		System.out.println(galaxy);
 	}
 

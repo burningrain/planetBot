@@ -2,8 +2,8 @@ package com.github.br.starmarines.coreplugins.internal.newgame;
 
 
 import com.github.br.starmarines.gamecore.api.Galaxy;
-import com.github.br.starmarines.gamecore.api.PlayerDto;
-import com.github.br.starmarines.gamecore.api.StartGameDto;
+import com.github.br.starmarines.coreplugins.internal.dto.PlayerDto;
+import com.github.br.starmarines.coreplugins.internal.dto.StartGameDto;
 import com.github.br.starmarines.map.service.api.MapService;
 import com.github.br.starmarines.map.service.api.MapValidationException;
 import com.github.br.starmarines.service.strategy.IStrategyService;

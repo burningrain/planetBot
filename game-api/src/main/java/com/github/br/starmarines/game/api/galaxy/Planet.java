@@ -1,45 +1,49 @@
 package com.github.br.starmarines.game.api.galaxy;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 /**
  * Содержит информацию о планете
  */
 public class Planet {
 
-	private String id;
-	private String owner;
+	public static final short EMPTY_OWNER = -1;
+
+	// координаты
+	private float x;
+	private float y;
+
+	private short id;
+	private short ownerId = EMPTY_OWNER;
 	private int units;
 	private PlanetType type;
-	private List<Planet> neighbours = new ArrayList<Planet>();
 
 	/**
 	 * Создать планету с заданным id
 	 */
-	public Planet(String id) {
+	public void setId(short id) {
 		this.id = id;
 	}
 
 	/**
 	 * Получить id планеты
 	 */
-	public String getId() {
+	public short getId() {
 		return id;
 	}
 
 	/**
 	 * Получить владельца планеты
 	 */
-	public String getOwner() {
-		return owner;
+	public short getOwnerId() {
+		return ownerId;
 	}
 
 	/**
 	 * Задать владельца планеты
 	 */
-	public void setOwner(String owner) {
-		this.owner = owner;
+	public void setOwnerId(short ownerId) {
+		this.ownerId = ownerId;
 	}
 
 	/**
@@ -70,44 +74,44 @@ public class Planet {
 		this.type = type;
 	}
 
-	/**
-	 * Получить список соседей планеты
-	 */
-	public List<Planet> getNeighbours() {
-		//return Collections.unmodifiableList(neighbours);
-        return neighbours;
+	public float getX() {
+		return x;
 	}
 
-	/**
-	 * Добавить соседа
-	 */
-	public void addNeighbour(Planet neighbour) {
-		neighbours.add(neighbour);
+	public void setX(float x) {
+		this.x = x;
+	}
+
+	public float getY() {
+		return y;
+	}
+
+	public void setY(float y) {
+		this.y = y;
 	}
 
 	@Override
 	public String toString() {
-		//return id;
-        return String.valueOf(units);  //TODO изменить
+		return "Planet{" +
+				   "x=" + x +
+				   ", y=" + y +
+				   ", id='" + id + '\'' +
+				   ", owner='" + ownerId + '\'' +
+				   ", units=" + units +
+				   ", type=" + type +
+				   '}';
 	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Planet planet = (Planet) o;
-        if (!id.equals(planet.id)) return false;
-        if (type != planet.type) return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Planet planet = (Planet) o;
+		return id == planet.id;
+	}
 
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + type.hashCode();
-        return result;
-    }    
-
-
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 }

@@ -47,12 +47,6 @@
 
         <dependency>
             <groupId>com.br</groupId>
-            <artifactId>main-app</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.br</groupId>
             <artifactId>map-service-graphml</artifactId>
             <version>${project.version}</version>
         </dependency>

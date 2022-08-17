@@ -2,7 +2,6 @@ package com.github.br.starmarines.main.view.widgets.graph;
 
 import org.apache.commons.collections15.Transformer;
 
-import com.br.starwors.lx.logic.utils.anotherone.PlanetCloner;
 import com.github.br.starmarines.game.api.galaxy.Planet;
 import com.github.br.starmarines.game.api.galaxy.PlanetType;
 import com.github.br.starmarines.main.model.objects.inner.impl.GameInfo.GameType;
@@ -17,7 +16,7 @@ import java.util.List;
 public class LocationTransformer implements Transformer<Planet, Point2D> {
 
     private Collection<Planet> galaxy;
-    private Map<String, Point2D> planetsCoords;
+    private Map<Short, Point2D> planetsCoords;
 
     private Point2D centerPoint = new Point(View.START_WIDTH/2, View.START_HEIGHT/2);
 
@@ -34,7 +33,7 @@ public class LocationTransformer implements Transformer<Planet, Point2D> {
         this.gameType = gameType;
         visitedPlanets = new HashSet<Planet>(galaxy.size());
         planetsLevels = new LinkedHashMap<Integer, List<Planet>>(galaxy.size());
-        planetsCoords = new HashMap<String, Point2D>(galaxy.size());
+        planetsCoords = new HashMap<Short, Point2D>(galaxy.size());
 
         initPlanetsLocation();
         fillPlanetsCoords();
@@ -77,16 +76,11 @@ public class LocationTransformer implements Transformer<Planet, Point2D> {
         planetsLevels.put(level, list0);
         planetsCoords.put(center.getId(), centerPoint);
 
-        planetsLevels.put(++level, new LinkedList(PlanetCloner.clonePlanets(center.getNeighbours()))); //FIXME
+        planetsLevels.put(++level, new LinkedList(PlanetCloner.clonePlanets(center.getNeighbours())));
         makeThree(getNeighbours(center));
 
         for(Map.Entry<Integer, List<Planet>> entry : planetsLevels.entrySet()){
-            Collections.sort(entry.getValue(), new Comparator<Planet>() {
-                @Override
-                public int compare(Planet o1, Planet o2) {
-                    return o1.getId().compareTo(o2.getId());
-                }
-            });
+            entry.getValue().sort((o1, o2) -> o2.getId() - o1.getId());
         }
     }
 

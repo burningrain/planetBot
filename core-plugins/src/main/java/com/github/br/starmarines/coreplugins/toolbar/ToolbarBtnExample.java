@@ -3,15 +3,10 @@ package com.github.br.starmarines.coreplugins.toolbar;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 
-import org.apache.felix.ipojo.annotations.Component;
-import org.apache.felix.ipojo.annotations.Instantiate;
-import org.apache.felix.ipojo.annotations.Provides;
-
 import com.github.br.starmarines.ui.api.IToolBar;
+import org.osgi.service.component.annotations.Component;
 
-@Provides
-@Instantiate
-@Component(publicFactory = false)
+@Component(service = IToolBar.class)
 public class ToolbarBtnExample implements IToolBar {
 
 	@Override

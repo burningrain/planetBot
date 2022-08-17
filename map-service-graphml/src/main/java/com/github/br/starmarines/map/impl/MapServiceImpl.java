@@ -1,22 +1,5 @@
 package com.github.br.starmarines.map.impl;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileSystemNotFoundException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.jgrapht.UndirectedGraph;
-import org.jgrapht.graph.DefaultEdge;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
-import org.osgi.service.component.annotations.ReferencePolicy;
-import org.osgi.service.log.LogService;
-
-import com.github.br.starmarines.game.api.galaxy.Planet;
 import com.github.br.starmarines.gamecore.api.Galaxy;
 import com.github.br.starmarines.map.converter.Converter;
 import com.github.br.starmarines.map.converter.GalaxyEdge;
@@ -29,15 +12,28 @@ import com.github.br.starmarines.map.converter.togalaxy.GraphmlConverter;
 import com.github.br.starmarines.map.converter.togalaxy.StringGraphConverter;
 import com.github.br.starmarines.map.service.api.MapService;
 import com.github.br.starmarines.map.service.api.MapValidationException;
+import org.jgrapht.UndirectedGraph;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.log.LogService;
 
-@Component
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystemNotFoundException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+
+@Component(service = MapService.class)
 public class MapServiceImpl implements MapService {
 
 	// --> to Galaxy
 	private Converter<File, String> fileStringConverter;
 	private Converter<String, String> xmlToXmlConverter;
 	private Converter<String, UndirectedGraph<VertexPlanet, GalaxyEdge>> stringGraphConverter;
-	private Converter<UndirectedGraph<VertexPlanet, GalaxyEdge>, Galaxy> graphGalaxyConverter;
+	private GraphGalaxyConverter graphGalaxyConverter;
 	// <-- from Galaxy
 	private Converter<Galaxy, UndirectedGraph<VertexPlanet, GalaxyEdge>> galaxyGraphConverter;
 	private Converter<UndirectedGraph<VertexPlanet, GalaxyEdge>, String> graphStringConverter;
@@ -60,7 +56,7 @@ public class MapServiceImpl implements MapService {
 
 	@Override
 	public List<String> getTitles(int startIndex, int count) {
-		throw new RuntimeException("Sorry, this logic not implemented yet");
+		throw new RuntimeException("Sorry, this logic is not implemented yet");
 	}
 
 	@Override
@@ -75,8 +71,7 @@ public class MapServiceImpl implements MapService {
 		}
 		UndirectedGraph<VertexPlanet, GalaxyEdge> graph = stringGraphConverter
 				.convert(mapAsString);
-		Galaxy galaxy = graphGalaxyConverter.convert(graph);
-		return galaxy;
+		return graphGalaxyConverter.convert(title, graph);
 	}
 
 	public void saveMap(Galaxy galaxy, String title) {
@@ -105,7 +100,7 @@ public class MapServiceImpl implements MapService {
 			}
 		}
 		if (map == null)
-			throw new IllegalStateException("map not found");
+			throw new IllegalStateException("map is not found");
 
 		return map;
 	}
@@ -114,7 +109,7 @@ public class MapServiceImpl implements MapService {
 		File file = new File(System.getProperty("user.dir") + File.separator
 				+ "maps");
 		if (!file.exists() || !file.isDirectory()) {
-			throw new FileSystemNotFoundException("Folder 'maps' not found");
+			throw new FileSystemNotFoundException("Folder 'maps' is not found");
 		}
 		return file;
 	}

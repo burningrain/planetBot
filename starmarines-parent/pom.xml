@@ -11,7 +11,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk.version>1.8</jdk.version>
+		<jdk.version>11</jdk.version>
+		<javafx.version>18.0.2</javafx.version>
 	</properties>
 
 
@@ -21,7 +22,6 @@
 		<module>../game-api</module>
 		<module>../strategy-service</module>
 		<module>../strategy</module>
-		<module>../main-app</module>		
 		<module>../game-core</module>
 		<module>../game-core-api</module>
 		<module>../game-ui</module>
@@ -37,21 +37,15 @@
 		<dependencies>
 
 			<dependency>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>org.apache.felix.ipojo.annotations</artifactId>
-				<version>1.12.1</version>
+				<groupId>org.osgi</groupId>
+				<artifactId>osgi.cmpn</artifactId>
+				<version>7.0.0</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.osgi</groupId>
-				<artifactId>org.osgi.compendium</artifactId>
-				<version>5.0.0</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.osgi</groupId>
-				<artifactId>org.osgi.core</artifactId>
-				<version>5.0.0</version>
+				<artifactId>osgi.core</artifactId>
+				<version>8.0.0</version>
 			</dependency>
 
 			<dependency>
@@ -110,35 +104,75 @@
 				<scope>test</scope>
 			</dependency>
 
+			<!-- javafx -->
+			<dependency>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx</artifactId>
+				<version>${javafx.version}</version>
+				<type>pom</type>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-controls</artifactId>
+				<version>${javafx.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-fxml</artifactId>
+				<version>${javafx.version}</version>
+			</dependency>
+
+			<!--        <dependency>-->
+			<!--            <groupId>org.openjfx</groupId>-->
+			<!--            <artifactId>javafx-swt</artifactId>-->
+			<!--            <version>11.0.1</version>-->
+			<!--        </dependency>-->
+
+			<dependency>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-web</artifactId>
+				<version>${javafx.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-base</artifactId>
+				<version>${javafx.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-media</artifactId>
+				<version>${javafx.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-swing</artifactId>
+				<version>${javafx.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-graphics</artifactId>
+				<version>${javafx.version}</version>
+			</dependency>
+			<!-- javafx -->
+
 		</dependencies>
 	</dependencyManagement>
 
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>
 
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>maven-ipojo-plugin</artifactId>
-					<version>1.12.1</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>ipojo-bundle</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-
 		<plugins>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.10.1</version>
 				<configuration>
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
@@ -148,7 +182,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.5.3</version>
+				<version>5.1.8</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
@@ -159,4 +193,5 @@
 
 		</plugins>
 	</build>
+
 </project>

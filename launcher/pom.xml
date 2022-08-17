@@ -15,31 +15,72 @@
 
 	<dependencies>
 
+		<!-- java fx -->
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx</artifactId>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-fxml</artifactId>
+		</dependency>
+
+		<!--        <dependency>-->
+		<!--            <groupId>org.openjfx</groupId>-->
+		<!--            <artifactId>javafx-swt</artifactId>-->
+		<!--            <version>11.0.1</version>-->
+		<!--        </dependency>-->
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-base</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-media</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-swing</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics</artifactId>
+		</dependency>
+		<!-- java fx -->
+
 		<!-- osgi container -->
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.apache.felix.main</artifactId>
-			<version>4.6.0</version>
+			<version>7.0.5</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.compendium</artifactId>
+			<artifactId>osgi.cmpn</artifactId>
 		</dependency>
-
-		<!-- iPOJO -->
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.apache.felix.ipojo</artifactId>
-			<version>1.12.1</version>
-		</dependency>
-
 
 		<!-- declarative services -->
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.apache.felix.scr</artifactId>
-			<version>1.6.2</version>
+			<version>2.2.0</version>
 		</dependency>
 		<!-- need for compile time (for generate OSG-INF/component.xml), not runtime 
 			<dependency> <groupId>org.apache.felix</groupId> <artifactId>org.apache.felix.scr.ds-annotations</artifactId> 
@@ -47,43 +88,60 @@
 
 		<!-- logging -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.2</version>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.11</version>
 		</dependency>
 
 		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.1.2</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.36</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>osgi-over-slf4j</artifactId>
-			<version>1.7.5</version>
+			<version>1.7.36</version>
 		</dependency>
-
 
 		<!-- bundles -->
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.apache.felix.fileinstall</artifactId>
-			<version>3.4.2</version>
+			<version>3.7.4</version>
 		</dependency>
 
 		<!-- for configuring bundles in runtime -->
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.apache.felix.configadmin</artifactId>
-			<version>1.8.4</version>
+			<version>1.9.24</version>
 		</dependency>
 
 		<!-- for application main bundle -->
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.apache.felix.http.servlet-api</artifactId>
-			<version>1.1.0</version>
+			<version>1.2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.log</artifactId>
+			<version>1.2.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.util.promise</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.util.function</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 
 		<!-- TODO копировать либы для ядра игры -->
@@ -169,10 +227,11 @@
 								logback-core,
 								slf4j-api,
 								osgi-over-slf4j,
-								<!-- org.apache.felix.ipojo.annotations, -->
-								org.apache.felix.ipojo,
 								org.apache.felix.http.servlet-api,
-								org.osgi.compendium
+								org.apache.felix.log,
+								org.osgi.util.promise,
+								org.osgi.util.function,
+								org.apache.felix.scr
 							</includeArtifactIds>
 						</configuration>
 					</execution>
@@ -186,9 +245,17 @@
 							<includeScope>compile</includeScope>
 							<outputDirectory>${project.build.directory}/osgi</outputDirectory>
 							<includeArtifactIds>
-								org.apache.felix.scr,
+<!--								 osgi.cmpn,cmpn-->
 								<!-- org.apache.felix.scr.ds-annotations, -->
-								org.apache.felix.main
+								org.apache.felix.main,
+
+								javafx-controls,
+								javafx-fxml,
+								javafx-web,
+								javafx-base,
+								javafx-media,
+								javafx-swing,
+								javafx-graphics
 							</includeArtifactIds>
 						</configuration>
 					</execution>

@@ -1,6 +1,8 @@
 package com.github.br.starmarines.gamecore.spi;
 
 
+import com.github.br.starmarines.gamecore.api.GameInfo;
+
 public class GameEvent {
 	
 	private final GameStepResult stepResult;

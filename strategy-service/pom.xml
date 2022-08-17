@@ -16,19 +16,13 @@
 
         <dependency>
             <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.compendium</artifactId>
+            <artifactId>osgi.cmpn</artifactId>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.ipojo.annotations</artifactId>
+            <artifactId>osgi.core</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -57,11 +51,6 @@
 
     <build>
         <plugins>
-
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-ipojo-plugin</artifactId>
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

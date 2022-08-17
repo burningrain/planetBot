@@ -39,7 +39,7 @@ public abstract class AbstractOrderComponent<FXPARENT, FXCHILD, ISERVICE extends
         implements IUiComponent<FXPARENT> {
 
     private volatile boolean isInit = false;
-    private static ExecutorService executor = Executors.newSingleThreadExecutor();
+    private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private FXPARENT fxParent;
     private ObservableList<FXCHILD> fxChildren;
@@ -51,6 +51,11 @@ public abstract class AbstractOrderComponent<FXPARENT, FXCHILD, ISERVICE extends
         this.fxChildren = children;
 
         this.isInit = true;
+    }
+
+    //FIXME грязный хак, но пока так
+    public static void preDestroy() {
+        executor.shutdownNow();
     }
 
     public CompletableFuture<PairFxContainer<FXPARENT, FXCHILD, ISERVICE>> bind(ISERVICE uiComponentImpl) {

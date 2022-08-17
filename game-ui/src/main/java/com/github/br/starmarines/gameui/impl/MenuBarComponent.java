@@ -2,16 +2,7 @@ package com.github.br.starmarines.gameui.impl;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
-import java.util.function.Function;
-
-import org.apache.felix.ipojo.annotations.Bind;
-import org.apache.felix.ipojo.annotations.BindingPolicy;
-import org.apache.felix.ipojo.annotations.Component;
-import org.apache.felix.ipojo.annotations.Instantiate;
-import org.apache.felix.ipojo.annotations.Provides;
-import org.apache.felix.ipojo.annotations.Unbind;
-import org.apache.felix.ipojo.annotations.Validate;
+import com.github.br.starmarines.ui.api.IUiComponent;
 
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -21,14 +12,13 @@ import com.github.br.starmarines.gameui.PairFxContainer;
 import com.github.br.starmarines.ui.api.IMenu;
 import com.github.br.starmarines.ui.api.IMenuItem;
 import com.github.br.starmarines.ui.api.IUiOrderComponent;
+import org.osgi.service.component.annotations.*;
 
-@Provides(specifications = MenuBarComponent.class)
-@Instantiate
-@Component(publicFactory = false)
+@Component(service = MenuBarComponent.class)
 public class MenuBarComponent extends AbstractOrderComponent<MenuBar, Menu, IMenu>
         implements IUiOrderComponent<MenuBar> {
 
-    @Validate
+    @Activate
     public void validate() {
         MenuBar menubar = new MenuBar();
         init(menubar, menubar.getMenus());
@@ -39,7 +29,7 @@ public class MenuBarComponent extends AbstractOrderComponent<MenuBar, Menu, IMen
         return Integer.MIN_VALUE;
     }
 
-    @Bind(aggregate = true, optional = true, policy = BindingPolicy.DYNAMIC)
+    @Reference(unbind = "unset", cardinality = ReferenceCardinality.MULTIPLE, policy = ReferencePolicy.DYNAMIC)
     public void set(IMenu uiComponentImpl) {
         CompletableFuture<PairFxContainer<MenuBar, Menu, IMenu>> pairFxContainer = bind(uiComponentImpl);
         pairFxContainer.thenAccept(menuBarMenuIMenuPairFxContainer -> {
@@ -47,7 +37,6 @@ public class MenuBarComponent extends AbstractOrderComponent<MenuBar, Menu, IMen
         });
     }
 
-    @Unbind
     public void unset(IMenu uiComponentImpl) {
         PairFxContainer<MenuBar, Menu, IMenu> pairFxContainer = unbind(uiComponentImpl);
         unbindItemController(pairFxContainer);
@@ -76,12 +65,13 @@ public class MenuBarComponent extends AbstractOrderComponent<MenuBar, Menu, IMen
         itemComponentsMap.remove(menuTitle);
     }
 
-    @Bind(aggregate = true, optional = true, policy = BindingPolicy.DYNAMIC)
+    @Reference(unbind = "unsetMenuItem", cardinality = ReferenceCardinality.MULTIPLE, policy = ReferencePolicy.DYNAMIC)
     public void setMenuItem(IMenuItem menuItem) {
         MenuItemComponent itemController = itemComponentsMap.get(menuItem.getMenuTitle());
         if (itemController == null) {
             new Thread(() -> {
                 while (itemComponentsMap.get(menuItem.getMenuTitle()) == null) {
+                    // spin lock
                 }
                 MenuItemComponent ic = itemComponentsMap.get(menuItem.getMenuTitle());
                 ic.bind(menuItem);
@@ -92,17 +82,16 @@ public class MenuBarComponent extends AbstractOrderComponent<MenuBar, Menu, IMen
 
     }
 
-    @Unbind
     public void unsetMenuItem(IMenuItem menuItem) {
         MenuItemComponent itemController = itemComponentsMap.get(menuItem
                 .getMenuTitle());
         if (itemController != null) {
             itemController.unbind(menuItem);
         } else {
-            System.out.println(String
-                    .format("Отвязать элемент '%s' не удалась, так как элемент '%s' уже отвязан",
-                            menuItem.getNode().getText(),
-                            menuItem.getMenuTitle()));
+            //TODO в логгер же
+            System.out.printf("Отвязать элемент '%s' не удалась, так как элемент '%s' уже отвязан%n",
+                    menuItem.getNode().getText(),
+                    menuItem.getMenuTitle());
         }
     }
     // ////////////////////////

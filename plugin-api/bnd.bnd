@@ -1,6 +1,7 @@
 -buildpath: \
-	osgi.core;version=5.0${junit},\
-	osgi.cmpn;version=4.3
+	osgi.core,\
+	${junit},\
+	osgi.cmpn
 -outputmask: ${@bsn}-${version;===S;${@version}}.jar
 
 Bundle-Version: 1.0.0.SNAPSHOT

@@ -4,23 +4,23 @@ import java.io.IOException;
 import java.util.concurrent.Executors;
 
 import com.github.br.starmarines.ui.api.StageContainer;
-import org.apache.felix.ipojo.annotations.Component;
-import org.apache.felix.ipojo.annotations.Instantiate;
-import org.apache.felix.ipojo.annotations.Invalidate;
-import org.apache.felix.ipojo.annotations.Validate;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import org.osgi.service.component.annotations.*;
+import org.osgi.service.log.LogService;
 
 /**
  * стартует javafx
  */
 @Component
-@Instantiate
 public class UiLoader extends Application {
+
+    @Reference(cardinality = ReferenceCardinality.OPTIONAL, policy = ReferencePolicy.DYNAMIC)
+    private volatile LogService logService;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -30,21 +30,26 @@ public class UiLoader extends Application {
     }
 
 
-    @Validate
+    @Activate
     public void main() throws IOException, InterruptedException {
         Executors
                 .defaultThreadFactory()
                 .newThread(
                         () -> {
-                            Thread.currentThread().setContextClassLoader(
-                                    this.getClass().getClassLoader());
-                            launch();
-
+                            try {
+                                Thread.currentThread().setContextClassLoader(
+                                        this.getClass().getClassLoader());
+                                launch();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                logService.log(LogService.LOG_ERROR, e.getMessage(), e);
+                            }
                         }).start();
     }
 
-    @Invalidate
+    @Deactivate
     public void stop() {
+        AbstractOrderComponent.preDestroy();
         Platform.exit();
     }
 

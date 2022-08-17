@@ -1,27 +1,19 @@
 package com.github.br.starmarines.gameui.impl;
 
+import com.github.br.starmarines.ui.api.IUiComponent;
 import javafx.scene.Node;
 import javafx.scene.control.ToolBar;
-
-import org.apache.felix.ipojo.annotations.Bind;
-import org.apache.felix.ipojo.annotations.BindingPolicy;
-import org.apache.felix.ipojo.annotations.Component;
-import org.apache.felix.ipojo.annotations.Instantiate;
-import org.apache.felix.ipojo.annotations.Provides;
-import org.apache.felix.ipojo.annotations.Unbind;
-import org.apache.felix.ipojo.annotations.Validate;
 
 import com.github.br.starmarines.gameui.AbstractOrderComponent;
 import com.github.br.starmarines.ui.api.IToolBar;
 import com.github.br.starmarines.ui.api.IUiOrderComponent;
+import org.osgi.service.component.annotations.*;
 
-@Provides(specifications = ToolbarComponent.class)
-@Instantiate
-@Component(publicFactory = false)
+@Component(service = ToolbarComponent.class)
 public class ToolbarComponent extends AbstractOrderComponent<ToolBar, Node, IToolBar> implements
 		IUiOrderComponent<ToolBar> {
 
-	@Validate
+	@Activate
 	public void validate() {
 		ToolBar toolbar = new ToolBar();
 		init(toolbar, toolbar.getItems());
@@ -32,12 +24,11 @@ public class ToolbarComponent extends AbstractOrderComponent<ToolBar, Node, IToo
 		return 1;
 	}
 
-	@Bind(aggregate = true, optional = true, policy = BindingPolicy.DYNAMIC)
+	@Reference(unbind = "unset", cardinality = ReferenceCardinality.MULTIPLE, policy = ReferencePolicy.DYNAMIC)
 	public void set(IToolBar uiComponentImpl) {
 		bind(uiComponentImpl);
 	}
 
-	@Unbind
 	public void unset(IToolBar uiComponentImpl) {
 		unbind(uiComponentImpl);
 	}

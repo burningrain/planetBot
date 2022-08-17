@@ -151,7 +151,7 @@ public class XmlReaderService implements IReaderService {
 		Planet planet = getPlanetByID(planetsByID, planetId);
 
 		reader.nextTag();
-		planet.setOwner(getTagText(reader, OWNER));
+		planet.setOwnerId(getTagText(reader, OWNER));
 		PlanetType type = parsePlanetType(getTagText(reader, TYPE));
 		planet.setType(type);
 		planet.setUnits(Integer.parseInt(getTagText(reader, UNITS)));

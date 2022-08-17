@@ -36,7 +36,7 @@ public class BotProperties {
     @Updated
     public void updated(Dictionary conf) {
     	//PlanetUtils.MY_PLANET_OWNER_NAME = selfName; // FIXME UGLY HUCK
-    	logService.log(LogService.LOG_INFO, "configuraion updated. " + conf);      
+    	logService.log(LogService.LOG_INFO, "configuraion was updated. " + conf);
     }
 
     public String getToken() {

@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface IColorVM extends IObjectVM<IColorVM> {
 
-	public Map<String, Color> getPlayersColors();
+	public Map<Short, Color> getPlayersColors();
 
 }

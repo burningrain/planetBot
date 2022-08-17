@@ -54,7 +54,7 @@ public class GraphWidget extends JPanel implements
 
 		@Override
 		public Paint transform(Planet planet) {
-			Color color = vm.getPlayersColors().get(planet.getOwner());
+			Color color = vm.getPlayersColors().get(planet.getOwnerId());
 			return color == null ? Color.DARK_GRAY : color;
 		}
 	};
@@ -135,18 +135,18 @@ public class GraphWidget extends JPanel implements
 		@Override
 		public Paint transform(String s) {
 			Collection<Planet> planets = graph.getEndpoints(s);
-			String owner = null;
+			Short owner = null;
 			boolean isOwnerPlanets = true;
 			for (Planet planet : planets) {
 				if (owner == null) {
-					owner = planet.getOwner();
+					owner = planet.getOwnerId();
 				} else {
 					isOwnerPlanets = isOwnerPlanets
-							&& owner.equals(planet.getOwner());
+							&& owner.equals(planet.getOwnerId());
 				}
 			}
 
-			if (isOwnerPlanets && !owner.isEmpty()) {
+			if (isOwnerPlanets && owner != null) {
 				return vm.getPlayersColors().get(owner);
 			}
 			return Color.GRAY;
@@ -175,7 +175,7 @@ public class GraphWidget extends JPanel implements
 	};
 
 	private Graph<Planet, String> graph;
-	private Map<String, Planet> planetsInGraph;
+	private Map<Short, Planet> planetsInGraph;
 	private VisualizationViewer<Planet, String> vv;
 
 	// private Set<String> edges = new HashSet<String>();
@@ -208,7 +208,7 @@ public class GraphWidget extends JPanel implements
 		 */
 		for (Planet planet : planets) {
 			Planet graphPlanet = planetsInGraph.get(planet.getId());
-			graphPlanet.setOwner(planet.getOwner());
+			graphPlanet.setOwnerId(planet.getOwnerId());
 			graphPlanet.setUnits(planet.getUnits());
 		}
 
@@ -216,7 +216,7 @@ public class GraphWidget extends JPanel implements
 	}
 
 	private void paintGraph(Collection<Planet> planets) {
-		planetsInGraph = new HashMap<String, Planet>();
+		planetsInGraph = new HashMap<Short, Planet>();
 		graph = new SparseMultigraph<Planet, String>();
 
 		for (Planet planet : planets) {
@@ -313,7 +313,6 @@ public class GraphWidget extends JPanel implements
 	@Override
 	public void setController(IController controller) {
 		// TODO Auto-generated method stub
-
 	}
 
 }

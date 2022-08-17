@@ -9,22 +9,20 @@ import com.github.br.starmarines.ui.api.utils.FxUtils;
 import javafx.scene.Parent;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Modality;
-import org.apache.felix.ipojo.annotations.*;
+import org.osgi.service.component.annotations.*;
 
-@Provides
-@Instantiate
-@Component
+@Component(service = IMenuItem.class)
 public class FileNewLocalGame implements IMenuItem {
 
     private static final String NEW_LOCAL_GAME = "new local game";
 
-    @Requires(policy = BindingPolicy.STATIC, proxy = false)
+    @Reference(policy = ReferencePolicy.STATIC, cardinality = ReferenceCardinality.MANDATORY)
     private StageContainer stageContainer;
 
-    @Requires(policy = BindingPolicy.STATIC, proxy = false)
+    @Reference(policy = ReferencePolicy.STATIC, cardinality = ReferenceCardinality.MANDATORY)
     private MapService mapService;
 
-    @Requires(policy = BindingPolicy.STATIC, proxy = false)
+    @Reference(policy = ReferencePolicy.STATIC, cardinality = ReferenceCardinality.MANDATORY)
     private IStrategyService strategyService;
 
     @Override

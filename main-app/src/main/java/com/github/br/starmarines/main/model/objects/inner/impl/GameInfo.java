@@ -11,7 +11,6 @@ import org.apache.felix.ipojo.annotations.Requires;
 import org.apache.felix.ipojo.annotations.Validate;
 import org.osgi.service.log.LogService;
 
-import com.br.starwors.lx.logic.utils.PlanetUtils;
 import com.github.br.starmarines.game.api.galaxy.Planet;
 import com.github.br.starmarines.game.api.galaxy.PlanetType;
 import com.github.br.starmarines.main.model.objects.IModelListener;
@@ -113,7 +112,7 @@ public class GameInfo implements IGameInfo {
 	    int smallBaseCount = 0;
 	    if (players.size() == 0) {
 	        for (Planet planet : galaxy) {
-	            players.add(planet.getOwner());
+	            players.add(planet.getOwnerId());
 	
 	            if (PlanetType.TYPE_D.equals(planet.getType())) {
 	                bigBaseCount++;
@@ -137,8 +136,8 @@ public class GameInfo implements IGameInfo {
 	private void updateUnitsMap(Collection<Planet> galaxy){
 	    for(Planet planet : galaxy){
 	        if(!PlanetUtils.isFreePlanet(planet)){
-	            int units = unitsMap.get(planet.getOwner());
-	            unitsMap.put(planet.getOwner(), units + planet.getUnits());
+	            int units = unitsMap.get(planet.getOwnerId());
+	            unitsMap.put(planet.getOwnerId(), units + planet.getUnits());
 	        }
 	    }
 	}

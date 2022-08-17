@@ -43,8 +43,7 @@ public class Launcher {
            BufferedWriter out = new BufferedWriter(fstream);
            PrintWriter pWriter = new PrintWriter(out, true);
            e.printStackTrace(pWriter);
-        }
-        catch (Exception ie) {
+        } catch (Exception ie) {
            throw new RuntimeException("Could not write Exception to file", ie);
         }
      }
@@ -76,7 +75,7 @@ public class Launcher {
      
         BundleContext context = framework.getBundleContext();
         // declarative services dependency is necessary, otherwise they won't be picked up!
-        loadScrBundle(context);
+        //loadScrBundle(context);
 
         try {
             framework.waitForStop(0);
@@ -88,9 +87,9 @@ public class Launcher {
     }
 
     private void loadScrBundle(BundleContext context) throws URISyntaxException, BundleException {
-        URL url = getClass().getClassLoader().getResource("org/apache/felix/scr/ScrService.class");
+        URL url = getClass().getClassLoader().getResource("org/osgi/service/component/runtime/ServiceComponentRuntime.class");
         if (url == null)
-            throw new RuntimeException("Could not find the class org.apache.felix.scr.ScrService");
+            throw new RuntimeException("Could not find the class org.osgi.service.component.runtime.ServiceComponentRuntime");
         String jarPath = url.toURI().getSchemeSpecificPart().replaceAll("!.*", "");
         System.out.println("Found declarative services implementation: " + jarPath);
         context.installBundle(jarPath).start();

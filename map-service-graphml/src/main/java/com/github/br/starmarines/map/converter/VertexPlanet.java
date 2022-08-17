@@ -4,8 +4,8 @@ import com.github.br.starmarines.game.api.galaxy.Planet;
 
 public class VertexPlanet {
 	
-	private Planet planet;
-	private boolean startPoint;
+	private final Planet planet;
+	private final boolean startPoint;
 	
 	public VertexPlanet(Planet planet, boolean isStartPoint){
 		this.planet = planet;

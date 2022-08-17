@@ -1,7 +1,7 @@
 package com.github.br.starmarines.gamecore.mistakes;
 
 import com.github.br.starmarines.game.api.galaxy.Move;
-import com.github.br.starmarines.gamecore.api.Player;
+import com.github.br.starmarines.game.api.galaxy.Player;
 
 public class GameStepMistake {
 

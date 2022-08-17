@@ -13,6 +13,56 @@
 	<packaging>bundle</packaging>
 
 	<dependencies>
+
+		<!-- javafx -->
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-fxml</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!--        <dependency>-->
+		<!--            <groupId>org.openjfx</groupId>-->
+		<!--            <artifactId>javafx-swt</artifactId>-->
+		<!--            <version>11.0.1</version>-->
+		<!--        </dependency>-->
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-web</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-base</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-media</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-swing</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- javafx -->
 		
 		<dependency>
 			<groupId>com.br</groupId>
@@ -22,20 +72,14 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.apache.felix.ipojo.annotations</artifactId>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.cmpn</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.compendium</artifactId>
-			<scope>provided</scope>
-		</dependency>		
-
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.core</artifactId>
+			<artifactId>osgi.core</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		
@@ -43,7 +87,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.2</version>
+			<version>1.7.36</version>
 			<scope>provided</scope>
 		</dependency>
 		
@@ -58,12 +102,6 @@
 	
 	<build>
 		<plugins>
-
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-ipojo-plugin</artifactId>
-			</plugin>	
-			
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

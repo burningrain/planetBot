@@ -1,23 +1,18 @@
 package com.github.br.starmarines.gameui.impl;
 
-import org.apache.felix.ipojo.annotations.Component;
-import org.apache.felix.ipojo.annotations.Instantiate;
-import org.apache.felix.ipojo.annotations.Provides;
-import org.apache.felix.ipojo.annotations.Requires;
-
 import javafx.scene.layout.VBox;
 
 import com.github.br.starmarines.ui.api.IUiComponent;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
-@Provides(specifications= TopComponent.class)
-@Instantiate
-@Component(publicFactory=false)
+@Component(service = TopComponent.class)
 public class TopComponent implements IUiComponent<VBox> {
 	
-	@Requires
+	@Reference
 	private MenuBarComponent menuBarComponent;
-	
-	@Requires
+
+	@Reference
 	private ToolbarComponent toolbarComponent;
 
 	@Override

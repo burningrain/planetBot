@@ -34,11 +34,17 @@ Private-Package: \
 	com.github.br.starmarines.map.xslt
 -dsannotations: *
 
-Export-Package: com.github.br.starmarines.map.impl
+Export-Package: com.github.br.starmarines.map.impl,\
+                com.google.appengine.api,\
+                com.google.apphosting.api,\
+                org.antlr.v4.gui,
 
 Import-Package: \
 	com.github.br.starmarines.game.api.galaxy;version='[1.0,2)',\
 	com.github.br.starmarines.gamecore.api;version='[1.0,2)',\
 	com.github.br.starmarines.map.service.api;version='[1.0,2)',\
-	org.osgi.service.log;version='[1.3,2)',\
+	org.osgi.service.log,\
+	com.google.appengine.api,\
+	com.google.apphosting.api,\
+	org.antlr.v4.gui,\
 	*
