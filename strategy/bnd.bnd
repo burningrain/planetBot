@@ -1,7 +1,7 @@
 -buildpath: \
 	osgi.core,\
 	${junit},\
-	osgi.cmpn;version=4.3,\
+	osgi.cmpn,\
 	game-api;version=latest
 -outputmask: ${@bsn}-${version;===S;${@version}}.jar
 Bundle-Version: 1.0.0.SNAPSHOT
@@ -11,6 +11,7 @@ target-dir: target
 testbin: target/test-classes
 testsrc: src/test
 
--dsannotations:  \
+Import-Package:  \
 	*
+
 Export-Package: strategy

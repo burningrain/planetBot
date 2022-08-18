@@ -4,10 +4,7 @@ import com.github.br.starmarines.game.api.galaxy.Move;
 import com.github.br.starmarines.game.api.galaxy.Planet;
 import com.github.br.starmarines.game.api.strategy.IStrategy;
 import com.github.br.starmarines.service.strategy.IStrategyService;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
-import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.*;
 import org.osgi.service.log.LogService;
 
 import java.util.Collection;
@@ -18,19 +15,24 @@ import java.util.concurrent.atomic.AtomicReference;
 public class StrategyServiceImpl implements IStrategyService {
 
     @Reference(cardinality = ReferenceCardinality.OPTIONAL, policy = ReferencePolicy.STATIC)
-    private LogService logService;
+    private volatile LogService logService;
 
     private ConcurrentHashMap<String, IStrategy> strategies = new ConcurrentHashMap<>();
     private AtomicReference<IStrategy> currentStrategy = new AtomicReference<>();
 
     @Reference(cardinality = ReferenceCardinality.MULTIPLE, policy = ReferencePolicy.DYNAMIC, unbind = "unsetIStrategy")
     private void setIStrategy(IStrategy strategy) {
-        logService.log(LogService.LOG_INFO, "add strategy - " + strategy.getTitle());
+        if(logService != null) {
+            logService.log(LogService.LOG_INFO, "add strategy - " + strategy.getTitle());
+        }
+
         strategies.put(strategy.getTitle(), strategy);
     }
 
     private void unsetIStrategy(IStrategy strategy) {
-        logService.log(LogService.LOG_INFO, "remove strategy - " + strategy.getTitle());
+        if(logService != null) {
+            logService.log(LogService.LOG_INFO, "remove strategy - " + strategy.getTitle());
+        }
         strategies.remove(strategy.getTitle());
         currentStrategy.compareAndSet(strategy, null);
     }

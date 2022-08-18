@@ -19,6 +19,7 @@ import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -76,10 +77,13 @@ public class CreateLocalGameDialogController {
 
             // настройка чекбоса числа игроков
             playersCountChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                if(newValue > oldValue) {
+                if(oldValue == null || newValue > oldValue) {
                     // добавляем новых игроков
-                    for (int i = oldValue; i < newValue; i++) {
-                        addPlayerToTable(i);
+                    int start = oldValue == null? 0 : oldValue;
+                    Optional<String> first = strategies.getStrategies().stream().findFirst();
+                    String strategyTitle = first.isEmpty()? "" : first.get();
+                    for (int i = start; i < newValue; i++) {
+                        addPlayerToTable(i, strategyTitle);
                     }
                 } else if(newValue < oldValue) {
                     // подрезаем список игроков с конца
@@ -99,7 +103,8 @@ public class CreateLocalGameDialogController {
             playerTableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
             playerTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-            strategyTableColumn.setCellFactory(param -> new ComboBoxTableCell<>(strategies.getStrategies(), param));
+            Collection<String> strategiesTitles = strategies.getStrategies();
+            strategyTableColumn.setCellFactory(param -> new ComboBoxTableCell<>(strategiesTitles, param));
             strategyTableColumn.setCellValueFactory(new PropertyValueFactory<>("strategy"));
 
             playersTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -143,14 +148,9 @@ public class CreateLocalGameDialogController {
 
         SingleSelectionModel<Integer> selectionModel = playersCountChoiceBox.getSelectionModel();
         selectionModel.selectLast();
-        int amount = selectionModel.getSelectedItem();
-        for (int i = 0; i < amount; i++) {
-            addPlayerToTable(i);
-        }
     }
 
-    private void addPlayerToTable(int i) {
-        String strategyTitle = strategies.getStrategies().stream().findFirst().get();
+    private void addPlayerToTable(int i, String strategyTitle) {
         final Random random = new Random();
         int number = i + 1; // чтобы не с нуля начиналось
         playersTableView.getItems().add(
