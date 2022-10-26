@@ -13,10 +13,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -126,6 +128,12 @@ public class CreateLocalGameDialogController {
                     map = mapService.getMap(selectedGalaxy);
                 } catch (MapValidationException e) {
                     throw new RuntimeException(e);
+                }
+
+                try {
+                    mapImageView.setImage(new Image(new ByteArrayInputStream(map.getMinimap())));
+                } catch (Exception e) {
+                    e.printStackTrace(); //TODO в лог
                 }
 
                 baseCellFactory.setBases(map.getStartPoints().size());

@@ -13,7 +13,6 @@ public interface MapService {
 	
 	Galaxy getMap(String title) throws MapValidationException;
 
-	//todo добавить метод получения картинки с диска по названию карты
-	//todo формат: zip-ник внутри которого graphml и картинка png 300x300
+	void saveMap(Galaxy galaxy);
 
 }

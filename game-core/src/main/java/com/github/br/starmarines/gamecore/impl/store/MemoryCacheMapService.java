@@ -39,6 +39,11 @@ public class MemoryCacheMapService implements MapService {
         return galaxy;
     }
 
+    @Override
+    public void saveMap(Galaxy galaxy) {
+        this.delegate.saveMap(galaxy);
+    }
+
     private Galaxy getFromDelegate(String title) throws MapValidationException {
         return delegate.getMap(title);
     }

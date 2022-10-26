@@ -14,12 +14,15 @@ public class Galaxy {
     private final Collection<Edge> edges;
     private final int maxStepsCount;
 
+    private final byte[] minimap;
+
     private Galaxy(String title,
                    int maxPlayersCount,
                    Collection<Planet> planets,
                    Collection<Edge> edges,
                    Collection<Planet> startPoints,
-                   int maxStepsCount
+                   int maxStepsCount,
+                   byte[] minimap
     ) {
         this.title = title;
         this.planets = planets;
@@ -27,6 +30,7 @@ public class Galaxy {
         this.edges = new HashSet<Galaxy.Edge>(edges);
         this.maxPlayersCount = maxPlayersCount;
         this.maxStepsCount = maxStepsCount;
+        this.minimap = minimap;
     }
 
     public int getMaxStepsCount() {
@@ -53,6 +57,9 @@ public class Galaxy {
         return Collections.unmodifiableCollection(edges);
     }
 
+    public byte[] getMinimap() {
+        return minimap;
+    }
 
     public static class Builder {
 
@@ -61,10 +68,12 @@ public class Galaxy {
         private final Map<Short, Planet> planets;
         private final Set<Planet> startPoints;
         private final Set<Edge> edges;
+        private final byte[] minimap;
         private int maxStepsCount;
 
-        public Builder(String title) {
+        public Builder(String title, byte[] minimap) {
             this.title = Objects.requireNonNull(title);
+            this.minimap = Objects.requireNonNull(minimap);
             this.planets = new HashMap<>();
             this.edges = new HashSet<>();
             this.startPoints = new HashSet<>();
@@ -96,7 +105,7 @@ public class Galaxy {
         }
 
         public Galaxy build() {
-            return new Galaxy(title, playersCount, planets.values(), edges, startPoints, maxStepsCount);
+            return new Galaxy(title, playersCount, planets.values(), edges, startPoints, maxStepsCount, minimap);
         }
     }
 

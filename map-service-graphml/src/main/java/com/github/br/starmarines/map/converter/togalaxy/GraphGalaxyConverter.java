@@ -12,8 +12,8 @@ import com.github.br.starmarines.map.converter.VertexPlanet;
 @Component(service=GraphGalaxyConverter.class)
 public class GraphGalaxyConverter {
 
-	public Galaxy convert(String title, UndirectedGraph<VertexPlanet, GalaxyEdge> graph) {
-		Galaxy.Builder builder = new Galaxy.Builder(title);
+	public Galaxy convert(String title, byte[] minimap, UndirectedGraph<VertexPlanet, GalaxyEdge> graph) {
+		Galaxy.Builder builder = new Galaxy.Builder(title, minimap);
 		
 		Set<VertexPlanet> planets = graph.vertexSet();
 		Set<GalaxyEdge> edges = graph.edgeSet();

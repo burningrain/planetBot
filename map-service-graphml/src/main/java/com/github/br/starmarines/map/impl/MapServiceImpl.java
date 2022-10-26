@@ -1,18 +1,9 @@
 package com.github.br.starmarines.map.impl;
 
 import com.github.br.starmarines.gamecore.api.Galaxy;
-import com.github.br.starmarines.map.converter.Converter;
-import com.github.br.starmarines.map.converter.GalaxyEdge;
-import com.github.br.starmarines.map.converter.VertexPlanet;
-import com.github.br.starmarines.map.converter.fromgalaxy.GalaxyGraphConverter;
-import com.github.br.starmarines.map.converter.fromgalaxy.GraphStringConverter;
-import com.github.br.starmarines.map.converter.togalaxy.FileStringConverter;
-import com.github.br.starmarines.map.converter.togalaxy.GraphGalaxyConverter;
-import com.github.br.starmarines.map.converter.togalaxy.GraphmlConverter;
-import com.github.br.starmarines.map.converter.togalaxy.StringGraphConverter;
+import com.github.br.starmarines.map.converter.GalaxyIOData;
+import com.github.br.starmarines.map.converter.MapConverter;
 import com.github.br.starmarines.map.service.api.MapService;
-import com.github.br.starmarines.map.service.api.MapValidationException;
-import org.jgrapht.UndirectedGraph;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
@@ -20,138 +11,111 @@ import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.log.LogService;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.FileOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystemNotFoundException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipOutputStream;
 
 @Component(service = MapService.class)
 public class MapServiceImpl implements MapService {
 
-	// --> to Galaxy
-	private Converter<File, String> fileStringConverter;
-	private Converter<String, String> xmlToXmlConverter;
-	private Converter<String, UndirectedGraph<VertexPlanet, GalaxyEdge>> stringGraphConverter;
-	private GraphGalaxyConverter graphGalaxyConverter;
-	// <-- from Galaxy
-	private Converter<Galaxy, UndirectedGraph<VertexPlanet, GalaxyEdge>> galaxyGraphConverter;
-	private Converter<UndirectedGraph<VertexPlanet, GalaxyEdge>, String> graphStringConverter;
+    private static final String GRAPH = "graph.graphml";
+    private static final String MINIMAP = "minimap.png";
 
-	private volatile LogService logService;
+    private final MapConverter converter = new MapConverter();
+    private volatile LogService logService;
 
-	@Override
-	public List<String> getAllTitles() {
-		File folder = getMapsDirectory();
-		File[] listOfFiles = folder.listFiles();
+    @Override
+    public List<String> getAllTitles() {
+        File folder = getMapsDirectory();
+        File[] listOfFiles = folder.listFiles();
+        if(listOfFiles == null) {
+            listOfFiles = new File[0];
+        }
 
-		List<String> titles = new ArrayList<String>(listOfFiles.length);
-		for (File file : listOfFiles) {
-			if (file.isFile()) {
-				titles.add(file.getName());
-			}
-		}
-		return titles;
-	}
+        List<String> titles = new ArrayList<String>(listOfFiles.length);
+        for (File file : listOfFiles) {
+            if (file.isFile()) {
+                titles.add(file.getName());
+            }
+        }
+        return titles;
+    }
 
-	@Override
-	public List<String> getTitles(int startIndex, int count) {
-		throw new RuntimeException("Sorry, this logic is not implemented yet");
-	}
+    @Override
+    public List<String> getTitles(int startIndex, int count) {
+        throw new RuntimeException("Sorry, this logic is not implemented yet");
+    }
 
-	@Override
-	public Galaxy getMap(String title) throws MapValidationException {
-		File map = getMapFile(title);
-		String mapAsString = null;
-		try {
-			mapAsString = fileStringConverter.convert(map);
-			mapAsString = xmlToXmlConverter.convert(mapAsString);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		UndirectedGraph<VertexPlanet, GalaxyEdge> graph = stringGraphConverter
-				.convert(mapAsString);
-		return graphGalaxyConverter.convert(title, graph);
-	}
+    @Override
+    public Galaxy getMap(String title) {
+        try {
+            File map = getMapFile(title);
+            ZipFile zipFile = new ZipFile(map);
+            ZipEntry graphZip = zipFile.getEntry(GRAPH);
+            ZipEntry minimapZip = zipFile.getEntry(MINIMAP);
+            String mapAsString = new String(zipFile.getInputStream(graphZip).readAllBytes(), StandardCharsets.UTF_8);
+            return converter.toGalaxy(title, new GalaxyIOData(mapAsString, zipFile.getInputStream(minimapZip).readAllBytes()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	public void saveMap(Galaxy galaxy, String title) {
-		UndirectedGraph<VertexPlanet, GalaxyEdge> graph = galaxyGraphConverter
-				.convert(galaxy);
-		String graphML = graphStringConverter.convert(graph);
-		File file = new File(System.getProperty("user.dir") + File.separator
-				+ "maps" + File.separator + title);		
-		
-		try {
-			Files.write(file.toPath(), graphML.getBytes());
-		} catch (IOException e) {			
-			throw new RuntimeException(e);
-		}
-	}
+    public void saveMap(Galaxy galaxy) {
+        GalaxyIOData galaxyIOData = converter.toByteArray(galaxy);
 
-	private File getMapFile(String title) {
-		File folder = getMapsDirectory();
-		File[] listOfFiles = folder.listFiles();
+        String path = System.getProperty("user.dir") + File.separator + "maps" + File.separator + galaxy.getTitle();
+        try (FileOutputStream fileOutputStream = new FileOutputStream(path);
+             ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream)
+        ) {
+            zipOutputStream.putNextEntry(new ZipEntry(GRAPH));
+            zipOutputStream.write(galaxyIOData.getMapAsString().getBytes(StandardCharsets.UTF_8));
+            zipOutputStream.putNextEntry(new ZipEntry(MINIMAP));
+            zipOutputStream.write(galaxyIOData.getMinimap());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-		File map = null;
-		for (File file : listOfFiles) {
-			if (file.isFile() && file.getName().equals(title)) {
-				map = file;
-				break;
-			}
-		}
-		if (map == null)
-			throw new IllegalStateException("map is not found");
+    private File getMapFile(String title) {
+        File folder = getMapsDirectory();
+        File[] listOfFiles = folder.listFiles();
+        if(listOfFiles == null) {
+            listOfFiles = new File[0];
+        }
 
-		return map;
-	}
+        File map = null;
+        for (File file : listOfFiles) {
+            if (file.isFile() && file.getName().equals(title)) {
+                map = file;
+                break;
+            }
+        }
+        if (map == null)
+            throw new IllegalStateException("map is not found");
 
-	private File getMapsDirectory() {
-		File file = new File(System.getProperty("user.dir") + File.separator
-				+ "maps");
-		if (!file.exists() || !file.isDirectory()) {
-			throw new FileSystemNotFoundException("Folder 'maps' is not found");
-		}
-		return file;
-	}
-	
+        return map;
+    }
 
-	@Reference(cardinality = ReferenceCardinality.MANDATORY, policy=ReferencePolicy.STATIC)
-	protected void setFileStringConverter(FileStringConverter fileStringConverter) {
-		this.fileStringConverter = fileStringConverter;
-	}
-	
-	@Reference(cardinality = ReferenceCardinality.MANDATORY, policy=ReferencePolicy.STATIC)
-	protected void setStringGraphConverter(StringGraphConverter stringGraphConverter) {
-		this.stringGraphConverter = stringGraphConverter;
-	}
+    private File getMapsDirectory() {
+        File file = new File(System.getProperty("user.dir") + File.separator + "maps");
+        if (!file.exists() || !file.isDirectory()) {
+            throw new FileSystemNotFoundException("Folder 'maps' is not found");
+        }
+        return file;
+    }
 
-	@Reference(cardinality = ReferenceCardinality.MANDATORY, policy=ReferencePolicy.STATIC)
-	protected void setGraphGalaxyConverter(GraphGalaxyConverter graphGalaxyConverter) {
-		this.graphGalaxyConverter = graphGalaxyConverter;
-	}
+    @Reference(cardinality = ReferenceCardinality.OPTIONAL, policy = ReferencePolicy.DYNAMIC, unbind = "unSetLogService")
+    public void setLogService(LogService logService) {
+        this.logService = logService;
+    }
 
-	@Reference(cardinality = ReferenceCardinality.MANDATORY, policy=ReferencePolicy.STATIC)
-	protected void setGalaxyGraphConverter(GalaxyGraphConverter galaxyGraphConverter) {
-		this.galaxyGraphConverter = galaxyGraphConverter;
-	}
-
-	@Reference(cardinality = ReferenceCardinality.MANDATORY, policy=ReferencePolicy.STATIC)
-	protected void setGraphStringConverter(GraphStringConverter graphStringConverter) {
-		this.graphStringConverter = graphStringConverter;
-	}
-	
-	@Reference(cardinality = ReferenceCardinality.MANDATORY, policy=ReferencePolicy.STATIC)
-	protected void setXmlToXmlConverter(GraphmlConverter xmlToXmlConverter) {
-		this.xmlToXmlConverter = xmlToXmlConverter;
-	}
-
-	@Reference(cardinality = ReferenceCardinality.OPTIONAL, policy=ReferencePolicy.DYNAMIC, unbind="unSetLogService")
-	public void setLogService(LogService logService) {
-		this.logService = logService;
-	}
-
-	public void unSetLogService(LogService logService) {
-		this.logService = null;
-	}
+    public void unSetLogService(LogService logService) {
+        this.logService = null;
+    }
 
 }

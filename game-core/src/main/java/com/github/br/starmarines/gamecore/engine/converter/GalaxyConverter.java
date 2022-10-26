@@ -12,8 +12,6 @@ import com.github.br.starmarines.gamecore.engine.utils.PlanetUtils;
 
 import java.util.BitSet;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
 
 public class GalaxyConverter {
 
@@ -32,11 +30,12 @@ public class GalaxyConverter {
         return byteGalaxy;
     }
 
-    public Galaxy fromByteArray(String title, ByteGalaxy byteGalaxy) {
+    // не для использования в бизнес-логике. Обратное преобразование только для тестов
+    public Galaxy fromByteArray(ByteGalaxy byteGalaxy) {
         byte[] planets = byteGalaxy.getPlanets();
         BitSet planetMatrix = byteGalaxy.getPlanetMatrix();
 
-        Galaxy.Builder builder = new Galaxy.Builder(title);
+        Galaxy.Builder builder = new Galaxy.Builder(byteGalaxy.getTitle(), null);
         byte start = PlanetUtils.GAME_STATE_IN_BYTES_SIZE + PlanetUtils.GAME_STEP_IN_BYTES_SIZE;
         int planetsCount = 0;
         for (int i = start; i < planets.length; i += PlanetUtils.PLANET_IN_BYTES_SIZE) {

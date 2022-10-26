@@ -172,7 +172,7 @@
 
 								<!-- копирование предустановленных карт -->
 								<copy todir="target/maps">
-									<fileset dir="${dir.maps}" includes="*.graphml">
+									<fileset dir="${dir.maps}" includes="*.pb">
 									</fileset>
 								</copy>
 

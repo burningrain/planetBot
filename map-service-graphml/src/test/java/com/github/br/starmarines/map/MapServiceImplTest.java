@@ -28,7 +28,7 @@ public class MapServiceImplTest {
 			+ "чем разруливать баги grapht")
 	@Test
 	public void testConvertGalaxyToGraphML() {
-		Galaxy.Builder builder = new Galaxy.Builder("test");
+		Galaxy.Builder builder = new Galaxy.Builder("test", new byte[0]);
 		
 		Planet planet1 = new Planet();
 		planet1.setId((short) 1);
@@ -68,7 +68,7 @@ public class MapServiceImplTest {
         UndirectedGraph<VertexPlanet, GalaxyEdge> graph = stringGraphConverter
 				.convert(mapAsString);
         GraphGalaxyConverter graphGalaxyConverter = new GraphGalaxyConverter();
-		Galaxy galaxy = graphGalaxyConverter.convert(url.getFile(), graph);
+		Galaxy galaxy = graphGalaxyConverter.convert(url.getFile(), new byte[0], graph);
 		System.out.println(galaxy);
 	}
 
