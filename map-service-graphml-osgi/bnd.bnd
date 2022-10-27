@@ -15,17 +15,29 @@ testbin: target/test-classes
 testsrc: src/test/java
 
 
-Include-Resource: src/main/resources
+Include-Resource: lib, \
+src/main/resources
 Bundle-ClassPath: \
-.
+.,\
+antlr4-runtime-4.7.jar,\
+commons-lang3-3.5.jar,\
+guava-19.0-rc3.jar,\
+jgrapht-core-1.2.0.jar,\
+jgrapht-ext-1.2.0.jar,\
+jgrapht-io-1.2.0.jar,\
+jgraphx-3.4.1.3.jar,\
+map-service-graphml-1.0.0-SNAPSHOT.jar,\
+Saxon-HE-9.7.0-14.jar
+
 
 Private-Package: \
 	com.github.br.starmarines.map.converter,\
 	com.github.br.starmarines.map.converter.fromgalaxy,\
 	com.github.br.starmarines.map.converter.togalaxy,\
 	com.github.br.starmarines.map.xslt
+-dsannotations: *
 
-Export-Package: com.github.br.starmarines.map,\
+Export-Package: com.github.br.starmarines.map.impl,\
                 com.google.appengine.api,\
                 com.google.apphosting.api,\
                 org.antlr.v4.gui,
@@ -34,6 +46,7 @@ Import-Package: \
 	com.github.br.starmarines.game.api.galaxy;version='[1.0,2)',\
 	com.github.br.starmarines.gamecore.api;version='[1.0,2)',\
 	com.github.br.starmarines.map.service.api;version='[1.0,2)',\
+	org.osgi.service.log,\
 	com.google.appengine.api,\
 	com.google.apphosting.api,\
 	org.antlr.v4.gui,\

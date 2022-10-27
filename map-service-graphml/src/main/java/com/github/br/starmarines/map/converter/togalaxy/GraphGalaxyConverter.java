@@ -2,17 +2,14 @@ package com.github.br.starmarines.map.converter.togalaxy;
 
 import java.util.Set;
 
-import org.jgrapht.UndirectedGraph;
-import org.osgi.service.component.annotations.Component;
-
 import com.github.br.starmarines.gamecore.api.Galaxy;
 import com.github.br.starmarines.map.converter.GalaxyEdge;
 import com.github.br.starmarines.map.converter.VertexPlanet;
+import org.jgrapht.graph.SimpleGraph;
 
-@Component(service=GraphGalaxyConverter.class)
 public class GraphGalaxyConverter {
 
-	public Galaxy convert(String title, byte[] minimap, UndirectedGraph<VertexPlanet, GalaxyEdge> graph) {
+	public Galaxy convert(String title, byte[] minimap, SimpleGraph<VertexPlanet, GalaxyEdge> graph) {
 		Galaxy.Builder builder = new Galaxy.Builder(title, minimap);
 		
 		Set<VertexPlanet> planets = graph.vertexSet();

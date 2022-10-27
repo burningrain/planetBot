@@ -8,7 +8,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.jgrapht.UndirectedGraph;
+import org.jgrapht.graph.SimpleGraph;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -50,8 +50,8 @@ public class MapServiceImplTest {
 	    
 	    GalaxyGraphConverter galaxyGraphConverter = new GalaxyGraphConverter();
 	    GraphStringConverter graphStringConverter = new GraphStringConverter();
-	    
-	    UndirectedGraph<VertexPlanet, GalaxyEdge> graph = galaxyGraphConverter
+
+		SimpleGraph<VertexPlanet, GalaxyEdge> graph = galaxyGraphConverter
 				.convert(galaxy);
 		String graphML = graphStringConverter.convert(graph);
 		
@@ -65,7 +65,7 @@ public class MapServiceImplTest {
 		byte[] encoded = Files.readAllBytes(Paths.get(url.toURI()));
         String mapAsString = new String(encoded);
         StringGraphConverter stringGraphConverter = new StringGraphConverter();
-        UndirectedGraph<VertexPlanet, GalaxyEdge> graph = stringGraphConverter
+		SimpleGraph<VertexPlanet, GalaxyEdge> graph = stringGraphConverter
 				.convert(mapAsString);
         GraphGalaxyConverter graphGalaxyConverter = new GraphGalaxyConverter();
 		Galaxy galaxy = graphGalaxyConverter.convert(url.getFile(), new byte[0], graph);

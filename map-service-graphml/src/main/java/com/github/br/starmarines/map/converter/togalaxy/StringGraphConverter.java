@@ -3,52 +3,45 @@ package com.github.br.starmarines.map.converter.togalaxy;
 import java.io.StringReader;
 import java.util.Map;
 
-import org.jgrapht.UndirectedGraph;
-import org.jgrapht.ext.EdgeProvider;
-import org.jgrapht.ext.GraphMLImporter;
-import org.jgrapht.ext.ImportException;
-import org.jgrapht.ext.VertexProvider;
 import org.jgrapht.graph.SimpleGraph;
-import org.osgi.service.component.annotations.Component;
 
 import com.github.br.starmarines.game.api.galaxy.Planet;
 import com.github.br.starmarines.game.api.galaxy.PlanetType;
 import com.github.br.starmarines.map.converter.Converter;
 import com.github.br.starmarines.map.converter.GalaxyEdge;
 import com.github.br.starmarines.map.converter.VertexPlanet;
+import org.jgrapht.io.*;
 
 // не работает корректно в юнит-тестах, неправильный путь для xsd формирует
 // https://github.com/jgrapht/jgrapht/issues/310 - бага, будет фикс в 1.01
 // а пока сидим на снепшоте!!!
-@Component(service = StringGraphConverter.class)
-public class StringGraphConverter implements Converter<String, UndirectedGraph<VertexPlanet, GalaxyEdge>> {
+public class StringGraphConverter implements Converter<String, SimpleGraph<VertexPlanet, GalaxyEdge>> {
 
     @Override
-    public UndirectedGraph<VertexPlanet, GalaxyEdge> convert(String graph1AsGraphML) {
+    public SimpleGraph<VertexPlanet, GalaxyEdge> convert(String graph1AsGraphML) {
 
         GraphMLImporter<VertexPlanet, GalaxyEdge> importer = new GraphMLImporter<>(
                 new VertexProvider<VertexPlanet>() {
-
                     @Override
                     public VertexPlanet buildVertex(String id,
-                                                    Map<String, String> attributes) {
+                                                    Map<String, Attribute> attributes) {
                         Planet planet = new Planet();
                         planet.setId(Short.parseShort(id));
-                        String owner = attributes.get("Owner");
-                        planet.setOwnerId(owner == null ? Planet.EMPTY_OWNER : Short.parseShort(owner));
-                        planet.setType(PlanetType.valueOf(attributes.get("Type")));
-                        planet.setUnits(Integer.parseInt(attributes.get("Units")));
-                        return new VertexPlanet(planet, Boolean.parseBoolean(attributes.get("IsStartPoint")));
+                        Attribute owner = attributes.get("Owner");
+                        planet.setOwnerId(owner == null ? Planet.EMPTY_OWNER : Short.parseShort(owner.getValue()));
+                        planet.setType(PlanetType.valueOf(attributes.get("Type").getValue()));
+                        planet.setUnits(Integer.parseInt(attributes.get("Units").getValue()));
+                        return new VertexPlanet(planet, Boolean.parseBoolean(attributes.get("IsStartPoint").getValue()));
                     }
                 }, new EdgeProvider<VertexPlanet, GalaxyEdge>() {
 
             @Override
             public GalaxyEdge buildEdge(VertexPlanet from, VertexPlanet to,
-                                        String label, Map<String, String> attributes) {
+                                        String label, Map<String, Attribute> attributes) {
                 return new GalaxyEdge(from, to);
             }
         });
-        UndirectedGraph<VertexPlanet, GalaxyEdge> graph = new SimpleGraph<>(
+        SimpleGraph<VertexPlanet, GalaxyEdge> graph = new SimpleGraph<>(
                 GalaxyEdge.class);
         ClassLoader currentClassloader = null;
         try {

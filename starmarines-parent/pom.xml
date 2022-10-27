@@ -29,6 +29,7 @@
 		<module>../core-plugins</module>
 		<module>../assembly</module>
 		<module>../map-service-graphml</module>
+		<module>../map-service-graphml-osgi</module>
 		<module>../map-api</module>
 	</modules>
 
@@ -93,6 +94,13 @@
 			<dependency>
 				<groupId>com.br</groupId>
 				<artifactId>strategy-service</artifactId>
+				<type>bundle</type>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.br</groupId>
+				<artifactId>map-service-graphml</artifactId>
 				<type>bundle</type>
 				<version>${project.version}</version>
 			</dependency>

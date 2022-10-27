@@ -1,25 +1,20 @@
 package com.github.br.starmarines.map.converter.fromgalaxy;
 
-import java.util.Collection;
-import java.util.Set;
-
-import org.jgrapht.UndirectedGraph;
-import org.jgrapht.graph.SimpleGraph;
-import org.osgi.service.component.annotations.Component;
-
 import com.github.br.starmarines.game.api.galaxy.Planet;
 import com.github.br.starmarines.gamecore.api.Galaxy;
 import com.github.br.starmarines.map.converter.Converter;
 import com.github.br.starmarines.map.converter.GalaxyEdge;
 import com.github.br.starmarines.map.converter.VertexPlanet;
+import org.jgrapht.graph.SimpleGraph;
 
-@Component(service = GalaxyGraphConverter.class)
+import java.util.Collection;
+
 public class GalaxyGraphConverter implements
-        Converter<Galaxy, UndirectedGraph<VertexPlanet, GalaxyEdge>> {
+        Converter<Galaxy, SimpleGraph<VertexPlanet, GalaxyEdge>> {
 
     @Override
-    public UndirectedGraph<VertexPlanet, GalaxyEdge> convert(Galaxy galaxy) {
-        UndirectedGraph<VertexPlanet, GalaxyEdge> graph = new SimpleGraph<VertexPlanet, GalaxyEdge>(
+    public SimpleGraph<VertexPlanet, GalaxyEdge> convert(Galaxy galaxy) {
+        SimpleGraph<VertexPlanet, GalaxyEdge> graph = new SimpleGraph<VertexPlanet, GalaxyEdge>(
                 GalaxyEdge.class);
         Collection<Planet> startPoints = galaxy.getStartPoints();
         galaxy.getPlanets()

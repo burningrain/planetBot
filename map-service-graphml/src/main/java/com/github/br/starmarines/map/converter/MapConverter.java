@@ -6,17 +6,17 @@ import com.github.br.starmarines.map.converter.fromgalaxy.GraphStringConverter;
 import com.github.br.starmarines.map.converter.togalaxy.GraphGalaxyConverter;
 import com.github.br.starmarines.map.converter.togalaxy.GraphmlConverter;
 import com.github.br.starmarines.map.converter.togalaxy.StringGraphConverter;
-import org.jgrapht.UndirectedGraph;
+import org.jgrapht.graph.SimpleGraph;
 
 public class MapConverter {
 
     // --> to Galaxy
     private final Converter<String, String> xmlToXmlConverter = new GraphmlConverter();
-    private final Converter<String, UndirectedGraph<VertexPlanet, GalaxyEdge>> stringGraphConverter = new StringGraphConverter();
+    private final Converter<String, SimpleGraph<VertexPlanet, GalaxyEdge>> stringGraphConverter = new StringGraphConverter();
     private final GraphGalaxyConverter graphGalaxyConverter = new GraphGalaxyConverter();
     // <-- from Galaxy
-    private final Converter<Galaxy, UndirectedGraph<VertexPlanet, GalaxyEdge>> galaxyGraphConverter = new GalaxyGraphConverter();
-    private final Converter<UndirectedGraph<VertexPlanet, GalaxyEdge>, String> graphStringConverter = new GraphStringConverter();
+    private final Converter<Galaxy, SimpleGraph<VertexPlanet, GalaxyEdge>> galaxyGraphConverter = new GalaxyGraphConverter();
+    private final Converter<SimpleGraph<VertexPlanet, GalaxyEdge>, String> graphStringConverter = new GraphStringConverter();
 
 
     public Galaxy toGalaxy(String title, GalaxyIOData galaxyIOData) {
@@ -26,12 +26,12 @@ public class MapConverter {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        UndirectedGraph<VertexPlanet, GalaxyEdge> graph = stringGraphConverter.convert(mapAsString);
+        SimpleGraph<VertexPlanet, GalaxyEdge> graph = stringGraphConverter.convert(mapAsString);
         return graphGalaxyConverter.convert(title, galaxyIOData.getMinimap(), graph);
     }
 
     public GalaxyIOData toByteArray(Galaxy galaxy) {
-        UndirectedGraph<VertexPlanet, GalaxyEdge> graph = galaxyGraphConverter
+        SimpleGraph<VertexPlanet, GalaxyEdge> graph = galaxyGraphConverter
                 .convert(galaxy);
         return new GalaxyIOData(graphStringConverter.convert(graph), galaxy.getMinimap());
     }

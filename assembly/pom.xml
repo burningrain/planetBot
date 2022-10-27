@@ -53,6 +53,12 @@
 
         <dependency>
             <groupId>com.br</groupId>
+            <artifactId>map-service-graphml-osgi</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.br</groupId>
             <artifactId>game-core</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -160,7 +166,7 @@
 
                                 <!-- копирование плагина загрузки карт -->
                                 <copy todir="target/osgi/bundles/app">
-                                    <fileset dir="../map-service-graphml/target" includes="*.jar">
+                                    <fileset dir="../map-service-graphml-osgi/target" includes="*.jar">
                                     </fileset>
                                 </copy>
 
