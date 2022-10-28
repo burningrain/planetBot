@@ -33,6 +33,19 @@ public class Galaxy {
         this.minimap = minimap;
     }
 
+    @Override
+    public String toString() {
+        return "Galaxy{" +
+                "title='" + title + '\'' +
+                ", maxPlayersCount=" + maxPlayersCount +
+                ", planets=" + planets +
+                ", startPoints=" + startPoints +
+                ", edges=" + edges +
+                ", maxStepsCount=" + maxStepsCount +
+                ", minimap=" + Arrays.toString(minimap) +
+                '}';
+    }
+
     public int getMaxStepsCount() {
         return maxStepsCount;
     }
@@ -64,7 +77,6 @@ public class Galaxy {
     public static class Builder {
 
         private final String title;
-        private int playersCount;
         private final Map<Short, Planet> planets;
         private final Set<Planet> startPoints;
         private final Set<Edge> edges;
@@ -93,11 +105,6 @@ public class Galaxy {
             return this;
         }
 
-        public Builder maxPlayersCount(int maxPlayersCount) {
-            this.playersCount = maxPlayersCount;
-            return this;
-        }
-
         public Builder maxStepsCount(int maxStepsCount) {
             this.maxStepsCount = maxStepsCount;
 
@@ -105,7 +112,7 @@ public class Galaxy {
         }
 
         public Galaxy build() {
-            return new Galaxy(title, playersCount, planets.values(), edges, startPoints, maxStepsCount, minimap);
+            return new Galaxy(title, startPoints.size(), planets.values(), edges, startPoints, maxStepsCount, minimap);
         }
     }
 
@@ -158,6 +165,10 @@ public class Galaxy {
             return true;
         }
 
+        @Override
+        public String toString() {
+            return "{" + from.getId() + "-" + to.getId() + '}';
+        }
     }
 
 }

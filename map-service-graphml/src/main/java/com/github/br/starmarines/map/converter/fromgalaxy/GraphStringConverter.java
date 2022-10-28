@@ -10,8 +10,7 @@ import com.github.br.starmarines.map.converter.VertexPlanet;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.io.*;
 
-public class GraphStringConverter implements
-        Converter<SimpleGraph<VertexPlanet, GalaxyEdge>, String> {
+public class GraphStringConverter implements Converter<SimpleGraph<VertexPlanet, GalaxyEdge>, String> {
 
     @Override
     public String convert(SimpleGraph<VertexPlanet, GalaxyEdge> graph) {
@@ -24,8 +23,8 @@ public class GraphStringConverter implements
             Planet planet = component.getPlanet();
             map.put("Owner", DefaultAttribute.createAttribute(String.valueOf(planet.getOwnerId())));
             map.put("Type", DefaultAttribute.createAttribute(planet.getType().name()));
-            map.put("Units", DefaultAttribute.createAttribute((String.valueOf(planet.getUnits()))));
-            map.put("IsStartPoint", DefaultAttribute.createAttribute((String.valueOf(component.isStartPoint()))));
+            map.put("Units", DefaultAttribute.createAttribute(planet.getUnits()));
+            map.put("IsStartPoint", DefaultAttribute.createAttribute(component.isStartPoint()));
 
             return map;
         });
@@ -34,14 +33,10 @@ public class GraphStringConverter implements
         exporter.setExportEdgeWeights(false);
 
         // register additional color attribute for vertices
-        exporter.registerAttribute("Owner", GraphMLExporter.AttributeCategory.NODE,
-                AttributeType.STRING);
-        exporter.registerAttribute("Type", GraphMLExporter.AttributeCategory.NODE,
-                AttributeType.STRING);
-        exporter.registerAttribute("Units", GraphMLExporter.AttributeCategory.NODE,
-                AttributeType.INT);
-        exporter.registerAttribute("IsStartPoint", GraphMLExporter.AttributeCategory.NODE,
-                AttributeType.BOOLEAN);
+        exporter.registerAttribute("Owner", GraphMLExporter.AttributeCategory.NODE, AttributeType.STRING);
+        exporter.registerAttribute("Type", GraphMLExporter.AttributeCategory.NODE, AttributeType.STRING);
+        exporter.registerAttribute("Units", GraphMLExporter.AttributeCategory.NODE, AttributeType.INT);
+        exporter.registerAttribute("IsStartPoint", GraphMLExporter.AttributeCategory.NODE, AttributeType.BOOLEAN);
 
         StringWriter writer = new StringWriter();
         try {

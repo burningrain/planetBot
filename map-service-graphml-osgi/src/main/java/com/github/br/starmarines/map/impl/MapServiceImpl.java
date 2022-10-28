@@ -1,6 +1,7 @@
 package com.github.br.starmarines.map.impl;
 
 import com.github.br.starmarines.gamecore.api.Galaxy;
+import com.github.br.starmarines.map.ZipMapConverter;
 import com.github.br.starmarines.map.converter.GalaxyIOData;
 import com.github.br.starmarines.map.converter.MapConverter;
 import com.github.br.starmarines.map.service.api.MapService;
@@ -11,7 +12,9 @@ import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.log.LogService;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystemNotFoundException;
 import java.util.ArrayList;
@@ -23,10 +26,7 @@ import java.util.zip.ZipOutputStream;
 @Component(service = MapService.class)
 public class MapServiceImpl implements MapService {
 
-    private static final String GRAPH = "graph.graphml";
-    private static final String MINIMAP = "minimap.png";
-
-    private final MapConverter converter = new MapConverter();
+    private final ZipMapConverter converter = new ZipMapConverter();
     private volatile LogService logService;
 
     @Override
@@ -55,27 +55,17 @@ public class MapServiceImpl implements MapService {
     public Galaxy getMap(String title) {
         try {
             File map = getMapFile(title);
-            ZipFile zipFile = new ZipFile(map);
-            ZipEntry graphZip = zipFile.getEntry(GRAPH);
-            ZipEntry minimapZip = zipFile.getEntry(MINIMAP);
-            String mapAsString = new String(zipFile.getInputStream(graphZip).readAllBytes(), StandardCharsets.UTF_8);
-            return converter.toGalaxy(title, new GalaxyIOData(mapAsString, zipFile.getInputStream(minimapZip).readAllBytes()));
+            return converter.getMap(map);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
+    @Override
     public void saveMap(Galaxy galaxy) {
-        GalaxyIOData galaxyIOData = converter.toByteArray(galaxy);
-
         String path = System.getProperty("user.dir") + File.separator + "maps" + File.separator + galaxy.getTitle();
-        try (FileOutputStream fileOutputStream = new FileOutputStream(path);
-             ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream)
-        ) {
-            zipOutputStream.putNextEntry(new ZipEntry(GRAPH));
-            zipOutputStream.write(galaxyIOData.getMapAsString().getBytes(StandardCharsets.UTF_8));
-            zipOutputStream.putNextEntry(new ZipEntry(MINIMAP));
-            zipOutputStream.write(galaxyIOData.getMinimap());
+        try(FileOutputStream fileOutputStream = new FileOutputStream(path)) {
+            converter.saveMap(fileOutputStream, galaxy);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -1,14 +1,11 @@
 package com.github.br.starmarines.map.converter.togalaxy;
 
+import com.github.br.starmarines.map.converter.Converter;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
-
-
-import com.github.br.starmarines.map.converter.Converter;
-import com.github.br.starmarines.map.converter.fromgalaxy.GraphStringConverter;
 
 public class FileStringConverter implements Converter<File, String> {
 

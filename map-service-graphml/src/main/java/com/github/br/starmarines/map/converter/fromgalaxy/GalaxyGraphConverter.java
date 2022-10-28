@@ -9,8 +9,7 @@ import org.jgrapht.graph.SimpleGraph;
 
 import java.util.Collection;
 
-public class GalaxyGraphConverter implements
-        Converter<Galaxy, SimpleGraph<VertexPlanet, GalaxyEdge>> {
+public class GalaxyGraphConverter implements Converter<Galaxy, SimpleGraph<VertexPlanet, GalaxyEdge>> {
 
     @Override
     public SimpleGraph<VertexPlanet, GalaxyEdge> convert(Galaxy galaxy) {
