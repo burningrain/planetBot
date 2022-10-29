@@ -5,12 +5,9 @@ import com.github.br.starmarines.game.api.galaxy.PlanetType;
 import com.github.br.starmarines.gamecore.api.Galaxy;
 import org.junit.Test;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.util.Objects;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -20,7 +17,7 @@ public class MapServiceImplTest {
 
 	@Test
 	public void testConvertGalaxyToGraphML() throws IOException {
-		Galaxy.Builder builder = new Galaxy.Builder("test", new byte[0]);
+		Galaxy.Builder builder = new Galaxy.Builder("test", new byte[] {(byte)0,(byte)1,(byte)2,(byte)3,(byte)4});
 		
 		Planet planet1 = new Planet();
 		planet1.setId((short) 1);
@@ -40,20 +37,21 @@ public class MapServiceImplTest {
 		builder.addEdge(planet1.getId(), planet2.getId());
 	    Galaxy galaxy = builder.build();
 
-		byte[] bytes = null;
-		try(ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-			mapConverter.saveMap(baos, galaxy);
-			bytes = baos.toByteArray();
-		}
-
+		byte[] bytes = mapConverter.toByteArray(galaxy);
 		assertNotNull(bytes);
-		Files.write(Paths.get(System.getProperty("user.dir")).resolve("test.pb"), bytes);
+
+		Galaxy galaxyAfter = mapConverter.toGalaxy(galaxy.getTitle(), bytes);
+		assertNotNull(galaxyAfter);
+
+		System.out.println(galaxy);
+		System.out.println(galaxyAfter);
 	}
 
 	@Test
-	public void testConvertGraphMLToGalaxy() throws URISyntaxException {
-		URL url = this.getClass().getResource("/example/example1.pb");
-		Galaxy map = mapConverter.getMap(Paths.get(url.toURI()).toFile());
+	public void testConvertGraphMLToGalaxy() throws IOException {
+		InputStream resourceAsStream = this.getClass().getResourceAsStream("/example/example1.pb");
+		byte[] bytes = Objects.requireNonNull(resourceAsStream.readAllBytes());
+		Galaxy map = mapConverter.toGalaxy("example1", bytes);
 
 		assertNotNull(map);
 		assertNotNull(map.getMinimap());

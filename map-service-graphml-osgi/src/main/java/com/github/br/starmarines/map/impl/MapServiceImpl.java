@@ -2,8 +2,6 @@ package com.github.br.starmarines.map.impl;
 
 import com.github.br.starmarines.gamecore.api.Galaxy;
 import com.github.br.starmarines.map.ZipMapConverter;
-import com.github.br.starmarines.map.converter.GalaxyIOData;
-import com.github.br.starmarines.map.converter.MapConverter;
 import com.github.br.starmarines.map.service.api.MapService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -12,16 +10,13 @@ import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.log.LogService;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystemNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipOutputStream;
 
 @Component(service = MapService.class)
 public class MapServiceImpl implements MapService {
@@ -55,7 +50,7 @@ public class MapServiceImpl implements MapService {
     public Galaxy getMap(String title) {
         try {
             File map = getMapFile(title);
-            return converter.getMap(map);
+            return converter.toGalaxy(map.getName(), Files.readAllBytes(map.toPath()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -64,9 +59,10 @@ public class MapServiceImpl implements MapService {
     @Override
     public void saveMap(Galaxy galaxy) {
         String path = System.getProperty("user.dir") + File.separator + "maps" + File.separator + galaxy.getTitle();
-        try(FileOutputStream fileOutputStream = new FileOutputStream(path)) {
-            converter.saveMap(fileOutputStream, galaxy);
-        } catch (Exception e) {
+        byte[] bytes = converter.toByteArray(galaxy);
+        try {
+            Files.write(Paths.get(path), bytes, StandardOpenOption.CREATE_NEW);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
