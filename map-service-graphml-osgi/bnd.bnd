@@ -27,7 +27,9 @@ jgrapht-ext-1.2.0.jar,\
 jgrapht-io-1.2.0.jar,\
 jgraphx-3.4.1.3.jar,\
 map-service-graphml-1.0.0-SNAPSHOT.jar,\
-Saxon-HE-9.7.0-14.jar
+jackson-annotations-2.5.0.jar,\
+jackson-core-2.5.4.jar,\
+jackson-databind-2.5.4.jar
 
 
 Private-Package: \

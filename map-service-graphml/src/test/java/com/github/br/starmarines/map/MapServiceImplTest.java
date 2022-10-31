@@ -18,6 +18,7 @@ public class MapServiceImplTest {
 	@Test
 	public void testConvertGalaxyToGraphML() throws IOException {
 		Galaxy.Builder builder = new Galaxy.Builder("test", new byte[] {(byte)0,(byte)1,(byte)2,(byte)3,(byte)4});
+		builder.maxStepsCount(255);
 		
 		Planet planet1 = new Planet();
 		planet1.setId((short) 1);
