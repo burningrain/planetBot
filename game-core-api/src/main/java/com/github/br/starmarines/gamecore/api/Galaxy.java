@@ -112,8 +112,10 @@ public class Galaxy {
         }
 
         public Galaxy build() {
+            //TODO выровнять нумерации планет для движка (с 0 или 1 без пропусков)
             return new Galaxy(title, startPoints.size(), planets.values(), edges, startPoints, maxStepsCount, minimap);
         }
+
     }
 
     public static class Edge {

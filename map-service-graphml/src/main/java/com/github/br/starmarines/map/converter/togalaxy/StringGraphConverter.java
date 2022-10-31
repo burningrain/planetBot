@@ -31,6 +31,9 @@ public class StringGraphConverter implements Converter<String, SimpleGraph<Verte
                         planet.setOwnerId(owner == null ? Planet.EMPTY_OWNER : Short.parseShort(owner.getValue()));
                         planet.setType(PlanetType.valueOf(attributes.get("Type").getValue()));
                         planet.setUnits(Integer.parseInt(attributes.get("Units").getValue()));
+                        planet.setX(Float.parseFloat(attributes.get("x").getValue()));
+                        planet.setY(Float.parseFloat(attributes.get("y").getValue()));
+
                         return new VertexPlanet(planet, Boolean.parseBoolean(attributes.get("IsStartPoint").getValue()));
                     }
                 }, new EdgeProvider<VertexPlanet, GalaxyEdge>() {

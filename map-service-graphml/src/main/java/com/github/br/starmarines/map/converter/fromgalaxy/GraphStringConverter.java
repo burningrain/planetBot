@@ -25,6 +25,8 @@ public class GraphStringConverter implements Converter<SimpleGraph<VertexPlanet,
             map.put("Type", DefaultAttribute.createAttribute(planet.getType().name()));
             map.put("Units", DefaultAttribute.createAttribute(planet.getUnits()));
             map.put("IsStartPoint", DefaultAttribute.createAttribute(component.isStartPoint()));
+            map.put("x", DefaultAttribute.createAttribute(String.valueOf(planet.getX())));
+            map.put("y", DefaultAttribute.createAttribute(String.valueOf(planet.getY())));
 
             return map;
         });
@@ -37,6 +39,8 @@ public class GraphStringConverter implements Converter<SimpleGraph<VertexPlanet,
         exporter.registerAttribute("Type", GraphMLExporter.AttributeCategory.NODE, AttributeType.STRING);
         exporter.registerAttribute("Units", GraphMLExporter.AttributeCategory.NODE, AttributeType.INT);
         exporter.registerAttribute("IsStartPoint", GraphMLExporter.AttributeCategory.NODE, AttributeType.BOOLEAN);
+        exporter.registerAttribute("x", GraphMLExporter.AttributeCategory.NODE, AttributeType.FLOAT);
+        exporter.registerAttribute("y", GraphMLExporter.AttributeCategory.NODE, AttributeType.FLOAT);
 
         StringWriter writer = new StringWriter();
         try {
