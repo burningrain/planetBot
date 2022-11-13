@@ -35,6 +35,9 @@ public class CreateLocalGameDialogController {
     private ImageView mapImageView;
 
     @FXML
+    private Label descriptionLabel;
+
+    @FXML
     private ChoiceBox<Integer> playersCountChoiceBox;
 
     @FXML
@@ -135,6 +138,7 @@ public class CreateLocalGameDialogController {
                 } catch (Exception e) {
                     e.printStackTrace(); //TODO в лог
                 }
+                descriptionLabel.setText("Description: " + map.getDescription());
 
                 baseCellFactory.setBases(map.getStartPoints().size());
                 updatePlayersCountChoiceBox(map.getMaxPlayersCount() == 0 ? 2 : map.getMaxPlayersCount()); //TODO пофиксать потом

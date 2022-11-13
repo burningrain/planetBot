@@ -16,8 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<SplitPane dividerPositions="0.36" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane dividerPositions="0.36" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <items>
       <ListView fx:id="mapsListView" prefWidth="320.0">
          <padding>
@@ -26,7 +25,9 @@
       </ListView>
       <VBox maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="8.0">
          <children>
-            <ImageView fx:id="mapImageView" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="mapImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <Separator maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" />
+            <Label fx:id="descriptionLabel" maxWidth="1.7976931348623157E308" />
             <Separator maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" />
             <GridPane alignment="CENTER">
                <VBox.margin>

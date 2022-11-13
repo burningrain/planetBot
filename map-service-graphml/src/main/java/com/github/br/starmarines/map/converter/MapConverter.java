@@ -24,9 +24,10 @@ public class MapConverter {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public Galaxy toGalaxy(String title, GalaxyIOData galaxyIOData) {
+    public Galaxy toGalaxy(GalaxyIOData galaxyIOData) {
         SimpleGraph<VertexPlanet, GalaxyEdge> graph = stringGraphConverter.convert(galaxyIOData.getMapAsString());
-        return graphGalaxyConverter.convert(title, galaxyIOData.getMinimap(), gameDataFromBytes(galaxyIOData.getGameDataAsString()), graph);
+        GameData gameData = gameDataFromBytes(galaxyIOData.getGameDataAsString());
+        return graphGalaxyConverter.convert(galaxyIOData.getMinimap(), gameData, graph);
     }
 
     public GalaxyIOData toByteArrayData(Galaxy galaxy) {
@@ -39,6 +40,8 @@ public class MapConverter {
 
     private GameData createGameData(Galaxy galaxy) {
         GameData gameData = new GameData();
+        gameData.setTitle(galaxy.getTitle());
+        gameData.setDescription(galaxy.getDescription());
         gameData.setMaxStepsCount(galaxy.getMaxStepsCount());
 
         return gameData;

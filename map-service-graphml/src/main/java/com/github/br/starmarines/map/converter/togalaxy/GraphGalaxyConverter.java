@@ -10,8 +10,9 @@ import org.jgrapht.graph.SimpleGraph;
 
 public class GraphGalaxyConverter {
 
-	public Galaxy convert(String title, byte[] minimap, GameData gameData, SimpleGraph<VertexPlanet, GalaxyEdge> graph) {
-		Galaxy.Builder builder = new Galaxy.Builder(title, minimap);
+	public Galaxy convert(byte[] minimap, GameData gameData, SimpleGraph<VertexPlanet, GalaxyEdge> graph) {
+		Galaxy.Builder builder = new Galaxy.Builder(gameData.getTitle(), minimap);
+		builder.setDescription(gameData.getDescription());
 		builder.maxStepsCount(gameData.getMaxStepsCount());
 		
 		Set<VertexPlanet> planets = graph.vertexSet();

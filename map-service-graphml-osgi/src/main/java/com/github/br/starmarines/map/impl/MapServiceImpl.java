@@ -50,7 +50,7 @@ public class MapServiceImpl implements MapService {
     public Galaxy getMap(String title) {
         try {
             File map = getMapFile(title);
-            return converter.toGalaxy(map.getName(), Files.readAllBytes(map.toPath()));
+            return converter.toGalaxy(Files.readAllBytes(map.toPath()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

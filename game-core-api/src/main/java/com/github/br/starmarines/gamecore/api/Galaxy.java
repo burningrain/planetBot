@@ -15,8 +15,10 @@ public class Galaxy {
     private final int maxStepsCount;
 
     private final byte[] minimap;
+    private final String description;
 
     private Galaxy(String title,
+                   String description,
                    int maxPlayersCount,
                    Collection<Planet> planets,
                    Collection<Edge> edges,
@@ -25,9 +27,10 @@ public class Galaxy {
                    byte[] minimap
     ) {
         this.title = title;
+        this.description = description;
         this.planets = planets;
         this.startPoints = startPoints;
-        this.edges = new HashSet<Galaxy.Edge>(edges);
+        this.edges = new HashSet<Edge>(edges);
         this.maxPlayersCount = maxPlayersCount;
         this.maxStepsCount = maxStepsCount;
         this.minimap = minimap;
@@ -37,6 +40,7 @@ public class Galaxy {
     public String toString() {
         return "Galaxy{" +
                 "title='" + title + '\'' +
+                " description='" + description + '\'' +
                 ", maxPlayersCount=" + maxPlayersCount +
                 ", planets=" + planets +
                 ", startPoints=" + startPoints +
@@ -74,6 +78,10 @@ public class Galaxy {
         return minimap;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public static class Builder {
 
         private final String title;
@@ -82,6 +90,7 @@ public class Galaxy {
         private final Set<Edge> edges;
         private final byte[] minimap;
         private int maxStepsCount;
+        private String description;
 
         public Builder(String title, byte[] minimap) {
             this.title = Objects.requireNonNull(title);
@@ -89,6 +98,11 @@ public class Galaxy {
             this.planets = new HashMap<>();
             this.edges = new HashSet<>();
             this.startPoints = new HashSet<>();
+        }
+
+        public Builder setDescription(String description) {
+            this.description = description;
+            return this;
         }
 
         public Builder addEdge(short sourceId, short targetId) {
@@ -113,7 +127,16 @@ public class Galaxy {
 
         public Galaxy build() {
             //TODO выровнять нумерации планет для движка (с 0 или 1 без пропусков)
-            return new Galaxy(title, startPoints.size(), planets.values(), edges, startPoints, maxStepsCount, minimap);
+            return new Galaxy(
+                    title,
+                    description,
+                    startPoints.size(),
+                    planets.values(),
+                    edges,
+                    startPoints,
+                    maxStepsCount,
+                    minimap
+            );
         }
 
     }

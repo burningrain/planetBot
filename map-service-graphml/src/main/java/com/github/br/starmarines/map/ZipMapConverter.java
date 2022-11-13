@@ -21,7 +21,7 @@ public class ZipMapConverter {
 
     private final MapConverter converter = new MapConverter();
 
-    public Galaxy toGalaxy(String title, byte[] map) {
+    public Galaxy toGalaxy(byte[] map) {
         HashMap<String, byte[]> result = new HashMap<>();
         try (ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(map))) {
             ZipEntry zipEntry = null;
@@ -36,7 +36,6 @@ public class ZipMapConverter {
         String mapAsString = new String(result.get(GRAPH), StandardCharsets.UTF_8);
         String gameDataAsString = new String(result.get(GAME_DATA), StandardCharsets.UTF_8);
         return converter.toGalaxy(
-                title,
                 new GalaxyIOData(
                         mapAsString,
                         result.get(MINIMAP),

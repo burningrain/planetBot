@@ -18,6 +18,7 @@ public class MapServiceImplTest {
 	@Test
 	public void testConvertGalaxyToGraphML() throws IOException {
 		Galaxy.Builder builder = new Galaxy.Builder("test", new byte[] {(byte)0,(byte)1,(byte)2,(byte)3,(byte)4});
+		builder.setDescription("the test map for tests for the game 'planet bot'");
 		builder.maxStepsCount(255);
 		
 		Planet planet1 = new Planet();
@@ -41,7 +42,7 @@ public class MapServiceImplTest {
 		byte[] bytes = mapConverter.toByteArray(galaxy);
 		assertNotNull(bytes);
 
-		Galaxy galaxyAfter = mapConverter.toGalaxy(galaxy.getTitle(), bytes);
+		Galaxy galaxyAfter = mapConverter.toGalaxy(bytes);
 		assertNotNull(galaxyAfter);
 
 		System.out.println(galaxy);
@@ -52,7 +53,7 @@ public class MapServiceImplTest {
 	public void testConvertGraphMLToGalaxy() throws IOException {
 		InputStream resourceAsStream = this.getClass().getResourceAsStream("/example/example1.pb");
 		byte[] bytes = Objects.requireNonNull(resourceAsStream.readAllBytes());
-		Galaxy map = mapConverter.toGalaxy("example1", bytes);
+		Galaxy map = mapConverter.toGalaxy(bytes);
 
 		assertNotNull(map);
 		assertNotNull(map.getMinimap());
