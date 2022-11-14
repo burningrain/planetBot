@@ -4,6 +4,8 @@ package com.github.br.starmarines.gamecore.collections;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReferenceArray;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Коллекия сделана, как замена хэшмапе для ускорения. в качестве ключа - int, который равен позиции в массиве. значение - значениев массиве
@@ -17,6 +19,8 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
  * @param <T>
  */
 public class AtomicRemoveIndexKeepArray<T> {
+
+    private final Lock lock = new ReentrantLock();
 
     private final int capacity;
     private AtomicReferenceArray<T> array;
@@ -35,8 +39,13 @@ public class AtomicRemoveIndexKeepArray<T> {
         return capacity;
     }
 
-    public synchronized int getActiveSize() {
-        return capacity - removedQueue.size;
+    public int getActiveSize() {
+        lock.lock();
+        try {
+            return capacity - removedQueue.size;
+        } finally {
+            lock.unlock();
+        }
     }
 
     public T get(int index) {
@@ -48,34 +57,49 @@ public class AtomicRemoveIndexKeepArray<T> {
      * @param t элемент
      * @return индекс этого элемента в массиве
      */
-    public synchronized int add(T t) {
-        int number = removedQueue.pop();
-        int result;
-        if(number == Integer.MIN_VALUE) {
-            removedQueue.add(Integer.MIN_VALUE);
-            array.set(counter, t);
-            counter++;
-            result = counter;
-        } else {
-            array.set(number, t);
-            result = number;
+    public int add(T t) {
+        lock.lock();
+        try {
+            int number = removedQueue.pop();
+            int result;
+            if(number == Integer.MIN_VALUE) {
+                removedQueue.add(Integer.MIN_VALUE);
+                array.set(counter, t);
+                counter++;
+                result = counter;
+            } else {
+                array.set(number, t);
+                result = number;
+            }
+            return result;
+        } finally {
+            lock.unlock();
         }
-        return result;
     }
 
-    public synchronized T remove(int index) {
-        removedQueue.add(index);
-        return array.getAndSet(index, null);
+    public T remove(int index) {
+        lock.lock();
+        try {
+            removedQueue.add(index);
+            return array.getAndSet(index, null);
+        } finally {
+            lock.unlock();
+        }
     }
 
-    public synchronized void clear() {
-        array = new AtomicReferenceArray<>(capacity);
-        removedQueue.clear();
+    public void clear() {
+        lock.lock();
+        try {
+            array = new AtomicReferenceArray<>(capacity);
+            removedQueue.clear();
+        } finally {
+            lock.unlock();
+        }
     }
 
     public Collection<Wrapper<T>> asCollection(int from, int to) {
         if(from < 0) {
-            throw new IllegalArgumentException("parameter 'from' is lower 1. from=[" + from + "]");
+            throw new IllegalArgumentException("the parameter 'from' is lower than 1. from=[" + from + "]");
         }
         int max = Math.max(to, capacity);
 
